@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {FirestoreService} from '../../shared/firestore.service';
+import {FirestoreService} from '../../../shared/firestore.service';
 
 @Component({
   selector: 'app-organization',
@@ -11,8 +11,8 @@ export class OrganizationComponent implements OnInit {
   orgForm = new FormGroup({
     name: new FormControl(''),
     description: new FormControl(''),
-    services: new FormControl(''),
-    languages: new FormControl(''),
+    services: new FormControl([]),
+    languages: new FormControl([]),
     address: new FormGroup({
       streetAddress1: new FormControl(''),
       streetAddress2: new FormControl(''),
@@ -20,7 +20,7 @@ export class OrganizationComponent implements OnInit {
       state: new FormControl(''),
       zipCode: new FormControl(''),
     }),
-    website: new FormControl('https://www.'),
+    website: new FormControl(''),
     contact: new FormGroup({
       name: new FormControl(''),
       email: new FormControl(''),

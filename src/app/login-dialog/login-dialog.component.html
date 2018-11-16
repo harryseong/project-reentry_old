@@ -1,0 +1,25 @@
+<div mat-dialog-title>Log In</div>
+
+<div mat-dialog-content>
+
+  <form fxLayout="column">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input type="text" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input type="password" matInput>
+    </mat-form-field>
+  </form>
+
+</div>
+<div mat-dialog-actions fxLayoutAlign="end">
+  <button mat-button (click)="closeDialog()">
+    <span>Cancel</span>
+  </button>
+  <button mat-button (click)="logIn()">
+    <span><i class="fas fa-sign-in-alt"></i> Log In</span>
+  </button>
+</div>

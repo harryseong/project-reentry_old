@@ -1,0 +1,11 @@
+.nav-toolbar {
+    font-size: 1.5em;
+}
+
+mat-toolbar {
+    height: 2em;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

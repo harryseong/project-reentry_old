@@ -1,0 +1,110 @@
+<div class="content">
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <h1>New Organization</h1>
+
+      <form fxLayout="column" [formGroup]="orgForm" (ngSubmit)="onSubmit()">
+
+        <div fxLayout="row wrap" fxLayoutGap="1em">
+          <mat-form-field>
+            <mat-label>Organization Name</mat-label>
+            <input matInput [required]="true" formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput rows="1" formControlName="description" placeholder="Enter a brief description about the organization..."></textarea>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutGap="1em">
+          <mat-form-field>
+            <mat-select placeholder="Services Provided" formControlName="services" multiple>
+              <mat-option *ngFor="let service of serviceList" [value]="service">{{service.service}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label><i class="fas fa-language"></i> Other Languages Spoken</mat-label>
+            <mat-select formControlName="languages" multiple>
+              <mat-option *ngFor="let language of languageList" [value]="language">{{language.language}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div formGroupName="address">
+          <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+
+          <div fxLayout="row wrap" fxLayoutGap="1em">
+            <mat-form-field>
+              <mat-label>Street Address</mat-label>
+              <input matInput [required]="true" formControlName="streetAddress1">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Apt, suite, unit, building, floor, etc..." formControlName="streetAddress2">
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutGap="1em">
+            <mat-form-field>
+              <mat-label>City</mat-label>
+              <input matInput [required]="true" formControlName="city">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select placeholder="State" [required]="true" formControlName="state">
+                <mat-option [value]="'Michigan'">Michigan</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field [floatLabel]="true">
+              <mat-label>Zip Code</mat-label>
+              <input matInput [required]="true" formControlName="zipCode">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <h3><i class="fas fa-globe"></i> Website</h3>
+
+        <div fxLayout="row wrap" fxLayoutGap="1em">
+          <mat-form-field>
+            <mat-label>URL</mat-label>
+            <input matInput type="url" formControlName="website">
+          </mat-form-field>
+        </div>
+
+        <div formGroupName="contact">
+          <h3><i class="far fa-address-book"></i> Contact</h3>
+
+          <div fxLayout="row wrap" fxLayoutGap="1em">
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label><i class="fas fa-envelope"></i> Email</mat-label>
+              <input matInput formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label><i class="fas fa-mobile-alt"></i> Phone</mat-label>
+              <input matInput type="tel" formControlName="phone">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <button mat-raised-button (click)="onSubmit()" [disabled]="!orgForm.valid">
+          <span><i class="far fa-save"></i> Save Organization</span>
+        </button>
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

@@ -1,0 +1,22 @@
+<nav class="mat-elevation-z3">
+  <mat-toolbar class="nav-toolbar">
+    <button mat-button routerLink="admin/organizations" routerLinkActive="active">
+      <span>Project Reentry</span>
+    </button>
+    
+    <span class="spacer"></span>
+
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item routerLink="admin/organizations" routerLinkActive="active">Organizations</button>
+      <button mat-menu-item routerLink="admin/services" routerLinkActive="active">Services</button>
+      <button mat-menu-item routerLink="admin/counties" routerLinkActive="active">Counties</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="appMenu">
+      <span><i class="fas fa-cogs"></i> Admin</span>
+    </button>
+
+    <button mat-button (click)="openLoginDialog()">
+      <span><i class="fas fa-sign-in-alt"></i> Log In</span>
+    </button>
+  </mat-toolbar>
+</nav>
