@@ -1,0 +1,30 @@
+<mat-card>
+
+  <mat-card-content>
+
+    <h1>New County</h1>
+
+    <form [formGroup]="countyForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutGap="0.5em">
+      <mat-form-field>
+        <mat-label>County Name</mat-label>
+        <input matInput [required]="true" formControlName="county">
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" [disabled]="!countyForm.valid">
+        <span><i class="far fa-save"></i> Save County</span>
+      </button>
+    </form>
+
+    <div>
+      <ul>
+        <li *ngFor="let county of countyList">{{county.county}}</li>
+      </ul>
+    </div>
+
+  </mat-card-content>
+
+</mat-card>
+
+
+
+
