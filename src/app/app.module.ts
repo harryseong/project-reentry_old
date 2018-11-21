@@ -11,7 +11,6 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import { CountyComponent } from './admin/county/county.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AdminComponent } from './admin/admin.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -25,7 +24,6 @@ const appRoutes: Routes = [
     children: [
       { path: 'organizations', component: OrganizationComponent, canActivate: [AuthGuard]},
       { path: 'services', component: ServiceComponent, canActivate: [AuthGuard]},
-      { path: 'counties', component: CountyComponent, canActivate: [AuthGuard]}
     ]
   },
   { path: '', component: HomeComponent },
@@ -35,7 +33,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     OrganizationComponent,
-    CountyComponent,
     NavbarComponent,
     AdminComponent,
     ServiceComponent,

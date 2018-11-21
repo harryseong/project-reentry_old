@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import {environment} from '../../environments/environment';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private afAuth: AngularFireAuth) { }
 
   ngOnInit() {}
 
