@@ -16,14 +16,20 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AdminComponent } from './admin/admin.component';
 import {RouterModule, Routes} from '@angular/router';
 import { ServiceComponent } from './admin/service/service.component';
-import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { HomeComponent } from './home/home.component';
+import {AuthGuard} from './auth/auth.guard';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'admin/organizations', component: OrganizationComponent },
-    { path: 'admin/services', component: ServiceComponent },
-    { path: 'admin/counties', component: CountyComponent }];
+  {
+    path: 'admin',
+    children: [
+      { path: 'organizations', component: OrganizationComponent, canActivate: [AuthGuard]},
+      { path: 'services', component: ServiceComponent, canActivate: [AuthGuard]},
+      { path: 'counties', component: CountyComponent, canActivate: [AuthGuard]}
+    ]
+  },
+  { path: '', component: HomeComponent },
+];
 
 @NgModule({
   declarations: [
@@ -33,7 +39,6 @@ const appRoutes: Routes = [
     NavbarComponent,
     AdminComponent,
     ServiceComponent,
-    LoginDialogComponent,
     HomeComponent
   ],
   imports: [
@@ -41,7 +46,7 @@ const appRoutes: Routes = [
         appRoutes,
         { enableTracing: true } // <-- debugging purposes only
     ),
-    AngularFireModule.initializeApp(environment.firebaseConfig, 'project-reentry'),
+    AngularFireModule.initializeApp(environment.firebase, 'project-reentry'),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     BrowserModule,
@@ -55,7 +60,6 @@ const appRoutes: Routes = [
     MaterialModule,
   ],
   entryComponents: [
-      LoginDialogComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

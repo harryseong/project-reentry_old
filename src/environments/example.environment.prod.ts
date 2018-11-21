@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  firebaseConfig: {
+  firebase: {
     apiKey: 'CHANGEME',
     authDomain: 'project-reentry.firebaseapp.com',
     databaseURL: 'https://project-reentry.firebaseio.com',

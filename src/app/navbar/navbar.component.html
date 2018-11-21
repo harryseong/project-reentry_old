@@ -1,22 +1,40 @@
 <nav class="mat-elevation-z3">
   <mat-toolbar class="nav-toolbar">
-    <button mat-button routerLink="admin/organizations" routerLinkActive="active">
+    <button mat-button routerLink="" routerLinkActive="active">
       <span>Project Reentry</span>
     </button>
-    
+
     <span class="spacer"></span>
 
-    <mat-menu #appMenu="matMenu">
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="user.isAdmin">
+        <span><i class="fas fa-cogs"></i> Admin</span>
+      </button>
+      <button mat-menu-item (click)="user.logout()">
+        <span><i class="fas fa-sign-out-alt"></i> Log Out</span>
+      </button>
+    </mat-menu>
+
+    <mat-menu #adminMenu="matMenu">
       <button mat-menu-item routerLink="admin/organizations" routerLinkActive="active">Organizations</button>
       <button mat-menu-item routerLink="admin/services" routerLinkActive="active">Services</button>
       <button mat-menu-item routerLink="admin/counties" routerLinkActive="active">Counties</button>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="appMenu">
-      <span><i class="fas fa-cogs"></i> Admin</span>
-    </button>
 
-    <button mat-button (click)="openLoginDialog()">
-      <span><i class="fas fa-sign-in-alt"></i> Log In</span>
-    </button>
+    <div *ngIf="user.authState | async as authState; else login" fxLayout="row">
+      <button mat-button [matMenuTriggerFor]="userMenu">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5em">
+          <img class="nav-user-photo" src="{{authState.photoURL}}" alt="">
+          <span>{{authState.displayName}}</span>
+        </div>
+      </button>
+    </div>
+
+    <ng-template #login>
+      <button mat-button (click)="user.login()">
+        <span><i class="fas fa-sign-in-alt"></i> Log In</span>
+      </button>
+    </ng-template>
+
   </mat-toolbar>
 </nav>

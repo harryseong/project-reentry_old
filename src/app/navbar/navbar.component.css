@@ -2,6 +2,11 @@
     font-size: 1.5em;
 }
 
+.nav-user-photo {
+    height: 1.75em;
+    border-radius: 50%;
+}
+
 mat-toolbar {
     height: 2em;
 }

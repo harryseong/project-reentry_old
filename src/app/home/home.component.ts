@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +12,6 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

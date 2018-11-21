@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {FirestoreService} from '../../../shared/firestore.service';
+import {FirestoreService} from '../../../shared/firestore/firestore.service';
 
 @Component({
   selector: 'app-organization',
