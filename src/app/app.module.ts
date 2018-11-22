@@ -20,6 +20,7 @@ import {AuthGuard} from './auth/auth.guard';
 import { UsersComponent } from './admin/users/users.component';
 import { DialogComponent } from './admin/users/dialog/dialog.component';
 import { FooterComponent } from './footer/footer.component';
+import { AboutComponent } from './about/about.component';
 
 const appRoutes: Routes = [
   {
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     ]
   },
   { path: '', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
 ];
 
 @NgModule({
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     HomeComponent,
     UsersComponent,
     DialogComponent,
-    FooterComponent
+    FooterComponent,
+    AboutComponent
   ],
   imports: [
     RouterModule.forRoot(

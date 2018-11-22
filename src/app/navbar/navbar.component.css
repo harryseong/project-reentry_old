@@ -3,6 +3,10 @@
     background-color: #b3f9ea;
 }
 
+.logo-button {
+    font-weight:700;
+}
+
 .nav-user-photo {
     height: 2em;
     border-radius: 50%;

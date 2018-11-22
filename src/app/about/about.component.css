@@ -7,21 +7,9 @@
 }
 
 #home-header {
-    margin: 0;
+    margin-top: 0;
 }
 
 #michigan-outline-img {
     height: 3.5em;
-}
-
-#home-form {
-    margin-top: 1em;
-}
-
-::ng-deep .mat-autocomplete-panel{
-    opacity: 0.9;
-}
-
-#find-services-button {
-    margin-top: 1em;
 }

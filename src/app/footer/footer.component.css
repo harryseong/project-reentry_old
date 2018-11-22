@@ -6,10 +6,10 @@ footer {
     width: 50em;
 }
 
-#project-reentry-link, #sado-link {
+.org-title {
     color: #000000;
+    font-size: 1.1em;
     font-weight: 600;
-    text-decoration: none;
 }
 
 a {
