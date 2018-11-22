@@ -19,13 +19,15 @@ body {
 }
 
 .content {
-  margin: 1em;
+  padding: 1em;
+  margin: 1em 0;
 }
 
-footer {
-  flex-shrink: 0;
+.content, footer {
+  min-width: 30%;
+  max-width: 100%;
+  width: 40em;
 }
-
 
 .spacer {
   flex: 1 1 auto;
