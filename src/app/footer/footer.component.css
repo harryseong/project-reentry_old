@@ -1,0 +1,28 @@
+footer {
+    margin: 2.5em 0;
+    padding: 1em;
+    min-width: 30%;
+    max-width: 100%;
+    width: 50em;
+}
+
+#project-reentry-link, #sado-link {
+    color: #000000;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a {
+    color: #777777;
+    transition: 0.1s;
+}
+a:visited {
+    color: #5c5c5c;
+    transition: 0.1s;
+}
+a:hover {
+    color: #191919;
+}
+a, a:hover, a:visited {
+    transition: 0.1s;
+}

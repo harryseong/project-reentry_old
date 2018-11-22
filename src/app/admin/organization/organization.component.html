@@ -25,7 +25,8 @@
         <ng-container matColumnDef="languages">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Languages </th>
           <td mat-cell *matCellDef="let element">
-            <span *ngFor="let language of element.languages">{{language.language}}, </span>
+            <span *ngIf="element.languages.length == 0">N/A</span>
+            <span *ngFor="let language of element.languages">{{language.language === null ? 'n/a' : language.language}}, </span>
           </td>
         </ng-container>
 
@@ -33,6 +34,7 @@
         <ng-container matColumnDef="services">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Services </th>
           <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.services.length == 0">N/A</span>
             <span *ngFor="let service of element.services">{{service.service}}, </span>
           </td>
         </ng-container>

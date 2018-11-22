@@ -19,6 +19,7 @@ import { HomeComponent } from './home/home.component';
 import {AuthGuard} from './auth/auth.guard';
 import { UsersComponent } from './admin/users/users.component';
 import { DialogComponent } from './admin/users/dialog/dialog.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   {
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     ServiceComponent,
     HomeComponent,
     UsersComponent,
-    DialogComponent
+    DialogComponent,
+    FooterComponent
   ],
   imports: [
     RouterModule.forRoot(
