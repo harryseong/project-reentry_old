@@ -1,9 +1,14 @@
 <nav class="mat-elevation-z3">
   <mat-toolbar class="nav-toolbar">
+
+    <button mat-icon-button fxHide="false" fxHide.gt-xs>
+      <i class="fas fa-bars"></i>
+    </button>
+
     <button mat-button routerLink="" routerLinkActive="active" class="logo-button">
       Project Reentry
     </button>
-    <button mat-button routerLink="about" routerLinkActive="active">
+    <button mat-button routerLink="about" routerLinkActive="active" fxShow="false" fxShow.gt-xs>
       About Us
     </button>
 
@@ -23,7 +28,7 @@
       <button mat-menu-item routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users"></i> Users</button>
     </mat-menu>
 
-    <div *ngIf="user.authState | async as authState; else login" fxLayout="row">
+    <div *ngIf="user.authState | async as authState; else login" fxLayout="row" fxShow="false" fxShow.gt-xs>
       <button mat-button [matMenuTriggerFor]="userMenu">
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5em">
           <img class="nav-user-photo" src="{{authState.photoURL}}" alt="">

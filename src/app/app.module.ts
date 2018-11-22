@@ -6,7 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from '../material.module';
 import { OrganizationComponent } from './admin/organization/organization.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FlexModule} from '@angular/flex-layout';
+import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -59,6 +59,7 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FlexModule,
+    FlexLayoutModule,
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
