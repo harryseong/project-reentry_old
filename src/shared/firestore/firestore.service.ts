@@ -10,11 +10,13 @@ export class FirestoreService {
   services: AngularFirestoreCollection<any>;
   languages: AngularFirestoreCollection<any>;
   counties: AngularFirestoreCollection<any>;
+  users: AngularFirestoreCollection<any>;
 
   constructor(private db: AngularFirestore) {
     this.organizations = db.collection<any>('organizations');
     this.services = db.collection<any>('services');
-    this.languages = db.collection<any>('languages');
     this.counties = db.collection<any>('counties');
+    this.languages = db.collection<any>('languages');
+    this.users = db.collection<any>('users');
   }
 }

@@ -16,8 +16,8 @@
     </mat-menu>
 
     <mat-menu #adminMenu="matMenu">
-      <button mat-menu-item routerLink="admin/organizations" routerLinkActive="active">Organizations</button>
-      <button mat-menu-item routerLink="admin/services" routerLinkActive="active">Services</button>
+      <button mat-menu-item routerLink="admin/organizations" routerLinkActive="active"><i class="fas fa-landmark"></i> Organizations</button>
+      <button mat-menu-item routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users"></i> Users</button>
     </mat-menu>
 
     <div *ngIf="user.authState | async as authState; else login" fxLayout="row">

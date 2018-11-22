@@ -17,6 +17,8 @@ import {RouterModule, Routes} from '@angular/router';
 import { ServiceComponent } from './admin/service/service.component';
 import { HomeComponent } from './home/home.component';
 import {AuthGuard} from './auth/auth.guard';
+import { UsersComponent } from './admin/users/users.component';
+import { DialogComponent } from './admin/users/dialog/dialog.component';
 
 const appRoutes: Routes = [
   {
@@ -24,6 +26,7 @@ const appRoutes: Routes = [
     children: [
       { path: 'organizations', component: OrganizationComponent, canActivate: [AuthGuard]},
       { path: 'services', component: ServiceComponent, canActivate: [AuthGuard]},
+      { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
     ]
   },
   { path: '', component: HomeComponent },
@@ -36,7 +39,9 @@ const appRoutes: Routes = [
     NavbarComponent,
     AdminComponent,
     ServiceComponent,
-    HomeComponent
+    HomeComponent,
+    UsersComponent,
+    DialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -57,6 +62,7 @@ const appRoutes: Routes = [
     MaterialModule,
   ],
   entryComponents: [
+    DialogComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
