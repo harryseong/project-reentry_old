@@ -1,22 +1,46 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
 
+html, body {
+  height: 100%;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   margin-bottom: 5em;
   background-color: #b3f9ea;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
+.container {
+  flex: 1 0 auto;
 }
 
 .content {
   margin: 1em;
 }
 
+footer {
+  flex-shrink: 0;
+}
+
+
 .spacer {
   flex: 1 1 auto;
+}
+
+#project-reentry-header {
+  margin: 0;
+}
+
+#subheading {
+  margin-top: 0.5em;
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+#michigan-outline-img {
+  height: 3.5em;
 }
