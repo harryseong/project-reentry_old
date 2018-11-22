@@ -2,10 +2,6 @@
     margin-top: 1em;
 }
 
-::ng-deep .mat-autocomplete-panel{
-    opacity: 0.9;
-}
-
 #find-services-button {
     margin-top: 1em;
 }

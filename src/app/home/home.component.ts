@@ -1,9 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {FirestoreService} from '../../shared/firestore/firestore.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {ErrorStateMatcher} from '@angular/material';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-home',
@@ -15,8 +24,8 @@ export class HomeComponent implements OnInit {
   filteredCounties: Observable<string[]>;
   serviceList: any[] = [];
   homeForm = new FormGroup({
-    county: new FormControl(''),
-    services: new FormControl([]),
+    county: new FormControl('', [Validators.required]),
+    services: new FormControl([], [Validators.required]),
   });
 
   constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService) { }
@@ -24,17 +33,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.firestoreService.counties.valueChanges().subscribe(counties => this.countyList = this._sort(counties, 'county'));
     this.firestoreService.services.valueChanges().subscribe(services => this.serviceList = this._sort(services, 'service'));
-
-    this.filteredCounties = this.homeForm.get('county').valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.countyList.filter(county => county.county.toLowerCase().includes(filterValue));
   }
 
   _sort(array: string[], parameter: string): string[] {

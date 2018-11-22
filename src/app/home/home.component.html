@@ -13,22 +13,25 @@
 
     <form [formGroup]="homeForm" id="home-form">
 
-      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="2em">
-        <mat-form-field fxFlex="12em" fxFlex.sm="25%" fxFlex.xs="100%">
+      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
+        <mat-form-field fxFlex="20%" fxFlex.sm="25%" fxFlex.xs="100%">
           <mat-label>County</mat-label>
-          <input type="text" aria-label="County" matInput formControlName="county" [required]="true" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let county of filteredCounties | async" [value]="county.county">
-              {{county.county}}
-            </mat-option>
-          </mat-autocomplete>
+          <mat-select formControlName="county" [required]="true">
+            <mat-option *ngFor="let county of countyList" [value]="county.county">{{county.county}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="homeForm.get('county').hasError('required')">
+            Please select a county.
+          </mat-error>
         </mat-form-field>
 
-        <mat-form-field fxFlex="20em" fxFlex.sm="50%" fxFlex.xs="100%">
+        <mat-form-field fxFlex="70%" fxFlex.sm="65%" fxFlex.xs="100%">
           <mat-label>Services</mat-label>
           <mat-select formControlName="services" multiple [required]="true">
             <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
           </mat-select>
+          <mat-error *ngIf="homeForm.get('services').hasError('required')">
+            Please select at least one service.
+          </mat-error>
         </mat-form-field>
       </div>
 
