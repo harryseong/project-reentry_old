@@ -22,7 +22,11 @@
 }
 
 .sidenav-user {
-    padding: 0.2em 1em;
+    padding: 0.2em 0em 0.2em 1em;
+}
+
+.sidenav-close {
+    margin-right: 0.5em;
 }
 
 mat-toolbar {

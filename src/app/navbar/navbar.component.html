@@ -3,16 +3,16 @@
   <mat-sidenav #drawer mode="over" [autoFocus]="false" fxLayout="column" fxLayoutGap="1em" class="app-bg-color">
     <mat-nav-list>
 
-      <div fxLayout="row" fxLayoutAlign="start" mat-list-item *ngIf="user.authState | async as authState" class="sidenav-user">
+      <div fxLayout="row" fxLayoutAlign="start" mat-list-item *ngIf="user.authState | async as authState">
 
-        <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="start center">
+        <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="start center" class="sidenav-user">
           <img class="sidenav-user-photo" src="{{authState.photoURL}}" alt="user_photo">
           <span class="sidenav-displayname" >{{authState.displayName}}</span>
         </div>
 
         <span class="spacer"></span>
 
-        <div fxLayout="end start">
+        <div fxLayout="end start" class="sidenav-close">
           <button mat-icon-button (click)="drawer.close()"><i class="fas fa-times"></i></button>
         </div>
       </div>
