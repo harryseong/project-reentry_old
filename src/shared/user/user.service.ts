@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
@@ -14,9 +13,11 @@ export class UserService {
   authState = this.afAuth.authState.pipe(
     map(authState => {
       if (!authState) {
+        this.isLoggedIn = false;
         this.isAdmin = false;
         return null;
       } else {
+        this.isLoggedIn = true;
         // If logged in, check that the user exists in the firestore users collection.
         const usersRef = this.db.collection('users').ref;
         const query = usersRef.where('uid', '==', authState.uid);
@@ -42,22 +43,21 @@ export class UserService {
     })
   );
   isAdmin = false;
+  isLoggedIn = false;
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, public snackBar: MatSnackBar, private router: Router) {
-    this.isLoggedIn();
-  }
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, public snackBar: MatSnackBar, private router: Router) {}
 
   login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).finally(() => this.confirmLoginStatus());
   }
 
   logout() {
-    this.afAuth.auth.signOut();
-    this.router.navigateByUrl('');
+    this.afAuth.auth.signOut().finally(() => this.confirmLoginStatus());
     this.isAdmin = false;
+    this.router.navigateByUrl('');
   }
 
-  isLoggedIn() {
+  confirmLoginStatus() {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
         this.openSnackBar('You are logged in.', 'OK');

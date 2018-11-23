@@ -12,6 +12,19 @@
     border-radius: 50%;
 }
 
+.sidenav-user-photo {
+    height: 4em;
+    border-radius: 50%;
+}
+
+.sidenav-displayname {
+    font-weight: 700;
+}
+
+.sidenav-user {
+    padding: 0.2em 1em;
+}
+
 mat-toolbar {
     height: 2em;
 }

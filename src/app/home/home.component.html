@@ -14,7 +14,7 @@
     <form [formGroup]="homeForm" id="home-form">
 
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
-        <mat-form-field fxFlex="20%" fxFlex.sm="25%" fxFlex.xs="100%">
+        <mat-form-field fxFlex="25%" fxFlex.sm="25%" fxFlex.xs="100%">
           <mat-label>County</mat-label>
           <mat-select formControlName="county" [required]="true">
             <mat-option *ngFor="let county of countyList" [value]="county.county">{{county.county}}</mat-option>
@@ -24,7 +24,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field fxFlex="70%" fxFlex.sm="65%" fxFlex.xs="100%">
+        <mat-form-field fxFlex="65%" fxFlex.sm="65%" fxFlex.xs="100%">
           <mat-label>Services</mat-label>
           <mat-select formControlName="services" multiple [required]="true">
             <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
