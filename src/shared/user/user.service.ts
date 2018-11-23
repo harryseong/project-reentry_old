@@ -48,11 +48,11 @@ export class UserService {
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, public snackBar: MatSnackBar, private router: Router) {}
 
   login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).finally(() => this.confirmLoginStatus());
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(() => this.confirmLoginStatus());
   }
 
   logout() {
-    this.afAuth.auth.signOut().finally(() => this.confirmLoginStatus());
+    this.afAuth.auth.signOut().then(() => this.confirmLoginStatus());
     this.isAdmin = false;
     this.router.navigateByUrl('');
   }
