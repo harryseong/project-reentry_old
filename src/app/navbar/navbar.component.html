@@ -5,20 +5,31 @@
 
       <div fxLayout="row" fxLayoutAlign="start" mat-list-item *ngIf="user.authState | async as authState">
 
+        <!--If logged in-->
         <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="start center" class="sidenav-user">
           <img class="sidenav-user-photo" src="{{authState.photoURL}}" alt="user_photo">
           <span class="sidenav-displayname" >{{authState.displayName}}</span>
         </div>
+        <span class="spacer"></span>
+        <div fxLayout="end start" class="sidenav-close">
+          <button mat-icon-button (click)="drawer.close()"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <mat-divider *ngIf="user.isLoggedIn"></mat-divider>
+      <a href="#" mat-list-item *ngIf="user.isAdmin" routerLink="admin/organizations" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations</a>
+      <a href="#" mat-list-item *ngIf="user.isAdmin" routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users fa-fw"></i>&nbsp;Users</a>
+      <a href="#" mat-list-item (click)="user.logout(); drawer.close()" *ngIf="user.isLoggedIn"><span><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;Log Out</span></a>
 
+      <!--If logged out-->
+      <div fxLayout="row" fxLayoutAlign="start" mat-list-item *ngIf="!user.isLoggedIn">
         <span class="spacer"></span>
 
         <div fxLayout="end start" class="sidenav-close">
           <button mat-icon-button (click)="drawer.close()"><i class="fas fa-times"></i></button>
         </div>
       </div>
-
+      <mat-divider *ngIf="!user.isLoggedIn"></mat-divider>
       <a href="#" mat-list-item (click)="user.login(); drawer.close()" *ngIf="!user.isLoggedIn"><span><i class="fas fa-sign-in-alt"></i> Log In</span></a>
-      <a href="#" mat-list-item (click)="user.logout(); drawer.close()" *ngIf="user.isLoggedIn"><span><i class="fas fa-sign-out-alt"></i> Log Out</span></a>
 
       <mat-divider></mat-divider>
 
