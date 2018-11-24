@@ -19,4 +19,9 @@ export class FirestoreService {
     this.languages = db.collection<any>('languages');
     this.users = db.collection<any>('users');
   }
+
+  _sort(array: string[], parameter: string): string[] {
+    return Object.assign([], array)
+      .sort((a, b) => (a[parameter] > b[parameter]) ? 1 : ((b[parameter] > a[parameter] ? -1 : 0)));
+  }
 }

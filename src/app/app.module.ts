@@ -21,12 +21,14 @@ import { UsersComponent } from './admin/users/users.component';
 import { DialogComponent } from './admin/users/dialog/dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import { AboutComponent } from './about/about.component';
+import { OrganizationNewComponent } from './admin/organization/organization-new/organization-new.component';
 
 const appRoutes: Routes = [
   {
     path: 'admin',
     children: [
       { path: 'organizations', component: OrganizationComponent, canActivate: [AuthGuard]},
+      { path: 'organizations/new', component: OrganizationNewComponent, canActivate: [AuthGuard]},
       { path: 'services', component: ServiceComponent, canActivate: [AuthGuard]},
       { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
     ]
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
     UsersComponent,
     DialogComponent,
     FooterComponent,
-    AboutComponent
+    AboutComponent,
+    OrganizationNewComponent
   ],
   imports: [
     RouterModule.forRoot(

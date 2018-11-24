@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 $custom-typography: mat-typography-config($font-family: 'Montserrat');
 @include mat-core($custom-typography);
-$my-app-primary: mat-palette($mat-cyan);
+$my-app-primary: mat-palette($mat-indigo);
 $my-app-accent:  mat-palette($mat-pink, 500, 900, A100);
 $my-app-warn:    mat-palette($mat-red);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);

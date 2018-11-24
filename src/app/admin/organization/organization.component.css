@@ -1,0 +1,9 @@
+.content {
+    min-width: 30%;
+    max-width: 100%;
+    width: 80em;
+}
+
+.overflow-x-scroll {
+    overflow-x: scroll;
+}

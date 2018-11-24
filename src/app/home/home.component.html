@@ -14,7 +14,7 @@
     <form [formGroup]="homeForm" id="home-form">
 
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
-        <mat-form-field fxFlex="25%" fxFlex.sm="25%" fxFlex.xs="100%">
+        <mat-form-field fxFlex="30%" fxFlex.sm="25%" fxFlex.xs="100%">
           <mat-label>County</mat-label>
           <mat-select formControlName="county" [required]="true">
             <mat-option *ngFor="let county of countyList" [value]="county.county">{{county.county}}</mat-option>

@@ -14,7 +14,7 @@ body {
   background-color: #b3f9ea;
 }
 
-.app-bg-color, div.mat-drawer-inner-container {
+.app-bg-color, div.mat-drawer-inner-container, table.mat-table {
   background-color: #b3f9ea;
 }
 

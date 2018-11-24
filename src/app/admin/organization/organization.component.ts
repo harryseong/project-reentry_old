@@ -12,43 +12,14 @@ export class OrganizationComponent implements OnInit {
   displayedColumns: string[] = ['name', 'languages', 'services', 'website'];
   dataSource: MatTableDataSource<any>;
   orgList: any[] = [];
-  orgForm = new FormGroup({
-    name: new FormControl(''),
-    description: new FormControl(''),
-    services: new FormControl([]),
-    languages: new FormControl([]),
-    address: new FormGroup({
-      streetAddress1: new FormControl(''),
-      streetAddress2: new FormControl(''),
-      city: new FormControl(''),
-      state: new FormControl(''),
-      zipCode: new FormControl(''),
-    }),
-    website: new FormControl(''),
-    contact: new FormGroup({
-      name: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
-    })
-  });
-  serviceList: any[] = [];
-  languageList: any[] = [];
 
   constructor(private firestoreService: FirestoreService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.firestoreService.languages.valueChanges().subscribe(rsp => this.languageList = rsp);
-    this.firestoreService.services.valueChanges().subscribe(rsp => this.serviceList = rsp);
     this.firestoreService.organizations.valueChanges().subscribe(rsp => {
       this.orgList = rsp;
       this.dataSource = new MatTableDataSource(rsp);
     });
-  }
-
-  onSubmit() {
-    alert(JSON.stringify(this.orgForm.value));
-    this.firestoreService.organizations.add(this.orgForm.value);
-    this.orgForm.reset();
   }
 
   sortData(sort: Sort) {
@@ -83,5 +54,4 @@ export class OrganizationComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
 }
