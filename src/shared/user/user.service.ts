@@ -17,27 +17,24 @@ export class UserService {
         this.isAdmin = false;
         return null;
       } else {
-        this.isLoggedIn = true;
         // If logged in, check that the user exists in the firestore users collection.
-        const usersRef = this.db.collection('users').ref;
-        const query = usersRef.where('uid', '==', authState.uid);
-        query.get().then(response => {
-          // If the user does not exist in the Firestore "users" collection, create a new user document with the uid as the document id.
-          // Set email retrieved from the authState and set role to "user" by default.
-          if (response.docs.length === 0) {
-            this.db.collection('users').doc(authState.email).set(
-              {
-                uid: authState.uid,
-                email: authState.email,
-                role: 'user'
-              }
-            );
-            this.isAdmin = false;
-          } else {
-            this.db.collection('users').doc(authState.email).ref
-              .onSnapshot(doc => this.isAdmin = doc.data().role === 'admin' ? true : false);
-          }
-        });
+        this.isLoggedIn = true;
+        const usersRef = this.db.collection('users').doc(authState.email).ref
+          .onSnapshot(doc => {
+            // If the user does not exist, create a firestore user doc and set role to "user" by default.
+            if (!doc.exists) {
+              this.db.collection('users').doc(authState.email).set(
+                {
+                  uid: authState.uid,
+                  email: authState.email,
+                  role: 'user'
+                });
+              this.isAdmin = false;
+            } else {
+              // If the user does exist, check if the user is an admin.
+              this.isAdmin = doc.data().role === 'admin';
+            }
+          });
         return authState;
       }
     })
