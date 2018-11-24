@@ -1,52 +1,60 @@
 <div fxLayoutAlign="center center">
   <div fxLayout="column" class="content">
 
-    <div fxLayout="row">
+    <div fxLayout="row" fxLayoutAlign="start center">
       <h3><i class="fas fa-landmark"></i>&nbsp;New Organization</h3>
+      <span class="spacer"></span>
+      <button mat-stroked-button routerLink="/admin/organizations" routerLinkActive="active">
+        <span><i class="fas fa-times"></i> Cancel</span>
+      </button>
     </div>
 
     <form fxLayout="column" [formGroup]="orgForm" (ngSubmit)="onSubmit()">
 
-      <div fxLayout="row wrap" fxLayoutGap="1.5em">
+      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
         <mat-form-field fxFlex="47%" fxFlex.sm="75%" fxFlex.xs="100%">
           <mat-label>Organization Name</mat-label>
           <input matInput [required]="true" formControlName="name">
         </mat-form-field>
       </div>
 
-      <div fxLayout="row wrap" fxLayoutGap="1.5em">
-        <mat-form-field fxFlex="75%" fxFlex.xs="100%">
+      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
+        <mat-form-field fxFlex="65%" fxFlex.xs="100%">
           <mat-label>Description</mat-label>
           <textarea matInput rows="1" [required]="true" formControlName="description" placeholder="Enter a brief description about the organization..."></textarea>
         </mat-form-field>
       </div>
 
-      <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutAlign="start center">
-        <mat-form-field fxFlex="47%" fxFlex.sm="75%" fxFlex.xs="100%">
+      <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutGap.xs="0" fxLayoutAlign="start center">
+        <mat-form-field fxFlex="65%" fxFlex.xs="100%">
           <mat-label>Services Provided</mat-label>
           <mat-select [required]="true" formControlName="services" multiple>
-            <mat-option *ngFor="let service of serviceList" [value]="service">{{service.service}}</mat-option>
+            <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <button type="button" mat-stroked-button>Edit Services</button>
+        <button type="button" mat-stroked-button>
+          <span><i class="far fa-edit"></i> Service List</span>
+        </button>
       </div>
 
-      <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutAlign="start center">
-        <mat-form-field fxFlex="47%" fxFlex.sm="75%" fxFlex.xs="100%">
+      <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutGap.xs="0" fxLayoutAlign="start center">
+        <mat-form-field fxFlex="65%" fxFlex.xs="100%">
           <mat-label><i class="fas fa-language"></i> Other Languages Spoken</mat-label>
           <mat-select formControlName="languages" multiple>
-            <mat-option *ngFor="let language of languageList" [value]="language">{{language.language}}</mat-option>
+            <mat-option *ngFor="let language of languageList" [value]="language.language">{{language.language}}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <button type="button" mat-stroked-button>Edit Languages</button>
+        <button type="button" mat-stroked-button>
+          <span><i class="far fa-edit"></i> Language List</span>
+        </button>
       </div>
 
       <div formGroupName="address">
         <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
 
-        <div fxLayout="row wrap" fxLayoutGap="1.5em">
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
             <mat-label>Street Address</mat-label>
             <input matInput [required]="true" formControlName="streetAddress1">
@@ -57,7 +65,7 @@
           </mat-form-field>
         </div>
 
-        <div fxLayout="row wrap" fxLayoutGap="1.5em">
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
             <mat-label>City</mat-label>
             <input matInput [required]="true" formControlName="city">
@@ -78,7 +86,7 @@
 
       <h3><i class="fas fa-globe"></i> Website</h3>
 
-      <div fxLayout="row wrap" fxLayoutGap="1.5em">
+      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
         <mat-form-field fxFlex="47%" fxFlex.xs="100%">
           <mat-label>URL</mat-label>
           <input matInput type="url" formControlName="website">
@@ -88,7 +96,7 @@
       <div formGroupName="contact">
         <h3><i class="far fa-address-book"></i> Contact</h3>
 
-        <div fxLayout="row wrap" fxLayoutGap="1.5em">
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name">
@@ -108,7 +116,7 @@
 
       <h3><i class="fas fa-info-circle"></i> Other Information</h3>
 
-      <div fxLayout="row wrap" fxLayoutGap="1.5em">
+      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
         <mat-form-field fxFlex="47%" fxFlex.xs="100%">
           <mat-label><i class="fas fa-file-invoice-dollar"></i> Payment</mat-label>
           <mat-select [required]="true" formControlName="payment">
@@ -125,7 +133,7 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="row wrap" fxLayoutGap="1.5em">
+      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
         <mat-form-field fxFlex="47%" fxFlex.xs="100%">
           <mat-label>Senior Requiments</mat-label>
           <mat-select [required]="true" formControlName="seniorRequirements">
@@ -143,7 +151,7 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="row wrap" fxLayoutGap="1.5em">
+      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
         <mat-form-field fxFlex="100%">
           <mat-label>What to Bring</mat-label>
           <input matInput type="url" formControlName="bringWithYou">

@@ -1,9 +1,7 @@
-import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
-import {UsersComponent} from '../users.component';
 
 @Component({
   selector: 'app-dialog',

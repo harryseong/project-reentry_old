@@ -3,11 +3,11 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {FirestoreService} from '../../../../shared/firestore/firestore.service';
 
 @Component({
-  selector: 'app-organization-new',
-  templateUrl: './organization-new.component.html',
-  styleUrls: ['./organization-new.component.css']
+  selector: 'app-org-edit',
+  templateUrl: './org-edit.component.html',
+  styleUrls: ['./org-edit.component.css']
 })
-export class OrganizationNewComponent implements OnInit {
+export class OrgEditComponent implements OnInit {
   orgForm = new FormGroup({
     name: new FormControl(''),
     description: new FormControl(''),
