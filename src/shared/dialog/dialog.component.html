@@ -17,7 +17,7 @@
       <span><i class="fas fa-times"></i> Cancel</span>
     </button>
     <button mat-stroked-button (click)="saveRole()">
-      <span><i class="fas fa-save"></i> Save</span>
+      <span><i class="far fa-save"></i> Save</span>
     </button>
   </div>
 </div>
@@ -28,14 +28,14 @@
   <div mat-dialog-title fxLayout="row" fxLayoutAlign="start start">
     <span>{{editMode ? 'Edit Language' : (createMode ?  'New Language' : 'Languages')}}</span>
     <span class="spacer"></span>
-    <span>
+    <span *ngIf="!editMode && !createMode">
       <button mat-icon-button (click)="cancel()">
         <i class="fas fa-times"></i>
       </button>
     </span>
   </div>
 
-  <div mat-dialog-content fxLayout="column" fxLayoutGap="0.75em">
+  <div mat-dialog-content fxLayout="column" fxLayoutGap="0.5em">
     <div>
       <button mat-stroked-button (click)="enableCreateMode(data.dialogType)" *ngIf="!editMode && !createMode">
         <span><i class="fas fa-plus"></i> Language</span>
@@ -84,14 +84,14 @@
   <div mat-dialog-title fxLayout="row">
     <span>{{editMode ? 'Edit Service' : (createMode ?  'New Service' : 'Services')}}</span>
     <span class="spacer"></span>
-    <span>
+    <span *ngIf="!editMode && !createMode">
       <button mat-icon-button (click)="cancel()">
         <i class="fas fa-times"></i>
       </button>
     </span>
   </div>
 
-  <div mat-dialog-content fxLayout="column" fxLayoutGap="0.75em">
+  <div mat-dialog-content fxLayout="column" fxLayoutGap="0.5em">
     <div>
       <button mat-stroked-button (click)="enableCreateMode(data.dialogType)" *ngIf="!editMode && !createMode">
         <span><i class="fas fa-plus"></i> Service</span>
