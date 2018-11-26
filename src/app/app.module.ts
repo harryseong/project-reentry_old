@@ -18,7 +18,7 @@ import { ServiceComponent } from './admin/service/service.component';
 import { HomeComponent } from './home/home.component';
 import {AuthGuard} from './auth/auth.guard';
 import { UsersComponent } from './admin/users/users.component';
-import { DialogComponent } from './admin/users/dialog/dialog.component';
+import { DialogComponent } from '../shared/dialog/dialog.component';
 import { FooterComponent } from './footer/footer.component';
 import { AboutComponent } from './about/about.component';
 import { OrgCreateComponent } from './admin/organization/org-create/org-create.component';
@@ -30,7 +30,8 @@ const appRoutes: Routes = [
     path: 'admin',
     children: [
       { path: 'organizations', component: OrganizationComponent, canActivate: [AuthGuard]},
-      { path: 'organizations/create', component: OrgCreateComponent, canActivate: [AuthGuard]},
+      { path: 'organizations/new', component: OrgCreateComponent, canActivate: [AuthGuard]},
+      { path: 'organizations/edit', component: OrgCreateComponent, canActivate: [AuthGuard]},
       { path: 'services', component: ServiceComponent, canActivate: [AuthGuard]},
       { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
     ]

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FirestoreService} from '../../../../shared/firestore/firestore.service';
+import {MatDialog} from '@angular/material';
+import {DialogComponent} from '../../../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-org-create',
@@ -37,7 +39,7 @@ export class OrgCreateComponent implements OnInit {
   languageList: any[] = [];
   paymentOptions = ['Free', 'Insurance', 'Medicaid', 'Sliding Scale'];
 
-  constructor(private firestoreService: FirestoreService) { }
+  constructor(private firestoreService: FirestoreService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.firestoreService.languages.valueChanges()
@@ -50,5 +52,23 @@ export class OrgCreateComponent implements OnInit {
     alert(JSON.stringify(this.orgForm.value));
     this.firestoreService.organizations.add(this.orgForm.value);
     this.orgForm.reset();
+  }
+
+  editList( listType: string): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '30em',
+      data: {
+        dialogType: listType,
+        list: listType === 'languages' ? this.languageList : this.serviceList
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // If the result is not null, open confirmation snackBar. Otherwise, the dialog was closed without clicking the save button.
+      if (result != null) {
+        // this.openSnackBar(result, 'OK');
+      }
+      console.log('The dialog was closed');
+    });
   }
 }

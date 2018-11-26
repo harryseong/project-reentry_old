@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FirestoreService} from '../../../shared/firestore/firestore.service';
 import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource, Sort} from '@angular/material';
-import {DialogComponent} from './dialog/dialog.component';
+import {DialogComponent} from '../../../shared/dialog/dialog.component';
 import {UserService} from '../../../shared/user/user.service';
 
 @Component({
@@ -60,6 +60,7 @@ export class UsersComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '20em',
       data: {
+        dialogType: 'userRoles',
         email: email,
         role: role
       }

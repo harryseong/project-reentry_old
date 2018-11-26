@@ -1,0 +1,83 @@
+<div *ngIf="data.dialogType=='userRoles'">
+  <div mat-dialog-title>{{data.email}}</div>
+
+  <div mat-dialog-content fxLayout="column">
+    <form [formGroup]="roleForm" fxFlex="100%">
+      <mat-form-field fxLayoutAlign="center center">
+        <mat-select placeholder="Select a role" [required]="true" formControlName="role">
+          <mat-option value="admin">admin</mat-option>
+          <mat-option value="user">user</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions fxLayoutAlign="end">
+    <button mat-button (click)="saveRole()">
+    <span>
+      <i class="fas fa-save"></i> Save
+    </span>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="data.dialogType=='languages'">
+  <div mat-dialog-title fxLayout="row">
+    <span>Languages</span>
+    <span class="spacer"></span>
+    <span>
+      <button mat-stroked-button>
+        <span><i class="fas fa-plus"></i> Language</span>
+      </button>
+    </span>
+  </div>
+
+  <div mat-dialog-content fxLayout="column">
+
+    <table>
+      <tr *ngFor="let language of data.list">
+        <td>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <span>{{language.language}}</span>
+            <span class="spacer"></span>
+            <span>
+              <button mat-icon-button><i class="far fa-edit"></i></button>
+              <button mat-icon-button><i class="far fa-trash-alt"></i></button>
+            </span>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+
+<div *ngIf="data.dialogType=='services'">
+  <div mat-dialog-title fxLayout="row">
+    <span>Services</span>
+    <span class="spacer"></span>
+    <span>
+      <button mat-stroked-button>
+        <span><i class="fas fa-plus"></i> Service</span>
+      </button>
+    </span>
+  </div>
+
+  <div mat-dialog-content fxLayout="column">
+
+    <table>
+      <tr *ngFor="let service of data.list">
+        <td>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <span>{{service.service}}</span>
+            <span class="spacer"></span>
+            <span>
+              <button mat-icon-button><i class="far fa-edit"></i></button>
+              <button mat-icon-button><i class="far fa-trash-alt"></i></button>
+            </span>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

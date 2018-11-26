@@ -16,8 +16,7 @@ export class DialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
               private db: AngularFirestore) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   saveRole() {
     const userDoc = this.db.collection('users').doc(this.data.email);

@@ -1,0 +1,8 @@
+th, td {
+    text-align: left;
+    width: fit-content;
+}
+
+th, td {
+    border-bottom: 0.05em solid #ddd;
+}

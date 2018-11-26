@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {DialogComponent} from '../../users/dialog/dialog.component';
+import {DialogComponent} from '../../../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-org-view',
