@@ -36,6 +36,10 @@ export class DialogComponent implements OnInit {
       .subscribe(rsp => this.serviceList = this.firestoreService._sort(rsp, 'service'));
   }
 
+  cancel() {
+    this.dialogRef.close();
+  }
+
   saveRole() {
     const userDoc = this.db.collection('users').doc(this.data.email);
     const selectedRole = this.roleForm.get('role').value;
