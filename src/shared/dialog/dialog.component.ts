@@ -75,7 +75,7 @@ export class DialogComponent implements OnInit {
     } else if (entityType === 'service') {
       this.serviceForm.controls['service'].setValue(entityName);
     }
-    this.toggleEditMode();
+    this.beginEditMode();
   }
 
   updateEntity(entityType: string) {
@@ -95,11 +95,15 @@ export class DialogComponent implements OnInit {
         querySnapshot.forEach(docSnapshot => this.db.collection(entityType + 's').doc(docSnapshot.id).set(newDoc));
       }
     });
-    this.toggleEditMode();
+    this.endEditMode();
   }
 
-  toggleEditMode() {
-    this.editMode = !this.editMode;
+  endEditMode() {
+    this.editMode = false;
+    this.resetForms();
+  }
+  beginEditMode() {
+    this.editMode = true;
   }
 
   enableCreateMode(entityType: string) {
@@ -108,7 +112,7 @@ export class DialogComponent implements OnInit {
     } else if (entityType === 'service') {
       this.serviceForm.controls['service'].setValue('');
     }
-    this.toggleCreateMode();
+    this.beginCreateMode();
   }
 
   saveNewEntity(entityType: string) {
@@ -120,10 +124,19 @@ export class DialogComponent implements OnInit {
       newDoc = {service: this.serviceForm.get(entityType).value};
       this.firestoreService.services.add(newDoc);
     }
-    this.toggleCreateMode();
+    this.endCreateMode();
   }
 
-  toggleCreateMode() {
+  endCreateMode() {
     this.createMode = !this.createMode;
+    this.resetForms();
+  }
+  beginCreateMode() {
+    this.createMode = true;
+  }
+
+  resetForms() {
+    this.languageForm.reset();
+    this.serviceForm.reset();
   }
 }

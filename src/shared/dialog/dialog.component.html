@@ -60,7 +60,7 @@
       </mat-form-field>
 
       <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end">
-        <button mat-stroked-button (click)="editMode ? toggleEditMode() : toggleCreateMode()">
+        <button mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
           <span><i class="fas fa-times"></i> Cancel</span>
         </button>
         <button type="button" mat-stroked-button [disabled]="!languageForm.valid"
@@ -111,7 +111,7 @@
       </mat-form-field>
 
       <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end">
-        <button mat-stroked-button (click)="editMode ? toggleEditMode() : toggleCreateMode()">
+        <button mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
           <span><i class="fas fa-times"></i> Cancel</span>
         </button>
         <button type="button" mat-stroked-button [disabled]="!serviceForm.valid"
