@@ -2,7 +2,7 @@
     width: 40em;
 }
 
-#service-list-section, #language-list-section {
+.edit-item-list-button {
     margin-bottom: 1em;
 }
 

@@ -27,19 +27,17 @@
           </mat-form-field>
         </div>
 
-        <div fxLayout="column" fxLayoutGap="1em" id="service-list-section">
-          <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutGap.xs="0" fxLayoutAlign="start center">
-            <mat-form-field fxFlex="65%" fxFlex.xs="100%">
-              <mat-label>Services Provided</mat-label>
-              <mat-select [required]="true" formControlName="services" multiple>
-                <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+        <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutGap.xs="0" fxLayoutAlign="start center">
+          <mat-form-field fxFlex="65%" fxFlex.xs="100%">
+            <mat-label>Services Provided</mat-label>
+            <mat-select [required]="true" formControlName="services" multiple>
+              <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-            <button type="button" mat-stroked-button class="edit-item-list-button" (click)="editList('service')">
-              <span><i class="far fa-edit"></i> Service List</span>
-            </button>
-          </div>
+          <button type="button" mat-stroked-button class="edit-item-list-button" (click)="editList('service')">
+            <span><i class="far fa-edit"></i> Service List</span>
+          </button>
         </div>
       </div>
 
@@ -111,19 +109,17 @@
       <h3><i class="fas fa-info-circle"></i> Other Information</h3>
 
       <div fxLayout="column" fxLayoutGap="1em">
-        <div fxLayout="column" fxLayoutGap="1em" id="language-list-section">
-          <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutGap.xs="0" fxLayoutAlign="start center">
-            <mat-form-field fxFlex="65%" fxFlex.xs="100%">
-              <mat-label><i class="fas fa-language"></i> Other Languages Spoken</mat-label>
-              <mat-select formControlName="languages" multiple>
-                <mat-option *ngFor="let language of languageList" [value]="language.language">{{language.language}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+        <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutGap.xs="0" fxLayoutAlign="start center">
+          <mat-form-field fxFlex="65%" fxFlex.xs="100%">
+            <mat-label><i class="fas fa-language"></i> Other Languages Spoken</mat-label>
+            <mat-select formControlName="languages" multiple>
+              <mat-option *ngFor="let language of languageList" [value]="language.language">{{language.language}}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-            <button type="button" mat-stroked-button (click)="editList('language')">
-              <span><i class="far fa-edit"></i> Language List</span>
-            </button>
-          </div>
+          <button type="button" mat-stroked-button (click)="editList('language')">
+            <span><i class="far fa-edit"></i> Language List</span>
+          </button>
         </div>
 
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
