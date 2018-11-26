@@ -42,7 +42,7 @@
           <div fxLayout="row" fxLayoutAlign="center center">
             <span>{{language.language}}</span>
             <span class="spacer"></span>
-            <span>
+            <span class="no-wrap">
               <button mat-icon-button class="edit-button" (click)="enableEditMode(data.dialogType, language.language)"><i class="far fa-edit"></i></button>
               <button mat-icon-button class="delete-button" (click)="delete(data.dialogType, language.language)">
                 <i class="far fa-trash-alt"></i>
@@ -93,7 +93,7 @@
           <div fxLayout="row" fxLayoutAlign="center center">
             <span>{{service.service}}</span>
             <span class="spacer"></span>
-            <span>
+            <span class="no-wrap">
               <button mat-icon-button class="edit-button" (click)="enableEditMode(data.dialogType, service.service)"><i class="far fa-edit"></i></button>
               <button mat-icon-button class="delete-button" (click)="delete(data.dialogType, service.service)">
                 <i class="far fa-trash-alt"></i>

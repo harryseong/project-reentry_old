@@ -41,6 +41,11 @@ mat-sidenav {
   width: 40em;
 }
 
+.no-wrap {
+  float: left;
+  white-space: nowrap;
+}
+
 .overflow-x-scroll {
   overflow-x: scroll;
 }
