@@ -22,6 +22,10 @@ mat-sidenav {
   width: 18em;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .container {
   flex: 1 0 auto;
 }

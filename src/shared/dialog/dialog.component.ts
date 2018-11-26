@@ -10,11 +10,22 @@ import {FirestoreService} from '../firestore/firestore.service';
   styleUrls: ['./dialog.component.css']
 })
 export class DialogComponent implements OnInit {
+  // Fields for user roles.
   roleForm = new FormGroup({
     role: new FormControl(this.data.role)
   });
+  // Fields for languages/services.
   languageList = [];
   serviceList = [];
+  editMode = false;
+  createMode = false;
+  prevEntityName = '';
+  languageForm = new FormGroup({
+    language: new FormControl('')
+  });
+  serviceForm = new FormGroup({
+    service: new FormControl('')
+  });
 
   constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
               private db: AngularFirestore, private firestoreService: FirestoreService) {}
@@ -42,17 +53,77 @@ export class DialogComponent implements OnInit {
 
   delete(entityType: string, entityName: string) {
     let query = null;
-    if (entityType === 'languages') {
-      query = this.firestoreService.languages.ref.where('language', '==', entityName);
-    } else if (entityType === 'services') {
-      query = this.firestoreService.services.ref.where('service', '==', entityName);
+    if (entityType === 'language') {
+      query = this.firestoreService.languages.ref.where(entityType, '==', entityName);
+    } else if (entityType === 'service') {
+      query = this.firestoreService.services.ref.where(entityType, '==', entityName);
     }
     query.get().then(querySnapshot => {
       if (querySnapshot.empty) {
         console.log('no documents found');
       } else {
-        querySnapshot.forEach(docSnapshot => this.db.collection(entityType).doc(docSnapshot.id).delete());
+        querySnapshot.forEach(docSnapshot => this.db.collection(entityType + 's').doc(docSnapshot.id).delete());
       }
     });
+  }
+
+  enableEditMode(entityType: string, entityName: string) {
+    this.prevEntityName = entityName;
+
+    if (entityType === 'language') {
+      this.languageForm.controls['language'].setValue(entityName);
+    } else if (entityType === 'service') {
+      this.serviceForm.controls['service'].setValue(entityName);
+    }
+    this.toggleEditMode();
+  }
+
+  updateEntity(entityType: string) {
+    let query = null;
+    let newDoc = null;
+    if (entityType === 'language') {
+      query = this.firestoreService.languages.ref.where('language', '==', this.prevEntityName);
+      newDoc = {language: this.languageForm.get(entityType).value};
+    } else if (entityType === 'service') {
+      query = this.firestoreService.services.ref.where('service', '==', this.prevEntityName);
+      newDoc = {service: this.serviceForm.get(entityType).value};
+    }
+    query.get().then(querySnapshot => {
+      if (querySnapshot.empty) {
+        console.log('no documents found');
+      } else {
+        querySnapshot.forEach(docSnapshot => this.db.collection(entityType + 's').doc(docSnapshot.id).set(newDoc));
+      }
+    });
+    this.toggleEditMode();
+  }
+
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+  }
+
+  enableCreateMode(entityType: string) {
+    if (entityType === 'language') {
+      this.languageForm.controls['language'].setValue('');
+    } else if (entityType === 'service') {
+      this.serviceForm.controls['service'].setValue('');
+    }
+    this.toggleCreateMode();
+  }
+
+  saveNewEntity(entityType: string) {
+    let newDoc = null;
+    if (entityType === 'language') {
+      newDoc = {language: this.languageForm.get(entityType).value};
+      this.firestoreService.languages.add(newDoc);
+    } else if (entityType === 'service') {
+      newDoc = {service: this.serviceForm.get(entityType).value};
+      this.firestoreService.services.add(newDoc);
+    }
+    this.toggleCreateMode();
+  }
+
+  toggleCreateMode() {
+    this.createMode = !this.createMode;
   }
 }

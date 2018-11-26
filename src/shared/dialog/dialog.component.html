@@ -1,3 +1,4 @@
+<!--User Roles Dialog-->
 <div *ngIf="data.dialogType=='userRoles'">
   <div mat-dialog-title>{{data.email}}</div>
 
@@ -20,12 +21,14 @@
   </div>
 </div>
 
-<div *ngIf="data.dialogType=='languages'">
+
+<!--Languages Dialog-->
+<div *ngIf="data.dialogType == 'language'">
   <div mat-dialog-title fxLayout="row">
-    <span>Languages</span>
+    <span>{{editMode ? 'Edit Language' : (createMode ?  'New Language' : 'Languages')}}</span>
     <span class="spacer"></span>
-    <span>
-      <button mat-stroked-button>
+    <span *ngIf="!editMode && !createMode">
+      <button mat-stroked-button (click)="enableCreateMode(data.dialogType)">
         <span><i class="fas fa-plus"></i> Language</span>
       </button>
     </span>
@@ -33,14 +36,14 @@
 
   <div mat-dialog-content fxLayout="column">
 
-    <table>
+    <table *ngIf="!editMode && !createMode">
       <tr *ngFor="let language of languageList; last as isLast">
         <td [class]="isLast ? 'last' : ''">
           <div fxLayout="row" fxLayoutAlign="center center">
             <span>{{language.language}}</span>
             <span class="spacer"></span>
             <span>
-              <button mat-icon-button class="edit-button"><i class="far fa-edit"></i></button>
+              <button mat-icon-button class="edit-button" (click)="enableEditMode(data.dialogType, language.language)"><i class="far fa-edit"></i></button>
               <button mat-icon-button class="delete-button" (click)="delete(data.dialogType, language.language)">
                 <i class="far fa-trash-alt"></i>
               </button>
@@ -50,15 +53,33 @@
       </tr>
     </table>
 
+    <form [formGroup]="languageForm" *ngIf="editMode || createMode" fxLayout="column">
+      <mat-form-field>
+        <mat-label>Language</mat-label>
+        <input matInput type="text" [required]="true" formControlName="language">
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end">
+        <button mat-stroked-button (click)="editMode ? toggleEditMode() : toggleCreateMode()">
+          <span><i class="fas fa-times"></i> Cancel</span>
+        </button>
+        <button type="button" mat-stroked-button [disabled]="!languageForm.valid"
+                (click)="editMode ? updateEntity(data.dialogType) : saveNewEntity(data.dialogType)">
+          <span><i class="far fa-save"></i> Save</span>
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 
-<div *ngIf="data.dialogType=='services'">
+
+<!--Services Dialog-->
+<div *ngIf="data.dialogType == 'service'">
   <div mat-dialog-title fxLayout="row">
-    <span>Services</span>
+    <span>{{editMode ? 'Edit Service' : (createMode ?  'New Service' : 'Services')}}</span>
     <span class="spacer"></span>
-    <span>
-      <button mat-stroked-button>
+    <span *ngIf="!editMode && !createMode">
+      <button mat-stroked-button (click)="enableCreateMode(data.dialogType)">
         <span><i class="fas fa-plus"></i> Service</span>
       </button>
     </span>
@@ -66,14 +87,14 @@
 
   <div mat-dialog-content fxLayout="column">
 
-    <table>
+    <table *ngIf="!editMode && !createMode">
       <tr *ngFor="let service of serviceList; last as isLast">
         <td [class]="isLast ? 'last' : ''">
           <div fxLayout="row" fxLayoutAlign="center center">
             <span>{{service.service}}</span>
             <span class="spacer"></span>
             <span>
-              <button mat-icon-button class="edit-button"><i class="far fa-edit"></i></button>
+              <button mat-icon-button class="edit-button" (click)="enableEditMode(data.dialogType, service.service)"><i class="far fa-edit"></i></button>
               <button mat-icon-button class="delete-button" (click)="delete(data.dialogType, service.service)">
                 <i class="far fa-trash-alt"></i>
               </button>
@@ -83,5 +104,21 @@
       </tr>
     </table>
 
+    <form [formGroup]="serviceForm" *ngIf="editMode || createMode" fxLayout="column">
+      <mat-form-field>
+        <mat-label>Service</mat-label>
+        <input matInput type="text" [required]="true" formControlName="service">
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end">
+        <button mat-stroked-button (click)="editMode ? toggleEditMode() : toggleCreateMode()">
+          <span><i class="fas fa-times"></i> Cancel</span>
+        </button>
+        <button type="button" mat-stroked-button [disabled]="!serviceForm.valid"
+                (click)="editMode ? updateEntity(data.dialogType) : saveNewEntity(data.dialogType)">
+          <span><i class="far fa-save"></i> Save</span>
+        </button>
+      </div>
+    </form>
   </div>
 </div>
