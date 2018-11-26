@@ -2,6 +2,10 @@
     width: 40em;
 }
 
+#service-list-section, #language-list-section {
+    margin-bottom: 1em;
+}
+
 #save-org-button {
     margin-top: 3em;
 }

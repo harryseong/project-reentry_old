@@ -17,7 +17,7 @@
       </div>
       <a href="#" mat-list-item (click)="user.logout(); drawer.close()" *ngIf="user.isLoggedIn"><span><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;Log Out</span></a>
       <mat-divider *ngIf="user.isLoggedIn"></mat-divider>
-      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" routerLink="admin/organizations" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations</a>
+      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" routerLink="admin/organization/all" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations</a>
       <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users fa-fw"></i>&nbsp;Users</a>
 
       <!--If logged out-->
@@ -82,7 +82,7 @@
           </mat-menu>
 
           <mat-menu #adminMenu="matMenu">
-            <button mat-menu-item routerLink="admin/organizations" routerLinkActive="active"><i class="fas fa-landmark"></i> Organizations</button>
+            <button mat-menu-item routerLink="admin/organization/all" routerLinkActive="active"><i class="fas fa-landmark"></i> Organizations</button>
             <button mat-menu-item routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users"></i> Users</button>
           </mat-menu>
 

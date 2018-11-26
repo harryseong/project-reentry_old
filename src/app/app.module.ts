@@ -29,10 +29,9 @@ const appRoutes: Routes = [
   {
     path: 'admin',
     children: [
-      { path: 'organizations', component: OrganizationComponent, canActivate: [AuthGuard]},
-      { path: 'organizations/new', component: OrgCreateComponent, canActivate: [AuthGuard]},
-      { path: 'organizations/edit', component: OrgCreateComponent, canActivate: [AuthGuard]},
-      { path: 'services', component: ServiceComponent, canActivate: [AuthGuard]},
+      { path: 'organization/all', component: OrganizationComponent, canActivate: [AuthGuard]},
+      { path: 'organization/new', component: OrgCreateComponent, canActivate: [AuthGuard]},
+      { path: 'organization/edit', component: OrgCreateComponent, canActivate: [AuthGuard]},
       { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
     ]
   },

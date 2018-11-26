@@ -41,6 +41,18 @@ mat-sidenav {
   width: 40em;
 }
 
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+table {
+  width: 100%;
+}
+
+table td {
+  font-size: 0.8em;
+}
+
 button.edit-button {
   color: #008dd5;
 }
@@ -51,6 +63,23 @@ button.delete-button {
 
 .spacer {
   flex: 1 1 auto;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #777777;
+  transition: 0.1s;
+}
+a:visited {
+  color: #5c5c5c;
+  transition: 0.1s;
+}
+a:hover {
+  color: #191919;
+}
+a, a:hover, a:visited {
+  transition: 0.1s;
 }
 
 #project-reentry-header {

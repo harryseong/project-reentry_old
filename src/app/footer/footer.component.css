@@ -9,18 +9,3 @@ footer {
     font-size: 1.1em;
     font-weight: 600;
 }
-
-a {
-    color: #777777;
-    transition: 0.1s;
-}
-a:visited {
-    color: #5c5c5c;
-    transition: 0.1s;
-}
-a:hover {
-    color: #191919;
-}
-a, a:hover, a:visited {
-    transition: 0.1s;
-}

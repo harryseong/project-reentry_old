@@ -54,4 +54,8 @@ export class OrganizationComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  viewOrg(orgName: string) {
+    alert(orgName);
+  }
 }
