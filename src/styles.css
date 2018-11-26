@@ -37,6 +37,14 @@ mat-sidenav {
   width: 40em;
 }
 
+button.edit-button {
+  color: #008dd5;
+}
+
+button.delete-button {
+  color: #d83c2e;
+}
+
 .spacer {
   flex: 1 1 auto;
 }

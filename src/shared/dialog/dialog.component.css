@@ -6,3 +6,7 @@ th, td {
 th, td {
     border-bottom: 0.05em solid #ddd;
 }
+
+td.last {
+    border-bottom: none;
+}

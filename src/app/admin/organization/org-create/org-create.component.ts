@@ -60,7 +60,8 @@ export class OrgCreateComponent implements OnInit {
       data: {
         dialogType: listType,
         list: listType === 'languages' ? this.languageList : this.serviceList
-      }
+      },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {

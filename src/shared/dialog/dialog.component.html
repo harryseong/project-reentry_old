@@ -34,14 +34,16 @@
   <div mat-dialog-content fxLayout="column">
 
     <table>
-      <tr *ngFor="let language of data.list">
-        <td>
+      <tr *ngFor="let language of languageList; last as isLast">
+        <td [class]="isLast ? 'last' : ''">
           <div fxLayout="row" fxLayoutAlign="center center">
             <span>{{language.language}}</span>
             <span class="spacer"></span>
             <span>
-              <button mat-icon-button><i class="far fa-edit"></i></button>
-              <button mat-icon-button><i class="far fa-trash-alt"></i></button>
+              <button mat-icon-button class="edit-button"><i class="far fa-edit"></i></button>
+              <button mat-icon-button class="delete-button" (click)="delete(data.dialogType, language.language)">
+                <i class="far fa-trash-alt"></i>
+              </button>
             </span>
           </div>
         </td>
@@ -65,14 +67,16 @@
   <div mat-dialog-content fxLayout="column">
 
     <table>
-      <tr *ngFor="let service of data.list">
-        <td>
+      <tr *ngFor="let service of serviceList; last as isLast">
+        <td [class]="isLast ? 'last' : ''">
           <div fxLayout="row" fxLayoutAlign="center center">
             <span>{{service.service}}</span>
             <span class="spacer"></span>
             <span>
-              <button mat-icon-button><i class="far fa-edit"></i></button>
-              <button mat-icon-button><i class="far fa-trash-alt"></i></button>
+              <button mat-icon-button class="edit-button"><i class="far fa-edit"></i></button>
+              <button mat-icon-button class="delete-button" (click)="delete(data.dialogType, service.service)">
+                <i class="far fa-trash-alt"></i>
+              </button>
             </span>
           </div>
         </td>
