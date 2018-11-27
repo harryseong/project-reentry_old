@@ -15,24 +15,33 @@
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="47%" fxFlex.sm="75%" fxFlex.xs="100%">
             <mat-label>Organization Name</mat-label>
-            <input matInput [required]="true" formControlName="name">
+            <input matInput [required]="true" formControlName="name" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="orgForm.get('name').hasError('required')">
+              Organization name is required.
+            </mat-error>
           </mat-form-field>
         </div>
 
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="65%" fxFlex.sm="75%" fxFlex.xs="100%">
             <mat-label>Description</mat-label>
-            <textarea matInput rows="1" [required]="true" formControlName="description"></textarea>
+            <textarea matInput rows="1" [required]="true" formControlName="description" [errorStateMatcher]="matcher"></textarea>
             <mat-hint>Enter a brief description about the organization.</mat-hint>
+            <mat-error *ngIf="orgForm.get('description').hasError('required')">
+              Description is required.
+            </mat-error>
           </mat-form-field>
         </div>
 
         <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutGap.xs="0" fxLayoutAlign="start center">
           <mat-form-field fxFlex="65%" fxFlex.xs="100%">
             <mat-label>Services Provided</mat-label>
-            <mat-select [required]="true" formControlName="services" multiple>
+            <mat-select [required]="true" formControlName="services" multiple [errorStateMatcher]="matcher">
               <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="orgForm.get('services').hasError('required')">
+              Select at least one service.
+            </mat-error>
           </mat-form-field>
 
           <button type="button" mat-stroked-button class="edit-item-list-button" (click)="editList('service')">
@@ -47,7 +56,10 @@
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
             <mat-label>Street Address</mat-label>
-            <input matInput [required]="true" formControlName="streetAddress1">
+            <input matInput [required]="true" formControlName="streetAddress1" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="orgForm.get('address.streetAddress1').hasError('required')">
+              Street address is required.
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
@@ -60,18 +72,30 @@
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
             <mat-label>City</mat-label>
-            <input matInput [required]="true" formControlName="city">
+            <input matInput [required]="true" formControlName="city" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="orgForm.get('address.city').hasError('required')">
+              City is required.
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
-            <mat-select placeholder="State" [required]="true" formControlName="state">
+            <mat-select placeholder="State" [required]="true" formControlName="state" [errorStateMatcher]="matcher">
               <mat-option [value]="'Michigan'">Michigan</mat-option>
             </mat-select>
+            <mat-error *ngIf="orgForm.get('address.state').hasError('required')">
+              State is required.
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
             <mat-label>Zip Code</mat-label>
-            <input matInput [required]="true" formControlName="zipCode">
+            <input matInput [required]="true" formControlName="zipCode" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="orgForm.get('address.zipCode').hasError('required')">
+              Zip code is required.
+            </mat-error>
+            <mat-error *ngIf="orgForm.get('address.zipCode').hasError('pattern')">
+              Enter a valid zip code.
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -81,7 +105,10 @@
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
         <mat-form-field fxFlex="47%" fxFlex.xs="100%">
           <mat-label>URL</mat-label>
-          <input matInput type="url" formControlName="website">
+          <input matInput type="url" formControlName="website" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="orgForm.get('website').hasError('pattern')">
+            Enter a valid web url.
+          </mat-error>
         </mat-form-field>
       </div>
 
@@ -96,12 +123,18 @@
 
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
             <mat-label><i class="far fa-envelope"></i> Email</mat-label>
-            <input matInput formControlName="email">
+            <input matInput formControlName="email" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="orgForm.get('contact.email').hasError('email')">
+              Enter a valid email address.
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
             <mat-label><i class="fas fa-mobile-alt"></i> Phone</mat-label>
-            <input matInput type="tel" formControlName="phone">
+            <input matInput type="tel" formControlName="phone" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="orgForm.get('contact.phone').hasError('pattern')">
+              Enter a valid US phone number.
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -125,35 +158,47 @@
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
             <mat-label><i class="fas fa-file-invoice-dollar"></i> Payment</mat-label>
-            <mat-select [required]="true" formControlName="payment">
+            <mat-select [required]="true" formControlName="payment" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let payment of paymentOptions" [value]=payment>{{payment}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="orgForm.get('payment').hasError('required')">
+              Select a payment option.
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
             <mat-label><i class="fas fa-bus"></i> Transportation Provided</mat-label>
-            <mat-select [required]="true" formControlName="transportation">
+            <mat-select [required]="true" formControlName="transportation" [errorStateMatcher]="matcher">
               <mat-option [value]="true">Yes</mat-option>
               <mat-option [value]=false>No</mat-option>
             </mat-select>
+            <mat-error *ngIf="orgForm.get('transportation').hasError('required')">
+              Select a transportation provided option.
+            </mat-error>
           </mat-form-field>
         </div>
 
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
             <mat-label>Senior Requiments</mat-label>
-            <mat-select [required]="true" formControlName="seniorRequirements">
+            <mat-select [required]="true" formControlName="seniorRequirements" [errorStateMatcher]="matcher">
               <mat-option [value]="true">Yes</mat-option>
               <mat-option [value]=false>No</mat-option>
             </mat-select>
+            <mat-error *ngIf="orgForm.get('seniorRequirements').hasError('required')">
+              Select a senior requirement option.
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
             <mat-label>Eligibility Requiments</mat-label>
-            <mat-select [required]="true" formControlName="eligibilityRequirements">
+            <mat-select [required]="true" formControlName="eligibilityRequirements" [errorStateMatcher]="matcher">
               <mat-option [value]="true">Yes</mat-option>
               <mat-option [value]=false>No</mat-option>
             </mat-select>
+            <mat-error *ngIf="orgForm.get('eligibilityRequirements').hasError('required')">
+              Select a an eligibility requirements option.
+            </mat-error>
           </mat-form-field>
         </div>
 
