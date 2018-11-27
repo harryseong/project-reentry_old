@@ -35,12 +35,7 @@
     </span>
   </div>
 
-  <div mat-dialog-content fxLayout="column" fxLayoutGap="0.5em">
-    <div>
-      <button mat-stroked-button (click)="enableCreateMode(data.dialogType)" *ngIf="!editMode && !createMode">
-        <span><i class="fas fa-plus"></i> Language</span>
-      </button>
-    </div>
+  <div mat-dialog-content fxLayout="column">
 
     <table *ngIf="!editMode && !createMode">
       <tr *ngFor="let language of languageList; last as isLast">
@@ -66,7 +61,7 @@
       </mat-form-field>
 
       <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end">
-        <button mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
+        <button type="button" mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
           <span><i class="fas fa-times"></i> Cancel</span>
         </button>
         <button type="button" mat-stroked-button [disabled]="!languageForm.valid"
@@ -75,6 +70,13 @@
         </button>
       </div>
     </form>
+
+  </div>
+
+  <div mat-dialog-actions fxLayoutAlign="end" fxLayoutGap="0.5em">
+    <button mat-stroked-button (click)="enableCreateMode(data.dialogType)" *ngIf="!editMode && !createMode">
+      <span><i class="fas fa-plus"></i> New Language</span>
+    </button>
   </div>
 </div>
 
@@ -91,12 +93,7 @@
     </span>
   </div>
 
-  <div mat-dialog-content fxLayout="column" fxLayoutGap="0.5em">
-    <div>
-      <button mat-stroked-button (click)="enableCreateMode(data.dialogType)" *ngIf="!editMode && !createMode">
-        <span><i class="fas fa-plus"></i> Service</span>
-      </button>
-    </div>
+  <div mat-dialog-content fxLayout="column">
 
     <table *ngIf="!editMode && !createMode">
       <tr *ngFor="let service of serviceList; last as isLast">
@@ -122,7 +119,7 @@
       </mat-form-field>
 
       <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end">
-        <button mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
+        <button type="button" mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
           <span><i class="fas fa-times"></i> Cancel</span>
         </button>
         <button type="button" mat-stroked-button [disabled]="!serviceForm.valid"
@@ -131,5 +128,12 @@
         </button>
       </div>
     </form>
+
+  </div>
+
+  <div mat-dialog-actions fxLayoutAlign="end" fxLayoutGap="0.5em">
+    <button mat-stroked-button (click)="enableCreateMode(data.dialogType)" *ngIf="!editMode && !createMode">
+      <span><i class="fas fa-plus"></i> New Service</span>
+    </button>
   </div>
 </div>
