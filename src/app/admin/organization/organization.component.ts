@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FirestoreService} from '../../../shared/firestore/firestore.service';
 import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-organization',
@@ -13,7 +14,7 @@ export class OrganizationComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   orgList: any[] = [];
 
-  constructor(private firestoreService: FirestoreService, public dialog: MatDialog) { }
+  constructor(private firestoreService: FirestoreService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
     this.firestoreService.organizations.valueChanges().subscribe(rsp => {
@@ -57,5 +58,7 @@ export class OrganizationComponent implements OnInit {
 
   viewOrg(orgName: string) {
     alert(orgName);
+
+    this.router.navigate(['/admin/organization/view/', {name: orgName}]);
   }
 }

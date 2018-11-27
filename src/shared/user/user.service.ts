@@ -27,6 +27,7 @@ export class UserService {
                 {
                   uid: authState.uid,
                   email: authState.email,
+                  role: 'user'
                 });
               this.isAdmin = false;
             } else {
