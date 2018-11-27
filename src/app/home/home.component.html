@@ -7,11 +7,11 @@
            fxFlexOrder.xs="1" id="michigan-outline-img" alt="michigan_outline">
     </h1>
 
-    <div id="subheading">
+    <div id="subheading" [@transitionAnimations]="transition">
       Helping you find the services you need...
     </div>
 
-    <form [formGroup]="homeForm" id="home-form">
+    <form [formGroup]="homeForm" id="home-form" [@transitionAnimations]="transition">
 
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
         <mat-form-field fxFlex="30%" fxFlex.sm="25%" fxFlex.xs="100%">

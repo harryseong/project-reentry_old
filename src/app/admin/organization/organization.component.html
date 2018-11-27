@@ -57,6 +57,15 @@
           </td>
         </ng-container>
 
+        <!-- City Column -->
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.address.city == null || element.address.city == ''">n/a</span>
+            <span *ngIf="element.address.city != null && element.address.city != ''">{{element.address.city}}</span>
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 

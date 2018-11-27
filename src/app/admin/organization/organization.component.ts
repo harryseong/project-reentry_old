@@ -1,8 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
 import {FirestoreService} from '../../../shared/firestore/firestore.service';
 import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {Router} from '@angular/router';
+
+export interface OrgAbbrev {
+  name: string;
+  languages: string[];
+  services: string[];
+  website: string;
+  address: {
+    city: string;
+  };
+}
 
 @Component({
   selector: 'app-organization',
@@ -10,17 +19,31 @@ import {Router} from '@angular/router';
   styleUrls: ['./organization.component.css']
 })
 export class OrganizationComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'languages', 'services', 'website'];
+  displayedColumns: string[] = ['name', 'languages', 'services', 'website', 'city'];
   dataSource: MatTableDataSource<any>;
   orgList: any[] = [];
 
-  constructor(private firestoreService: FirestoreService, public dialog: MatDialog, private router: Router) { }
+  constructor(private firestoreService: FirestoreService, private router: Router) {}
 
   ngOnInit() {
-    this.firestoreService.organizations.valueChanges().subscribe(rsp => {
-      this.orgList = rsp;
-      this.dataSource = new MatTableDataSource(rsp);
-    });
+    this.firestoreService.organizations.valueChanges().subscribe(
+      rsp => {
+        this.orgList = rsp;
+        this.dataSource = new MatTableDataSource(rsp);
+      },
+      error1 => console.error(error1),
+      () => {
+        this.dataSource.filterPredicate = (data, filter: string)  => {
+          const accumulator = (currentTerm, key) => {
+            return key === 'orderInfo' ? currentTerm + data.orderInfo.type : currentTerm + data[key];
+          };
+          const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+          // Transform the filter by converting it to lowercase and removing whitespace.
+          const transformedFilter = filter.trim().toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      }
+    );
   }
 
   sortData(sort: Sort) {
@@ -35,8 +58,8 @@ export class OrganizationComponent implements OnInit {
       switch (sort.active) {
         case 'name':
           return this.compare(a.name, b.name, isAsc);
-        case 'website':
-          return this.compare(a.website, b.website, isAsc);
+        case 'city':
+          return this.compare(a.address.city, b.address.city, isAsc);
         default:
           return 0;
       }

@@ -3,3 +3,11 @@
     max-width: 100%;
     width: 80em;
 }
+
+table td {
+    font-size: 0.7em;
+}
+
+table td, table th {
+    padding: 0 0.3em;
+}
