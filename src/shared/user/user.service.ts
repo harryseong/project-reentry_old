@@ -15,9 +15,10 @@ export class UserService {
       if (!authState) {
         this.isLoggedIn = false;
         this.isAdmin = false;
-        return null;
+        console.warn('No user is currently logged in.');
       } else {
         // If logged in, check that the user exists in the firestore users collection.
+        console.log('A user is logged in.');
         this.isLoggedIn = true;
         const usersRef = this.db.collection('users').doc(authState.email).ref
           .onSnapshot(doc => {
@@ -30,9 +31,11 @@ export class UserService {
                   role: 'user'
                 });
               this.isAdmin = false;
+              console.warn('User, ' + authState.email + ' did not exist in the Firestore.');
             } else {
               // If the user does exist, check if the user is an admin.
               this.isAdmin = doc.data().role === 'admin';
+              console.log('User, ' + authState.email + ' does exist. User is ' + (this.isAdmin ? '' : 'not ') + 'an admin.');
             }
           });
         return authState;

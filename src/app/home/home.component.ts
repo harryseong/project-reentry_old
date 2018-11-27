@@ -23,7 +23,7 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
     trigger('transitionAnimations', [
       transition('* => fadeIn', [
         style({ opacity: 0 }),
-        animate(1000, style({ opacity: 1 }))
+        animate(1000, style({ opacity: 1 })),
       ])
     ])
   ],
