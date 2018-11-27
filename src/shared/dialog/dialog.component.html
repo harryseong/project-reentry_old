@@ -59,16 +59,6 @@
         <mat-label>Language</mat-label>
         <input matInput type="text" [required]="true" formControlName="language">
       </mat-form-field>
-
-      <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end">
-        <button type="button" mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
-          <span><i class="fas fa-times"></i> Cancel</span>
-        </button>
-        <button type="button" mat-stroked-button [disabled]="!languageForm.valid"
-                (click)="editMode ? updateEntity(data.dialogType) : saveNewEntity(data.dialogType)">
-          <span><i class="far fa-save"></i> Save</span>
-        </button>
-      </div>
     </form>
 
   </div>
@@ -77,6 +67,16 @@
     <button mat-stroked-button (click)="enableCreateMode(data.dialogType)" *ngIf="!editMode && !createMode">
       <span><i class="fas fa-plus"></i> New Language</span>
     </button>
+
+    <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end" *ngIf="editMode || createMode">
+      <button type="button" mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
+        <span><i class="fas fa-times"></i> Cancel</span>
+      </button>
+      <button type="button" mat-stroked-button [disabled]="!languageForm.valid"
+              (click)="editMode ? updateEntity(data.dialogType) : saveNewEntity(data.dialogType)">
+        <span><i class="far fa-save"></i> Save</span>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -117,16 +117,6 @@
         <mat-label>Service</mat-label>
         <input matInput type="text" [required]="true" formControlName="service">
       </mat-form-field>
-
-      <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end">
-        <button type="button" mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
-          <span><i class="fas fa-times"></i> Cancel</span>
-        </button>
-        <button type="button" mat-stroked-button [disabled]="!serviceForm.valid"
-                (click)="editMode ? updateEntity(data.dialogType) : saveNewEntity(data.dialogType)">
-          <span><i class="far fa-save"></i> Save</span>
-        </button>
-      </div>
     </form>
 
   </div>
@@ -135,5 +125,15 @@
     <button mat-stroked-button (click)="enableCreateMode(data.dialogType)" *ngIf="!editMode && !createMode">
       <span><i class="fas fa-plus"></i> New Service</span>
     </button>
+
+    <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="end" *ngIf="editMode || createMode">
+      <button type="button" mat-stroked-button (click)="editMode ? endEditMode() : endCreateMode()">
+        <span><i class="fas fa-times"></i> Cancel</span>
+      </button>
+      <button type="button" mat-stroked-button [disabled]="!serviceForm.valid"
+              (click)="editMode ? updateEntity(data.dialogType) : saveNewEntity(data.dialogType)">
+        <span><i class="far fa-save"></i> Save</span>
+      </button>
+    </div>
   </div>
 </div>
