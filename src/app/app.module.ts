@@ -31,7 +31,7 @@ const appRoutes: Routes = [
     children: [
       { path: 'organization/all', component: OrganizationComponent, canActivate: [AuthGuard]},
       { path: 'organization/new', component: OrgCreateComponent, canActivate: [AuthGuard]},
-      { path: 'organization/edit', component: OrgCreateComponent, canActivate: [AuthGuard]},
+      { path: 'organization/edit', component: OrgEditComponent, canActivate: [AuthGuard]},
       { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
     ]
   },
