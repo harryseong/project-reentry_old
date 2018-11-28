@@ -3,16 +3,6 @@ import {FirestoreService} from '../../../shared/firestore/firestore.service';
 import {MatDialog, MatTableDataSource, Sort} from '@angular/material';
 import {Router} from '@angular/router';
 
-export interface OrgAbbrev {
-  name: string;
-  languages: string[];
-  services: string[];
-  website: string;
-  address: {
-    city: string;
-  };
-}
-
 @Component({
   selector: 'app-organization',
   templateUrl: './organization.component.html',
@@ -30,19 +20,19 @@ export class OrganizationComponent implements OnInit {
       rsp => {
         this.orgList = rsp;
         this.dataSource = new MatTableDataSource(rsp);
-      },
-      error1 => console.error(error1),
-      () => {
+        // Set custom filter predicate for searching nested fields of organization objects.
         this.dataSource.filterPredicate = (data, filter: string)  => {
           const accumulator = (currentTerm, key) => {
-            return key === 'orderInfo' ? currentTerm + data.orderInfo.type : currentTerm + data[key];
+            return this.nestedFilterCheck(currentTerm, data, key);
           };
           const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
           // Transform the filter by converting it to lowercase and removing whitespace.
           const transformedFilter = filter.trim().toLowerCase();
           return dataStr.indexOf(transformedFilter) !== -1;
         };
-      }
+      },
+      error1 => console.error(error1),
+      () => {}
     );
   }
 
@@ -77,6 +67,19 @@ export class OrganizationComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
   }
 
   viewOrg(orgName: string) {

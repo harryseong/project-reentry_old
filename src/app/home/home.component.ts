@@ -4,7 +4,7 @@ import {FirestoreService} from '../../shared/firestore/firestore.service';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {ErrorStateMatcher} from '@angular/material';
-import {animate, style, transition, trigger} from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -26,7 +26,7 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
         animate(1000, style({ opacity: 1 })),
       ])
     ])
-  ],
+  ]
 })
 export class HomeComponent implements OnInit {
   countyList: any[] = [];
