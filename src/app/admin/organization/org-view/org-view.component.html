@@ -22,9 +22,9 @@
 
       <div>
         Services Provided:
-        <mat-chip-list>
-          <mat-chip *ngFor="let service of org.services" color="accent" [selectable]="false">{{service}}</mat-chip>
-        </mat-chip-list>
+        <ul>
+          <li *ngFor="let service of org.services">{{service}}</li>
+        </ul>
       </div>
     </div>
 
@@ -40,10 +40,12 @@
     <div fxLayout="column" class="org-section">
       <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
 
-      <div>{{org.address.streetAddress1}}</div>
-      <div>{{org.address.streetAddress2}}</div>
-      <div>{{org.address.city}}, {{org.address.state}}</div>
-      <div>{{org.address.zipCode}}</div>
+      <div>{{org.address.streetAddress1}}, {{org.address.streetAddress2}}</div>
+      <div>{{org.address.city}}, {{org.address.state}} {{org.address.zipCode}}</div>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div id="gMap"></div>
+      </div>
     </div>
 
     <mat-divider></mat-divider>
@@ -57,9 +59,9 @@
 
     <div fxLayout="column" class="org-section">
       <h3><i class="far fa-address-book"></i> Contact Information</h3>
-      <div *ngIf="org.contact.name!=''">{{org.contact.name}}</div>
-      <div *ngIf="org.contact.email!=''">{{org.contact.email}}</div>
-      <div *ngIf="org.contact.phone!=''">{{org.contact.phone}}</div>
+      <div *ngIf="org.contact.name!=null">{{org.contact.name}}</div>
+      <div *ngIf="org.contact.email!=null"><a href="mailto:{{org.contact.email}}">{{org.contact.email}}</a></div>
+      <div *ngIf="org.contact.phone!=null"><a href="tel:{{org.contact.phone}}" >{{org.contact.phone}}</a></div>
     </div>
 
     <mat-divider></mat-divider>
@@ -68,9 +70,9 @@
       <h3><i class="fas fa-info-circle"></i> Other Information</h3>
       <div>
         Languages Provided:
-        <mat-chip-list>
-          <mat-chip *ngFor="let language of org.languages" color="accent" [selectable]="false">{{language}}</mat-chip>
-        </mat-chip-list>
+        <ul>
+          <li *ngFor="let language of org.languages">{{language}}</li>
+        </ul>
       </div>
       <div>What to Bring: {{org.bringWithYou}}</div>
       <div>Payment: {{org.payment}}</div>

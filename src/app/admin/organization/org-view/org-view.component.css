@@ -1,3 +1,9 @@
 .org-section {
     margin-bottom: 1em;
 }
+
+#gMap {
+    height: 15em;
+    width: 25em;
+    margin-top: 1em;
+}
