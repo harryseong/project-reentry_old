@@ -1,6 +1,82 @@
-<div>
-  YOU ARE VIEWING AN ORGANIZATION: {{orgName}}
-</div>
+<div fxLayoutAlign="center center">
+  <div fxLayout="column" class="content">
 
-<div>{{org.name}}</div>
-<div>{{org.website}}</div>
+    <div fxLayout="column" class="org-section">
+
+      <div fxLayout="row" fxLayoutAlign="start">
+        <button mat-stroked-button routerLink="/admin/organization/all" routerLinkActive="active">
+          <span><i class="fas fa-angle-left"></i> All Organizations</span>
+        </button>
+        <span class="spacer"></span>
+        <span class="no-wrap">
+          <button mat-icon-button class="edit-button"><i class="far fa-edit"></i></button>
+          <button mat-icon-button class="delete-button"><i class="far fa-trash-alt"></i></button>
+        </span>
+      </div>
+
+      <div fxLayout="row">
+        <h3><i class="fas fa-landmark"></i>&nbsp;{{org.name}}</h3>
+      </div>
+
+      <div>{{org.description}}</div>
+
+      <div>
+        Services Provided:
+        <mat-chip-list>
+          <mat-chip *ngFor="let service of org.services" color="accent" [selectable]="false">{{service}}</mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout="column" class="org-section">
+      <h3><i class="far fa-clock"></i> Hours</h3>
+      <div>{{org.hours}}</div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout="column" class="org-section">
+      <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+
+      <div>{{org.address.streetAddress1}}</div>
+      <div>{{org.address.streetAddress2}}</div>
+      <div>{{org.address.city}}, {{org.address.state}}</div>
+      <div>{{org.address.zipCode}}</div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout="column" class="org-section">
+      <h3><i class="fas fa-globe"></i> Website</h3>
+      <div><a href="{{org.website}}" target="_blank">{{org.website}}</a></div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout="column" class="org-section">
+      <h3><i class="far fa-address-book"></i> Contact Information</h3>
+      <div *ngIf="org.contact.name!=''">{{org.contact.name}}</div>
+      <div *ngIf="org.contact.email!=''">{{org.contact.email}}</div>
+      <div *ngIf="org.contact.phone!=''">{{org.contact.phone}}</div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout="column">
+      <h3><i class="fas fa-info-circle"></i> Other Information</h3>
+      <div>
+        Languages Provided:
+        <mat-chip-list>
+          <mat-chip *ngFor="let language of org.languages" color="accent" [selectable]="false">{{language}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <div>What to Bring: {{org.bringWithYou}}</div>
+      <div>Payment: {{org.payment}}</div>
+      <div>Transportation Provided: {{org.transportation ? 'Yes' : 'No'}}</div>
+      <div>Eligibility Requirements: {{org.eligibilityRequirements ? 'Yes' : 'No'}}</div>
+      <div>Senior Requirements: {{org.seniorRequirements ? 'Yes' : 'No'}}</div>
+    </div>
+  </div>
+</div>

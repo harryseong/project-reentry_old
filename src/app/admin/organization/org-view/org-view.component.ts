@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {map} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 import {FirestoreService} from '../../../../shared/firestore/firestore.service';
-import {switchMap} from 'rxjs-compat/operator/switchMap';
 
 @Component({
   selector: 'app-org-view',
