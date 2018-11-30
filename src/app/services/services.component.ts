@@ -23,7 +23,7 @@ export class ServicesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.firestoreService.services.valueChanges().subscribe(services => this.serviceList = services);
+    this.firestoreService.services.valueChanges().subscribe(services => this.serviceList = this.firestoreService._sort(services, 'service'));
     this.transition = 'fadeIn';
   }
 }
