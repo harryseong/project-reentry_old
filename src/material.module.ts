@@ -35,6 +35,7 @@ import {
   MatPaginatorModule,
   MatSidenavModule,
   MatChipsModule,
+  MatTabsModule,
 } from '@angular/material';
 
 const materialModules = [
@@ -72,7 +73,8 @@ const materialModules = [
   MatSliderModule,
   MatPaginatorModule,
   MatSidenavModule,
-  MatChipsModule
+  MatChipsModule,
+  MatTabsModule
 ];
 
 @NgModule({

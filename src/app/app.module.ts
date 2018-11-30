@@ -24,6 +24,8 @@ import { AboutComponent } from './about/about.component';
 import { OrgCreateComponent } from './admin/organization/org-create/org-create.component';
 import { OrgEditComponent } from './admin/organization/org-edit/org-edit.component';
 import { OrgViewComponent } from './admin/organization/org-view/org-view.component';
+import { HeaderComponent } from './header/header.component';
+import { ServicesComponent } from './services/services.component';
 
 const appRoutes: Routes = [
   {
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
   },
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'services', component: ServicesComponent },
 ];
 
 @NgModule({
@@ -54,7 +57,9 @@ const appRoutes: Routes = [
     AboutComponent,
     OrgCreateComponent,
     OrgEditComponent,
-    OrgViewComponent
+    OrgViewComponent,
+    HeaderComponent,
+    ServicesComponent
   ],
   imports: [
     RouterModule.forRoot(

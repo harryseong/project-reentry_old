@@ -1,17 +1,44 @@
 <div fxLayoutAlign="center center">
   <div fxLayout="column" class="content">
 
-    <h1 id="project-reentry-header" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="0" fxLayoutAlign="start end">
-      <div fxFlexOrder.xs="2">Project Reentry</div>
-      <img src="https://firebasestorage.googleapis.com/v0/b/project-reentry.appspot.com/o/michigan_outline.png?alt=media&token=abe247d8-67f6-4bf6-a22d-c3ea891129c7"
-           fxFlexOrder.xs="1" id="michigan-outline-img" alt="michigan_outline">
-    </h1>
+    <app-header></app-header>
 
     <div id="subheading" [@transitionAnimations]="transition">A little about us...</div>
 
-    <p [@transitionAnimations]="transition">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dicta, exercitationem harum id mollitia neque quaerat,
-      quam quas recusandae repudiandae sunt tenetur ut. Architecto ea illo laudantium magnam nesciunt vel?
-    </p>
+    <mat-tab-group mat-align-tabs="start" [@transitionAnimations]="transition" class="about-tab-group">
+      <mat-tab label="SADO">
+        <h3>State Appellate Defender Office (SADO)</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolores enim fugiat illo recusandae tenetur
+          vel voluptatem! Adipisci cumque dignissimos error fugiat hic maiores necessitatibus porro quibusdam sed. Eum, labore!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolores enim fugiat illo recusandae tenetur
+          vel voluptatem! Adipisci cumque dignissimos error fugiat hic maiores necessitatibus porro quibusdam sed. Eum, labore!
+        </p>
+      </mat-tab>
+      <mat-tab label="Project Reentry">
+        <h3>Project Reentry</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolores enim fugiat illo recusandae tenetur
+          vel voluptatem! Adipisci cumque dignissimos error fugiat hic maiores necessitatibus porro quibusdam sed. Eum, labore!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolores enim fugiat illo recusandae tenetur
+          vel voluptatem! Adipisci cumque dignissimos error fugiat hic maiores necessitatibus porro quibusdam sed. Eum, labore!
+        </p>
+      </mat-tab>
+      <mat-tab label="This App">
+        <h3>This App</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolores enim fugiat illo recusandae tenetur
+          vel voluptatem! Adipisci cumque dignissimos error fugiat hic maiores necessitatibus porro quibusdam sed. Eum, labore!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam dolores enim fugiat illo recusandae tenetur
+          vel voluptatem! Adipisci cumque dignissimos error fugiat hic maiores necessitatibus porro quibusdam sed. Eum, labore!
+        </p>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>

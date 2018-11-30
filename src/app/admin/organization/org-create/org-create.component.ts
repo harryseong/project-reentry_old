@@ -99,7 +99,6 @@ export class OrgCreateComponent implements OnInit {
       this.toggleDay(day);
     });
   }
-  
   specifyHours() {
     const hoursFormGroup = this.orgForm.get('hours');
     const specifyHours = this.orgForm.get('specifyHours').value;

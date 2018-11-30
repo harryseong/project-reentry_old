@@ -1,0 +1,20 @@
+.service-tile {
+    background-color: #ffffff;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.service-tile:hover {
+    cursor: pointer;
+    opacity: 0.95;
+    transition: 0.3s;
+    transform: scale(1.075);
+}
+
+.mat-tab-contents {
+    padding: 1em;
+}
+
+.resources-tab-group {
+    margin-top: 2em;
+}
