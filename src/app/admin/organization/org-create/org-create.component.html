@@ -48,6 +48,35 @@
             <span><i class="far fa-edit"></i> Service List</span>
           </button>
         </div>
+
+        <h3><i class="far fa-clock"></i> Hours</h3>
+
+        <div fxLayout="column" fxLayoutGap="1em">
+
+          <div>
+            <mat-slide-toggle formControlName="specifyHours" (change)="specifyHours()">Specify Hours</mat-slide-toggle>
+          </div>
+
+          <div [hidden]="orgForm.get('specifyHours').value==false">
+            <div fxLayout="column" fxLayoutGap="0">
+              <div fxLayout="row" fxFlex="100%" fxLayoutGap="0.5em" *ngFor="let day of daysOfWeek"
+                   [formGroup]="orgForm.get('hours').get(day)">
+                <div fxLayoutAlign="start center" fxFlex="8em">
+                  <mat-checkbox formControlName="open" (change)="toggleDay(day)">{{day}}</mat-checkbox>
+                </div>
+                <mat-form-field fxFlex="7em">
+                  <mat-label>Start</mat-label>
+                  <input matInput type="time" formControlName="start">
+                </mat-form-field>
+                <mat-form-field fxFlex="7em">
+                  <mat-label>End</mat-label>
+                  <input matInput type="time" formControlName="end">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <h3><i class="fas fa-map-marker-alt"></i> Address</h3>

@@ -23,6 +23,44 @@ export class OrgCreateComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     services: new FormControl([], [Validators.required]),
+    specifyHours: new FormControl(false),
+    hours: new FormGroup({
+      Sunday: new FormGroup({
+        open: new FormControl(false),
+        start: new FormControl(''),
+        end: new FormControl('')
+      }),
+      Monday: new FormGroup({
+        open: new FormControl(false),
+        start: new FormControl(''),
+        end: new FormControl('')
+      }),
+      Tuesday: new FormGroup({
+        open: new FormControl(false),
+        start: new FormControl(''),
+        end: new FormControl('')
+      }),
+      Wednesday: new FormGroup({
+        open: new FormControl(false),
+        start: new FormControl(''),
+        end: new FormControl('')
+      }),
+      Thursday: new FormGroup({
+        open: new FormControl(false),
+        start: new FormControl(''),
+        end: new FormControl('')
+      }),
+      Friday: new FormGroup({
+        open: new FormControl(false),
+        start: new FormControl(''),
+        end: new FormControl('')
+      }),
+      Saturday: new FormGroup({
+        open: new FormControl(false),
+        start: new FormControl(''),
+        end: new FormControl('')
+      }),
+    }),
     address: new FormGroup({
       streetAddress1: new FormControl('', [Validators.required]),
       streetAddress2: new FormControl(''),
@@ -38,7 +76,6 @@ export class OrgCreateComponent implements OnInit {
       email: new FormControl('', [Validators.email]),
       phone: new FormControl('', [Validators.pattern('^\\(?([0-9]{3})\\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$')]),
     }),
-    hours: new FormControl(''),
     languages: new FormControl([]),
     payment: new FormControl('', [Validators.required]),
     transportation: new FormControl('', [Validators.required]),
@@ -48,6 +85,7 @@ export class OrgCreateComponent implements OnInit {
   });
   serviceList: any[] = [];
   languageList: any[] = [];
+  daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   paymentOptions = ['Free', 'Insurance', 'Medicaid', 'Sliding Scale'];
 
   constructor(private firestoreService: FirestoreService, public dialog: MatDialog) { }
@@ -57,6 +95,33 @@ export class OrgCreateComponent implements OnInit {
       .subscribe(rsp => this.languageList = this.firestoreService._sort(rsp, 'language'));
     this.firestoreService.services.valueChanges()
       .subscribe(rsp => this.serviceList = this.firestoreService._sort(rsp, 'service'));
+    this.daysOfWeek.forEach(day => {
+      this.toggleDay(day);
+    });
+  }
+  
+  specifyHours() {
+    const hoursFormGroup = this.orgForm.get('hours');
+    const specifyHours = this.orgForm.get('specifyHours').value;
+    if (specifyHours === false) {
+      this.daysOfWeek.forEach(day => {
+        hoursFormGroup.get(day).get('open').setValue(false);
+        this.toggleDay(day);
+      });
+    }
+  }
+
+  toggleDay(day: string) {
+    const dayFormGroup = this.orgForm.get('hours').get(day);
+    if (dayFormGroup.get('open').value === true) {
+      dayFormGroup.get('start').enable();
+      dayFormGroup.get('end').enable();
+    } else {
+      dayFormGroup.get('start').reset();
+      dayFormGroup.get('start').disable();
+      dayFormGroup.get('end').reset();
+      dayFormGroup.get('end').disable();
+    }
   }
 
   onSubmit() {
