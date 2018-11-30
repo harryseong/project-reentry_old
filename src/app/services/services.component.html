@@ -3,19 +3,17 @@
 
     <app-header></app-header>
 
-    <div id="subheading" [@transitionAnimations]="transition">Find Services</div>
+    <div id="subheading" [@transitionAnimations]="transition">Find Services...</div>
 
     <mat-tab-group mat-align-tabs="center" [@transitionAnimations]="transition" class="resources-tab-group">
 
       <mat-tab label="By Categories">
         <div class="mat-tab-contents">
-          <mat-grid-list cols="2" rowHeight="2:1" gutterSize="1em">
-            <mat-grid-tile class="service-tile" *ngFor="let service of serviceList">{{service.service}}</mat-grid-tile>
-          </mat-grid-list>
+          <div class="service-tile" *ngFor="let service of serviceList">{{service.service}}</div>
         </div>
       </mat-tab>
 
-      <mat-tab label="By Location">
+      <mat-tab label="Closest to Me">
         <div class="mat-tab-contents" fxLayout="column" fxLayoutGap="1.5em" fxLayoutAlign="start start">
           <mat-form-field fxFlexFill>
             <mat-label>Where are you?</mat-label>
