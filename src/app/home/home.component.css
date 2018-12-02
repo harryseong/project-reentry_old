@@ -9,11 +9,12 @@
 .service-tile {
     font-size: 0.8em;
     font-weight: 600;
+    text-decoration: none;
     height: auto;
     min-width: 18em;
     width: 30%;
     background-color: #ffffff;
-    opacity: 0.75;
+    opacity: 0.85;
     transition: 0.2s;
     padding: 1em;
     margin: 0.5em;

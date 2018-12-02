@@ -40,7 +40,7 @@ const appRoutes: Routes = [
   },
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'services', component: ServicesComponent },
+  { path: 'services/:service', component: ServicesComponent },
 ];
 
 @NgModule({

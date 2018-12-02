@@ -4,7 +4,7 @@
     <app-header></app-header>
 
     <div id="subheading" [@transitionAnimations]="transition">
-      Helping you find the services you need...
+      Connecting you to the services you need...
     </div>
 
     <mat-tab-group mat-align-tabs="start" [@transitionAnimations]="transition" class="services-tab-group">
@@ -20,9 +20,11 @@
               <mat-form-field fxFlex="45%" fxFlex.sm="45" fxFlex.xs="100%">
                 <mat-label>Where are you?</mat-label>
                 <input matInput type="text" formControlName="location" [required]="true">
-                <mat-hint>You can type in your city or address to find services near you.</mat-hint>
+                <mat-hint>
+                  Type in your city or address. (ex. "Detroit" or "645 Griswold St, Detroit, MI")
+                </mat-hint>
                 <mat-error *ngIf="servicesForm.get('location').hasError('required')">
-                  Please type in a location.
+                  Please type in your city or address.
                 </mat-error>
               </mat-form-field>
 
@@ -49,7 +51,7 @@
       <mat-tab label="By Categories">
         <div class="mat-tab-contents">
           <div fxLayout="row wrap" fxLayoutAlign="start">
-            <div class="service-tile" *ngFor="let service of serviceList">{{service.service}}</div>
+            <a href="#" [routerLink]="'services/'+service.service" routerLinkActive="active" class="service-tile" *ngFor="let service of serviceList">{{service.service}}</a>
           </div>
         </div>
       </mat-tab>

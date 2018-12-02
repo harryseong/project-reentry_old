@@ -3,39 +3,11 @@
 
     <app-header></app-header>
 
-    <div id="subheading" [@transitionAnimations]="transition">Find Services...</div>
+    <div id="subheading" [@transitionAnimations]="transition">Services...</div>
 
-    <mat-tab-group mat-align-tabs="center" [@transitionAnimations]="transition" class="services-tab-group">
+    <div fxLayout="column" [@transitionAnimations]="transition">
+      [Table of services here...]
+    </div>
 
-      <mat-tab label="By Categories">
-        <div class="mat-tab-contents">
-          <div class="service-tile" *ngFor="let service of serviceList">{{service.service}}</div>
-        </div>
-      </mat-tab>
-
-      <mat-tab label="Closest to Me">
-        <div class="mat-tab-contents" fxLayout="column" fxLayoutGap="1.5em" fxLayoutAlign="start start">
-          <mat-form-field fxFlexFill>
-            <mat-label>Where are you?</mat-label>
-            <input matInput type="text">
-            <mat-hint>You can type in your city or your address to find the services closest to you.</mat-hint>
-          </mat-form-field>
-
-          <button mat-stroked-button>
-            <span><i class="fas fa-search"></i> Find Services Near Me</span>
-          </button>
-        </div>
-      </mat-tab>
-
-      <mat-tab label="By Survey">
-        <div class="mat-tab-contents">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut doloribus labore molestias numquam odit placeat
-            sit suscipit, voluptas. Consequuntur debitis et harum ipsam iusto labore quasi quibusdam suscipit, vel veniam.
-          </p>
-        </div>
-      </mat-tab>
-
-    </mat-tab-group>
   </div>
 </div>
