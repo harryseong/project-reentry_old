@@ -7,35 +7,54 @@
       Helping you find the services you need...
     </div>
 
-    <form [formGroup]="homeForm" id="home-form" [@transitionAnimations]="transition">
+    <mat-tab-group mat-align-tabs="start" [@transitionAnimations]="transition" class="services-tab-group">
 
-      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
-        <mat-form-field fxFlex="30%" fxFlex.sm="25%" fxFlex.xs="100%">
-          <mat-label>County</mat-label>
-          <mat-select formControlName="county" [required]="true">
-            <mat-option *ngFor="let county of countyList" [value]="county.county">{{county.county}}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="homeForm.get('county').hasError('required')">
-            Please select a county.
-          </mat-error>
-        </mat-form-field>
+      <mat-tab label="Near Me">
 
-        <mat-form-field fxFlex="65%" fxFlex.sm="65%" fxFlex.xs="100%">
-          <mat-label>Services</mat-label>
-          <mat-select formControlName="services" multiple [required]="true">
-            <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="homeForm.get('services').hasError('required')">
-            Please select at least one service.
-          </mat-error>
-        </mat-form-field>
-      </div>
+        <div class="mat-tab-contents" fxLayout="column" fxLayoutGap="1.5em" fxLayoutAlign="start start">
 
-      <button mat-stroked-button [disabled]="!homeForm.valid" id="find-services-button">
-        <span><i class="fas fa-search"></i> FIND SERVICES</span>
-      </button>
+          <form [formGroup]="servicesForm" id="find-services-form" [@transitionAnimations]="transition" fxFill>
 
-    </form>
+            <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
+
+              <mat-form-field fxFlex="45%" fxFlex.sm="45" fxFlex.xs="100%">
+                <mat-label>Where are you?</mat-label>
+                <input matInput type="text" formControlName="location" [required]="true">
+                <mat-hint>You can type in your city or address to find services near you.</mat-hint>
+                <mat-error *ngIf="servicesForm.get('location').hasError('required')">
+                  Please type in a location.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
+                <mat-label>Services</mat-label>
+                <mat-select formControlName="services" multiple [required]="true">
+                  <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="servicesForm.get('services').hasError('required')">
+                  Please select at least one service.
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <button mat-stroked-button [disabled]="!servicesForm.valid" id="find-services-button">
+              <span><i class="fas fa-search"></i> FIND SERVICES NEAR ME</span>
+            </button>
+
+          </form>
+
+        </div>
+      </mat-tab>
+
+      <mat-tab label="By Categories">
+        <div class="mat-tab-contents">
+          <div fxLayout="row wrap" fxLayoutAlign="start">
+            <div class="service-tile" *ngFor="let service of serviceList">{{service.service}}</div>
+          </div>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
 
   </div>
 

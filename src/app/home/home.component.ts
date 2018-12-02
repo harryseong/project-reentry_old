@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {FirestoreService} from '../../shared/firestore/firestore.service';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
 import {ErrorStateMatcher} from '@angular/material';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -29,10 +28,9 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
   ]
 })
 export class HomeComponent implements OnInit {
-  countyList: any[] = [];
   serviceList: any[] = [];
-  homeForm = new FormGroup({
-    county: new FormControl('', [Validators.required]),
+  servicesForm = new FormGroup({
+    location: new FormControl('', [Validators.required]),
     services: new FormControl([], [Validators.required]),
   });
   transition = '';
@@ -40,8 +38,6 @@ export class HomeComponent implements OnInit {
   constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService) { }
 
   ngOnInit() {
-    this.firestoreService.counties.valueChanges()
-      .subscribe(counties => this.countyList = this.firestoreService._sort(counties, 'county'));
     this.firestoreService.services.valueChanges()
       .subscribe(services => this.serviceList = this.firestoreService._sort(services, 'service'));
     this.transition = 'fadeIn';

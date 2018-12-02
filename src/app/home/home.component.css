@@ -1,7 +1,41 @@
-#home-form {
+#find-services-form {
     margin-top: 1em;
 }
 
 #find-services-button {
-    margin-top: 1em;
+    margin-top: 2em;
+}
+
+.service-tile {
+    font-size: 0.8em;
+    font-weight: 600;
+    height: auto;
+    min-width: 18em;
+    width: 30%;
+    background-color: #ffffff;
+    opacity: 0.75;
+    transition: 0.2s;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 0.25em;
+    border-left-style: solid;
+    border-left-color: #f0f0f0;
+    border-left-width: 0.3em;
+}
+
+.service-tile:hover {
+    cursor: pointer;
+    opacity: 1;
+    transition: 0.4s;
+    transform: scale(1.05);
+    border-left-width: 0.4em;
+    border-left-color: #5c5c5c;
+}
+
+.mat-tab-contents {
+    padding: 1em 0;
+}
+
+.services-tab-group {
+    margin-top: 2em;
 }
