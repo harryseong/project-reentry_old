@@ -5,7 +5,7 @@ import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@a
 import {ErrorStateMatcher} from '@angular/material';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {UserService} from '../../shared/user/user.service';
-
+declare var google: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
