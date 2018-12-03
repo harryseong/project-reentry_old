@@ -29,13 +29,13 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
   ]
 })
 export class HomeComponent implements OnInit {
+  geocoder = new google.maps.Geocoder();
   serviceList: any[] = [];
   servicesForm = new FormGroup({
     location: new FormControl('', [Validators.required]),
     services: new FormControl([], [Validators.required]),
   });
   transition = '';
-  geocoder = new google.maps.Geocoder();
 
   constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService, private userService: UserService,
               private zone: NgZone) { }

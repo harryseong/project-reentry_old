@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {FirestoreService} from '../../../../shared/firestore/firestore.service';
 import {ErrorStateMatcher, MatDialog} from '@angular/material';
 import {DialogComponent} from '../../../../shared/dialog/dialog.component';
+import {UserService} from '../../../../shared/user/user.service';
+declare var google: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
@@ -18,6 +20,7 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./org-create.component.css']
 })
 export class OrgCreateComponent implements OnInit {
+  geocoder = new google.maps.Geocoder();
   matcher: SubscribeErrorStateMatcher; // For form error matching.
   orgForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -66,7 +69,11 @@ export class OrgCreateComponent implements OnInit {
       streetAddress2: new FormControl(''),
       city: new FormControl('', [Validators.required]),
       state: new FormControl('Michigan', [Validators.required]),
-      zipCode: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')])
+      zipCode: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')]),
+      gpsCoords: new FormGroup({
+        lat: new FormControl(''),
+        lng: new FormControl(''),
+      })
     }),
     website: new FormControl('', [
       Validators.pattern('^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&\'\\(\\)\\*\\+,;=.]+$')
@@ -88,7 +95,8 @@ export class OrgCreateComponent implements OnInit {
   daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   paymentOptions = ['Free', 'Insurance', 'Medicaid', 'Sliding Scale'];
 
-  constructor(private firestoreService: FirestoreService, public dialog: MatDialog) { }
+  constructor(private firestoreService: FirestoreService, public dialog: MatDialog, private userService: UserService,
+              private zone: NgZone) { }
 
   ngOnInit() {
     this.firestoreService.languages.valueChanges()
@@ -102,7 +110,12 @@ export class OrgCreateComponent implements OnInit {
   specifyHours() {
     const hoursFormGroup = this.orgForm.get('hours');
     const specifyHours = this.orgForm.get('specifyHours').value;
-    if (specifyHours === false) {
+    if (specifyHours === true) {
+      this.daysOfWeek.forEach(day => {
+        hoursFormGroup.get(day).get('open').setValue(true);
+        this.toggleDay(day);
+      });
+    } else {
       this.daysOfWeek.forEach(day => {
         hoursFormGroup.get(day).get('open').setValue(false);
         this.toggleDay(day);
@@ -123,12 +136,6 @@ export class OrgCreateComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    alert(JSON.stringify(this.orgForm.value));
-    this.firestoreService.organizations.add(this.orgForm.value);
-    this.orgForm.reset();
-  }
-
   editList( listType: string): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '30em',
@@ -145,6 +152,49 @@ export class OrgCreateComponent implements OnInit {
         // this.openSnackBar(result, 'OK');
       }
       console.log('The dialog was closed');
+    });
+  }
+
+  onSubmit() {
+    const ac = this.orgForm.get('address');
+    const fullAddress = ac.get('streetAddress1').value + ' ' + ac.get('streetAddress2').value +  ', ' +
+      ac.get('city').value + ', ' + ac.get('state');
+    this.codeAddress(fullAddress);
+  }
+
+  codeAddress(address: string) {
+    const firestoreService = this.firestoreService;
+    const orgForm = this.orgForm;
+    const userService = this.userService;
+    const zone = this.zone;
+
+    this.geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == 'OK') {
+        const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
+        const state = stateAddressComponent.short_name;
+        if (state === 'MI') {
+          // Get lat and lng of address and save to them in Firestore.
+          const lat = results[0].geometry.location.lat();
+          const lng = results[0].geometry.location.lng();
+          orgForm.get('address').get('gpsCoords').get('lat').setValue(lat);
+          orgForm.get('address').get('gpsCoords').get('lng').setValue(lng);
+          firestoreService.organizations.add(orgForm.value);
+        } else if (state !== 'MI') {
+          const message = 'The address provided was not found to be in Michigan. Please input a Michigan address.';
+          const action = 'OK';
+          zone.run(() => {
+            userService.openSnackBar(message, action);
+          });
+          orgForm.get('address').reset();
+        }
+      } else {
+        const message = 'The app could not reach geocoding services. Please refresh the page and try again.';
+        const action = 'OK';
+        zone.run(() => {
+          userService.openSnackBar(message, action);
+        });
+        console.warn('Geocode was not successful for the following reason: ' + status);
+      }
     });
   }
 }

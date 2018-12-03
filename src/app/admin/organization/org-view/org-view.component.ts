@@ -12,7 +12,6 @@ declare var google: any;
 export class OrgViewComponent implements OnInit {
   orgName = '';
   org: any = null;
-  geocoder = new google.maps.Geocoder();
 
   constructor(private db: AngularFirestore, private firestoreService: FirestoreService, private route: ActivatedRoute) { }
 
@@ -27,28 +26,17 @@ export class OrgViewComponent implements OnInit {
           this.db.collection('organizations').doc(docSnapshot.id).ref.get().then(
             org => {
               this.org = org.data();
+              const gpsCoords = this.org.address.gpsCoords;
               const mapOption = {zoom: 15, mapTypeId: google.maps.MapTypeId.ROADMAP};
               const map = new google.maps.Map(document.getElementById('gMap'), mapOption);
-              const oa = org.data().address;
-              const address = oa.streetAddress1 + ' ' + oa.streetAddress2 + ', ' + oa.city + ', ' + oa.state + ' ' + oa.zipCode;
-              this.codeAddress(address, map);
+              map.setCenter(gpsCoords);
+              const marker = new google.maps.Marker({
+                map: map,
+                position: gpsCoords
+              });
             }
           );
         });
-      }
-    });
-  }
-
-  codeAddress(address: string, map) {
-    this.geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        const marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
       }
     });
   }

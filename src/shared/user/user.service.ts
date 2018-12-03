@@ -72,7 +72,7 @@ export class UserService {
   openSnackBar(message: string, action: string) {
     this.zone.run(() => {
       this.snackBar.open(message, action, {
-        duration: 3000,
+        duration: 3500,
         verticalPosition: 'bottom'
       });
     });
