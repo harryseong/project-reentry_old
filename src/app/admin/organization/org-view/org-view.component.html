@@ -1,27 +1,33 @@
 <div fxLayoutAlign="center center">
   <div fxLayout="column" class="content">
 
-    <div fxLayout="column" fxLayoutGap="1em" class="org-section" *ngIf="org">
-
-      <div fxLayout="row" fxLayoutAlign="start">
-        <button mat-stroked-button routerLink="/admin/organization/all" routerLinkActive="active">
-          <span><i class="fas fa-angle-left"></i> All Organizations</span>
-        </button>
+    <div fxLayout="column" class="org-section" *ngIf="org">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5em" fxLayoutAlign="start">
+        <span>
+          <button mat-stroked-button routerLink="/admin/organization/all" routerLinkActive="active">
+            <span><i class="fas fa-angle-left"></i> All Organizations</span>
+          </button>
+        </span>
         <span class="spacer"></span>
-        <span class="no-wrap">
-          <button mat-icon-button class="edit-button"><i class="far fa-edit"></i></button>
-          <button mat-icon-button class="delete-button"><i class="far fa-trash-alt"></i></button>
+        <span fxLayout="row" fxLayoutGap="0.5em" class="no-wrap">
+          <button mat-stroked-button class="edit-button">
+            <span><i class="far fa-edit"></i>&nbsp;Edit</span>
+          </button>
+          <button mat-stroked-button class="delete-button">
+            <span><i class="far fa-trash-alt"></i>&nbsp;Delete</span>
+          </button>
         </span>
       </div>
+    </div>
 
-      <div>
-        <h3><i class="fas fa-landmark"></i>&nbsp;{{org.name}}</h3>
+    <div fxLayout="column" fxLayoutGap="1.5em" class="org-section" *ngIf="org">
+      <div fxLayout="column" fxLayoutGap="0.2em">
+        <div class="org-name">{{org.name}}</div>
+        <div>{{org.description}}</div>
       </div>
 
-      <div>{{org.description}}</div>
-
       <div *ngIf="org.services!=null">
-        Services Provided:
+        <h4>Services Provided</h4>
         <ul>
           <li *ngFor="let service of org.services">{{service}}</li>
         </ul>
@@ -30,7 +36,6 @@
 
     <div fxLayout="column" class="org-section" *ngIf="org">
       <mat-divider></mat-divider>
-
       <h3><i class="far fa-clock"></i> Hours</h3>
       <div *ngIf="org.specifyHours==true">
         <table>
@@ -77,15 +82,17 @@
     <div fxLayout="column" class="org-section" *ngIf="org">
       <mat-divider></mat-divider>
       <h3><i class="fas fa-info-circle"></i> Other Information</h3>
-      <div>
-        Languages Provided:
-        <ul>
-          <li *ngFor="let language of org.languages">{{language}}</li>
-        </ul>
-      </div>
 
       <div>
         <table id="other-info-table">
+          <tr *ngIf="org.languages != null && org.languages.length > 0">
+            <th>Other Languages Spoken</th>
+            <td>
+              <span *ngFor="let language of org.languages; last as isLast">
+                {{language}}<span *ngIf="!isLast">, </span>
+              </span>
+            </td>
+          </tr>
           <tr>
             <th>What to Bring</th>
             <td>{{org.bringWithYou=='' ? 'None specified' : org.bringWithYou}}</td>

@@ -2,6 +2,11 @@
     margin-bottom: 1em;
 }
 
+.org-name {
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
 #gMap {
     height: 15em;
     width: 25em;
@@ -16,5 +21,8 @@ th, td {
     padding: 0 0.2em;
 }
 th {
-    font-weight: 600;
+    font-weight: 500;
+}
+h4 {
+    margin: 0;
 }
