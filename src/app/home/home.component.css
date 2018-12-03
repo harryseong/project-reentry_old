@@ -14,7 +14,6 @@
     min-width: 18em;
     width: 30%;
     background-color: #ffffff;
-    opacity: 0.85;
     transition: 0.2s;
     padding: 1em;
     margin: 0.5em;
@@ -26,7 +25,6 @@
 
 .service-tile:hover {
     cursor: pointer;
-    opacity: 1;
     transition: 0.4s;
     margin-right: 0.375em;
     transform: scale(1.05);

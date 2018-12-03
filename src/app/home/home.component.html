@@ -29,7 +29,7 @@
               </mat-form-field>
 
               <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
-                <mat-label>Services</mat-label>
+                <mat-label>Which services are you looking for?</mat-label>
                 <mat-select formControlName="services" multiple [required]="true">
                   <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
                 </mat-select>
