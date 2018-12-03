@@ -179,6 +179,12 @@ export class OrgCreateComponent implements OnInit {
           orgForm.get('address').get('gpsCoords').get('lat').setValue(lat);
           orgForm.get('address').get('gpsCoords').get('lng').setValue(lng);
           firestoreService.organizations.add(orgForm.value);
+          const message = 'New organization was successfully saved.';
+          const action = 'OK';
+          zone.run(() => {
+            userService.openSnackBar(message, action);
+          });
+          orgForm.get('address').reset();
         } else if (state !== 'MI') {
           const message = 'The address provided was not found to be in Michigan. Please input a Michigan address.';
           const action = 'OK';
