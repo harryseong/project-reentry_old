@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {FirestoreService} from '../../shared/firestore/firestore.service';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
@@ -37,7 +37,8 @@ export class HomeComponent implements OnInit {
   transition = '';
   geocoder = new google.maps.Geocoder();
 
-  constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService, private userService: UserService) { }
+  constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService, private userService: UserService,
+              private zone: NgZone) { }
 
   ngOnInit() {
     this.firestoreService.services.valueChanges()
@@ -47,10 +48,10 @@ export class HomeComponent implements OnInit {
 
   findServices() {
     const address = this.servicesForm.get('location').value;
-    this.codeAddress(address, this.userService, this.servicesForm);
+    this.codeAddress(address, this.userService, this.servicesForm, this.zone);
   }
 
-  codeAddress(address: string, userService: UserService, servicesForm) {
+  codeAddress(address: string, userService: UserService, servicesForm, zone) {
     this.geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == 'OK') {
         const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
@@ -61,14 +62,17 @@ export class HomeComponent implements OnInit {
         } else if (state !== 'MI') {
           const message = 'The location provided was not found to be in Michigan. Please input a Michigan city or address.';
           const action = 'OK';
-          userService.openSnackBar(message, action);
+          zone.run(() => {
+            userService.openSnackBar(message, action);
+          });
           servicesForm.get('location').reset();
         }
       } else {
         const message = 'The app could not reach geocoding services. Please refresh the page and try again.';
         const action = 'OK';
-        userService.openSnackBar(message, action);
-        console.warn('Geocode was not successful for the following reason: ' + status);
+        zone.run(() => {
+          userService.openSnackBar(message, action);
+        });        console.warn('Geocode was not successful for the following reason: ' + status);
         return null;
       }
     });

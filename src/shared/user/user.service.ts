@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase';
 import {AngularFirestore} from '@angular/fire/firestore';
@@ -45,7 +45,8 @@ export class UserService {
   isAdmin = false;
   isLoggedIn = false;
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, public snackBar: MatSnackBar, private router: Router) {}
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private snackBar: MatSnackBar, private router: Router,
+              private zone: NgZone) {}
 
   login() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(() => this.confirmLoginStatus());
@@ -69,9 +70,11 @@ export class UserService {
 
   // Function for opening snackbar.
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3000,
-      verticalPosition: 'bottom'
+    this.zone.run(() => {
+      this.snackBar.open(message, action, {
+        duration: 3000,
+        verticalPosition: 'bottom'
+      });
     });
   }
 }
