@@ -27,7 +27,7 @@
       </div>
 
       <div *ngIf="org.services!=null">
-        <h4>Services Provided</h4>
+        <h4 id="services-header">Services Provided</h4>
         <ul>
           <li *ngFor="let service of org.services">{{service}}</li>
         </ul>
@@ -36,7 +36,7 @@
 
     <div fxLayout="column" class="org-section" *ngIf="org">
       <mat-divider></mat-divider>
-      <h3><i class="far fa-clock"></i> Hours</h3>
+      <h4><i class="far fa-clock"></i> Hours</h4>
       <div *ngIf="org.specifyHours==true">
         <table>
           <tr *ngFor="let day of daysOfWeek">
@@ -53,7 +53,7 @@
     <div fxLayout="column" class="org-section">
       <div *ngIf="org">
         <mat-divider></mat-divider>
-        <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+        <h4><i class="fas fa-map-marker-alt"></i> Address</h4>
 
         <div>{{org.address.streetAddress1}}, {{org.address.streetAddress2}}</div>
         <div>{{org.address.city}}, {{org.address.state}} {{org.address.zipCode}}</div>
@@ -66,14 +66,14 @@
 
     <div fxLayout="column" class="org-section" *ngIf="org && org.website != null && org.website != ''">
       <mat-divider></mat-divider>
-      <h3><i class="fas fa-globe"></i> Website</h3>
+      <h4><i class="fas fa-globe"></i> Website</h4>
       <div><a href="{{org.website}}" target="_blank">{{org.website}}</a></div>
     </div>
 
     <div fxLayout="column" class="org-section" *ngIf="org && ((org.contact.name != null && org.contact.name != '') ||
          (org.contact.email != null && org.contact.email != '') || (org.contact.phone != null && org.contact.phone != ''))">
       <mat-divider></mat-divider>
-      <h3><i class="far fa-address-book"></i> Contact Information</h3>
+      <h4><i class="far fa-address-book"></i> Contact Information</h4>
       <div *ngIf="org.contact.name!=null">{{org.contact.name}}</div>
       <div *ngIf="org.contact.email!=null"><a href="mailto:{{org.contact.email}}">{{org.contact.email}}</a></div>
       <div *ngIf="org.contact.phone!=null"><a href="tel:{{org.contact.phone}}" >{{org.contact.phone}}</a></div>
@@ -81,7 +81,7 @@
 
     <div fxLayout="column" class="org-section" *ngIf="org">
       <mat-divider></mat-divider>
-      <h3><i class="fas fa-info-circle"></i> Other Information</h3>
+      <h4><i class="fas fa-info-circle"></i> Other Information</h4>
 
       <div>
         <table id="other-info-table">
