@@ -25,11 +25,8 @@
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="65%" fxFlex.sm="75%" fxFlex.xs="100%">
             <mat-label>Description</mat-label>
-            <textarea matInput rows="1" [required]="true" formControlName="description" [errorStateMatcher]="matcher"></textarea>
+            <textarea matInput rows="1" formControlName="description"></textarea>
             <mat-hint>Enter a brief description about the organization.</mat-hint>
-            <mat-error *ngIf="orgForm.get('description').hasError('required')">
-              Description is required.
-            </mat-error>
           </mat-form-field>
         </div>
 

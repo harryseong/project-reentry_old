@@ -4,6 +4,7 @@ import {FirestoreService} from '../../../../shared/firestore/firestore.service';
 import {ErrorStateMatcher, MatDialog} from '@angular/material';
 import {DialogComponent} from '../../../../shared/dialog/dialog.component';
 import {UserService} from '../../../../shared/user/user.service';
+import {Router} from '@angular/router';
 declare var google: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -24,7 +25,7 @@ export class OrgCreateComponent implements OnInit {
   matcher: SubscribeErrorStateMatcher; // For form error matching.
   orgForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+    description: new FormControl(''),
     services: new FormControl([], [Validators.required]),
     specifyHours: new FormControl(false),
     hours: new FormGroup({
@@ -96,7 +97,7 @@ export class OrgCreateComponent implements OnInit {
   paymentOptions = ['Free', 'Insurance', 'Medicaid', 'Sliding Scale'];
 
   constructor(private firestoreService: FirestoreService, public dialog: MatDialog, private userService: UserService,
-              private zone: NgZone) { }
+              private zone: NgZone, private router: Router) { }
 
   ngOnInit() {
     this.firestoreService.languages.valueChanges()
@@ -184,14 +185,14 @@ export class OrgCreateComponent implements OnInit {
           zone.run(() => {
             userService.openSnackBar(message, action);
           });
-          orgForm.get('address').reset();
+          orgForm.reset();
+          window.scroll(0, 0);
         } else if (state !== 'MI') {
           const message = 'The address provided was not found to be in Michigan. Please input a Michigan address.';
           const action = 'OK';
           zone.run(() => {
             userService.openSnackBar(message, action);
           });
-          orgForm.get('address').reset();
         }
       } else {
         const message = 'The app could not reach geocoding services. Please refresh the page and try again.';
