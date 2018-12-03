@@ -21,10 +21,10 @@
                 <mat-label>Where are you?</mat-label>
                 <input matInput type="text" formControlName="location" [required]="true">
                 <mat-hint>
-                  Type in your city or address. (ex. "Detroit" or "645 Griswold St, Detroit, MI")
+                  Type in a Michigan city or address. Ex. "Detroit" or "645 Griswold St, Detroit, MI"
                 </mat-hint>
                 <mat-error *ngIf="servicesForm.get('location').hasError('required')">
-                  Please type in your city or address.
+                  A Michigan city or address is required.
                 </mat-error>
               </mat-form-field>
 
@@ -39,7 +39,7 @@
               </mat-form-field>
             </div>
 
-            <button mat-stroked-button [disabled]="!servicesForm.valid" id="find-services-button">
+            <button type="button" mat-stroked-button [disabled]="!servicesForm.valid" id="find-services-button" (click)="findServices()">
               <span><i class="fas fa-search"></i> FIND SERVICES NEAR ME</span>
             </button>
 

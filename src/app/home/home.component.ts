@@ -4,6 +4,7 @@ import {FirestoreService} from '../../shared/firestore/firestore.service';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {UserService} from '../../shared/user/user.service';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -34,12 +35,42 @@ export class HomeComponent implements OnInit {
     services: new FormControl([], [Validators.required]),
   });
   transition = '';
+  geocoder = new google.maps.Geocoder();
 
-  constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService) { }
+  constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService, private userService: UserService) { }
 
   ngOnInit() {
     this.firestoreService.services.valueChanges()
       .subscribe(services => this.serviceList = this.firestoreService._sort(services, 'service'));
     this.transition = 'fadeIn';
+  }
+
+  findServices() {
+    const address = this.servicesForm.get('location').value;
+    this.codeAddress(address, this.userService, this.servicesForm);
+  }
+
+  codeAddress(address: string, userService: UserService, servicesForm) {
+    this.geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == 'OK') {
+        const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
+        const state = stateAddressComponent.short_name;
+        if (state === 'MI') {
+          const formattedAddress = results[0].formatted_address;
+          alert('Inputted location is in Michigan: ' + formattedAddress + '. Redirect to "Found Services" page.');
+        } else if (state !== 'MI') {
+          const message = 'The location provided was not found to be in Michigan. Please input a Michigan city or address.';
+          const action = 'OK';
+          userService.openSnackBar(message, action);
+          servicesForm.get('location').reset();
+        }
+      } else {
+        const message = 'The app could not reach geocoding services. Please refresh the page and try again.';
+        const action = 'OK';
+        userService.openSnackBar(message, action);
+        console.warn('Geocode was not successful for the following reason: ' + status);
+        return null;
+      }
+    });
   }
 }

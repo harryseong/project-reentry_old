@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {ActivatedRoute} from '@angular/router';
 import {FirestoreService} from '../../../../shared/firestore/firestore.service';
-declare var google: any;
 
 @Component({
   selector: 'app-org-view',
