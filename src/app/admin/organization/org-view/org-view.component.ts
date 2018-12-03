@@ -3,7 +3,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {ActivatedRoute} from '@angular/router';
 import {FirestoreService} from '../../../../shared/firestore/firestore.service';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../environments/environment';
+import * as moment from 'moment';
 declare var google: any;
 
 @Component({
@@ -42,5 +42,9 @@ export class OrgViewComponent implements OnInit {
         });
       }
     });
+  }
+
+  formatTime(time: string) {
+    return moment(time, 'HH:mm').format('h:mm A');
   }
 }

@@ -36,7 +36,9 @@
         <table>
           <tr *ngFor="let day of daysOfWeek">
             <th>{{day}}</th>
-            <td>{{org.hours[day]['open']==true ? (org.hours[day]['start'] + ' - ' + org.hours[day]['end']) : 'Closed'}}</td>
+            <td>{{org.hours[day]['open']==true ?
+              (formatTime(org.hours[day]['start']) + ' - ' + formatTime(org.hours[day]['end'])) : 'Closed'}}
+            </td>
           </tr>
         </table>
       </div>
@@ -81,11 +83,31 @@
           <li *ngFor="let language of org.languages">{{language}}</li>
         </ul>
       </div>
-      <div>What to Bring: {{org.bringWithYou}}</div>
-      <div>Payment: {{org.payment}}</div>
-      <div>Transportation Provided: {{org.transportation ? 'Yes' : 'No'}}</div>
-      <div>Eligibility Requirements: {{org.eligibilityRequirements ? 'Yes' : 'No'}}</div>
-      <div>Senior Requirements: {{org.seniorRequirements ? 'Yes' : 'No'}}</div>
+
+      <div>
+        <table id="other-info-table">
+          <tr>
+            <th>What to Bring</th>
+            <td>{{org.bringWithYou=='' ? 'None specified' : org.bringWithYou}}</td>
+          </tr>
+          <tr>
+            <th>Payment</th>
+            <td>{{org.payment}}</td>
+          </tr>
+          <tr>
+            <th>Transportation Provided</th>
+            <td>{{org.transportation ? 'Yes' : 'No'}}</td>
+          </tr>
+          <tr>
+            <th>Eligibility Requirements</th>
+            <td>{{org.eligibilityRequirements ? 'Yes' : 'No'}}</td>
+          </tr>
+          <tr>
+            <th>Senior Requirements</th>
+            <td>{{org.seniorRequirements ? 'Yes' : 'No'}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </div>
