@@ -51,7 +51,7 @@
       <mat-tab label="By Categories">
         <div class="mat-tab-contents">
           <div fxLayout="row wrap" fxLayoutAlign="start">
-            <a href="#" [routerLink]="'services/'+service.service" routerLinkActive="active" class="service-tile" *ngFor="let service of serviceList">{{service.service}}</a>
+            <a fxFlex.xs="100%" href="#" [routerLink]="'services/'+service.service" routerLinkActive="active" class="service-tile" *ngFor="let service of serviceList">{{service.service}}</a>
           </div>
         </div>
       </mat-tab>
