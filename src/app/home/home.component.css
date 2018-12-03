@@ -28,6 +28,7 @@
     cursor: pointer;
     opacity: 1;
     transition: 0.4s;
+    margin-right: 0.375em;
     transform: scale(1.05);
     border-left-width: 0.4em;
     border-left-color: #5c5c5c;
