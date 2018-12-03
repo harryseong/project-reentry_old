@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {ActivatedRoute} from '@angular/router';
 import {FirestoreService} from '../../../../shared/firestore/firestore.service';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 declare var google: any;
 
 @Component({
@@ -12,8 +14,10 @@ declare var google: any;
 export class OrgViewComponent implements OnInit {
   orgName = '';
   org: any = null;
+  daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  constructor(private db: AngularFirestore, private firestoreService: FirestoreService, private route: ActivatedRoute) { }
+  constructor(private db: AngularFirestore, private firestoreService: FirestoreService, private route: ActivatedRoute,
+              private http: HttpClient) { }
 
   ngOnInit() {
     this.orgName = this.route.snapshot.params['name'];
@@ -34,8 +38,7 @@ export class OrgViewComponent implements OnInit {
                 map: map,
                 position: gpsCoords
               });
-            }
-          );
+            });
         });
       }
     });

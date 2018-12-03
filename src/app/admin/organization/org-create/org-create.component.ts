@@ -173,7 +173,7 @@ export class OrgCreateComponent implements OnInit {
         const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
         const state = stateAddressComponent.short_name;
         if (state === 'MI') {
-          // Get lat and lng of address and save to them in Firestore.
+          // Get lat and lng of address and save them in Firestore.
           const lat = results[0].geometry.location.lat();
           const lng = results[0].geometry.location.lng();
           orgForm.get('address').get('gpsCoords').get('lat').setValue(lat);

@@ -26,6 +26,7 @@ import { OrgEditComponent } from './admin/organization/org-edit/org-edit.compone
 import { OrgViewComponent } from './admin/organization/org-view/org-view.component';
 import { HeaderComponent } from './header/header.component';
 import { ServicesComponent } from './services/services.component';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {
@@ -79,6 +80,7 @@ const appRoutes: Routes = [
     FlexModule,
     FlexLayoutModule,
     FormsModule,
+    HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
   ],

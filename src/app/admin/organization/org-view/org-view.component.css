@@ -7,3 +7,14 @@
     width: 25em;
     margin-top: 1em;
 }
+
+table, th, td {
+    width: auto;
+    text-align: left;
+}
+th, td {
+    padding: 0 0.2em;
+}
+th {
+    font-weight: 600;
+}

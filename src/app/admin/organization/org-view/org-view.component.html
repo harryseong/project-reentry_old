@@ -1,7 +1,7 @@
 <div fxLayoutAlign="center center">
   <div fxLayout="column" class="content">
 
-    <div fxLayout="column" fxLayoutGap="1em" class="org-section">
+    <div fxLayout="column" fxLayoutGap="1em" class="org-section" *ngIf="org">
 
       <div fxLayout="row" fxLayoutAlign="start">
         <button mat-stroked-button routerLink="/admin/organization/all" routerLinkActive="active">
@@ -28,51 +28,52 @@
       </div>
     </div>
 
-    <mat-divider></mat-divider>
+    <div fxLayout="column" class="org-section" *ngIf="org">
+      <mat-divider></mat-divider>
 
-    <div fxLayout="column" class="org-section">
       <h3><i class="far fa-clock"></i> Hours</h3>
-      <div>
-        test
-        <ul>
-          <li>{{org.hours['Thursday']['start']}} - {{org.hours['Thursday']['end']}}</li>
-        </ul>
+      <div *ngIf="org.specifyHours==true">
+        <table>
+          <tr *ngFor="let day of daysOfWeek">
+            <th>{{day}}</th>
+            <td>{{org.hours[day]['open']==true ? (org.hours[day]['start'] + ' - ' + org.hours[day]['end']) : 'Closed'}}</td>
+          </tr>
+        </table>
       </div>
-      <div *ngIf="org.specifyHours==false">No hours specified</div>
+      <div *ngIf="org.specifyHours==false">None specified</div>
     </div>
 
-    <mat-divider></mat-divider>
-
     <div fxLayout="column" class="org-section">
-      <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+      <div *ngIf="org">
+        <mat-divider></mat-divider>
+        <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
 
-      <div>{{org.address.streetAddress1}}, {{org.address.streetAddress2}}</div>
-      <div>{{org.address.city}}, {{org.address.state}} {{org.address.zipCode}}</div>
+        <div>{{org.address.streetAddress1}}, {{org.address.streetAddress2}}</div>
+        <div>{{org.address.city}}, {{org.address.state}} {{org.address.zipCode}}</div>
+      </div>
 
       <div fxLayout="row" fxLayoutAlign="center center">
         <div id="gMap"></div>
       </div>
     </div>
 
-    <mat-divider></mat-divider>
-
-    <div fxLayout="column" class="org-section">
+    <div fxLayout="column" class="org-section" *ngIf="org && org.website != null && org.website != ''">
+      <mat-divider></mat-divider>
       <h3><i class="fas fa-globe"></i> Website</h3>
       <div><a href="{{org.website}}" target="_blank">{{org.website}}</a></div>
     </div>
 
-    <mat-divider></mat-divider>
-
-    <div fxLayout="column" class="org-section">
+    <div fxLayout="column" class="org-section" *ngIf="org && ((org.contact.name != null && org.contact.name != '') ||
+         (org.contact.email != null && org.contact.email != '') || (org.contact.phone != null && org.contact.phone != ''))">
+      <mat-divider></mat-divider>
       <h3><i class="far fa-address-book"></i> Contact Information</h3>
       <div *ngIf="org.contact.name!=null">{{org.contact.name}}</div>
       <div *ngIf="org.contact.email!=null"><a href="mailto:{{org.contact.email}}">{{org.contact.email}}</a></div>
       <div *ngIf="org.contact.phone!=null"><a href="tel:{{org.contact.phone}}" >{{org.contact.phone}}</a></div>
     </div>
 
-    <mat-divider></mat-divider>
-
-    <div fxLayout="column">
+    <div fxLayout="column" class="org-section" *ngIf="org">
+      <mat-divider></mat-divider>
       <h3><i class="fas fa-info-circle"></i> Other Information</h3>
       <div>
         Languages Provided:
