@@ -11,11 +11,26 @@ body {
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   margin-bottom: 5em;
-  background-color: #b3f9ea;
+  /*background-color: #b3f9ea;*/
 }
 
-.app-bg-color, div.mat-drawer-inner-container, table.mat-table {
-  background-color: #b3f9ea;
+html, app-root, app-navbar, mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.app-bg-color, div.mat-drawer-inner-container {
+  /*background-color: #b3f9ea;*/
+  background-image: linear-gradient(#FFFEC1, #dbdaa4);
+}
+
+table.mat-table {
+  background-color: rgba(255, 255, 255, 0);
 }
 
 mat-sidenav {
@@ -32,13 +47,17 @@ mat-sidenav {
 
 .content {
   padding: 1em;
-  margin: 1em 0;
 }
 
-.content, footer {
+.header {
+  padding: 1em;
+  margin-top: 1em;
+}
+
+.header, .content, footer {
   min-width: 30%;
   max-width: 100%;
-  width: 45em;
+  width: 50em;
 }
 
 .no-wrap {

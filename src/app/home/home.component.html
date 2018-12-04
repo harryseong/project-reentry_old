@@ -1,13 +1,13 @@
-<div fxLayoutAlign="center center">
-  <div fxLayout="column" class="content">
+<div fxLayoutAlign="center center" fxLayout="column">
 
+  <div fxLayout="column" class="header">
     <app-header></app-header>
+    <div id="subheading" [@transitionAnimations]="transition">Connecting you to the services you need...</div>
+  </div>
 
-    <div id="subheading" [@transitionAnimations]="transition">
-      Connecting you to the services you need...
-    </div>
+  <div fxLayout="column" fxLayoutGap="1em" class="content">
 
-    <mat-tab-group mat-align-tabs="start" [@transitionAnimations]="transition" class="services-tab-group">
+    <mat-tab-group mat-align-tabs="start" [@transitionAnimations]="transition">
 
       <mat-tab label="Near Me">
 
@@ -17,24 +17,27 @@
 
             <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
 
-              <mat-form-field fxFlex="45%" fxFlex.sm="45" fxFlex.xs="100%">
-                <mat-label>Where are you?</mat-label>
-                <input matInput type="text" formControlName="location" [required]="true">
-                <mat-hint>
-                  Type in a Michigan city or address. Ex. "Detroit" or "645 Griswold St, Detroit, MI"
-                </mat-hint>
-                <mat-error *ngIf="servicesForm.get('location').hasError('required')">
-                  A Michigan city or address is required.
-                </mat-error>
-              </mat-form-field>
-
               <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
                 <mat-label>Which services are you looking for?</mat-label>
                 <mat-select formControlName="services" multiple [required]="true">
                   <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
                 </mat-select>
+                <mat-hint>
+                  Select at least one type of service.
+                </mat-hint>
                 <mat-error *ngIf="servicesForm.get('services').hasError('required')">
-                  Please select at least one service.
+                  Please select at least one type of service.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="45%" fxFlex.sm="45" fxFlex.xs="100%">
+                <mat-label>Where are you?</mat-label>
+                <input matInput type="text" formControlName="location" placeholder="ex. 'Detroit' or '645 Griswold St, Detroit, MI'" [required]="true">
+                <mat-hint>
+                  Type in your city or address located in Michigan.
+                </mat-hint>
+                <mat-error *ngIf="servicesForm.get('location').hasError('required')">
+                  A city or address located in Michigan is required.
                 </mat-error>
               </mat-form-field>
             </div>

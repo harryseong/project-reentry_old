@@ -1,11 +1,13 @@
-<div fxLayoutAlign="center center">
-  <div fxLayout="column" class="content">
+<div fxLayoutAlign="center center" fxLayout="column">
 
+  <div fxLayout="column" class="header">
     <app-header></app-header>
-
     <div id="subheading" [@transitionAnimations]="transition">A little about us...</div>
+  </div>
 
-    <mat-tab-group mat-align-tabs="start" [@transitionAnimations]="transition" class="about-tab-group">
+  <div fxLayout="column" fxLayoutGap="1em" class="content">
+
+    <mat-tab-group mat-align-tabs="start" [@transitionAnimations]="transition">
       <mat-tab label="SADO">
         <h3>State Appellate Defender Office (SADO)</h3>
         <p>

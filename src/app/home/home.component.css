@@ -13,20 +13,18 @@
     height: auto;
     min-width: 20em;
     width: 30%;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0);
     transition: 0.2s;
     padding: 1em;
     margin: 0.5em;
-    border-radius: 0.25em;
-    border-left-style: solid;
-    border-left-color: #f0f0f0;
-    border-left-width: 0.3em;
+    border-radius: 0.15em;
+    border: 0.1em solid black;
 }
 
 .service-tile:hover {
     cursor: pointer;
     transition: 0.4s;
-    margin-right: 0.375em;
+    margin-right: 0.1em;
     transform: scale(1.025);
     border-left-width: 0.4em;
     border-left-color: #5c5c5c;
@@ -34,8 +32,4 @@
 
 .mat-tab-contents {
     padding: 1em 0;
-}
-
-.services-tab-group {
-    margin-top: 2em;
 }

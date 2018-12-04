@@ -1,20 +1,20 @@
-<div fxLayoutAlign="center center">
-  <div fxLayout="column" fxLayoutGap="2em" class="content">
+<div fxLayoutAlign="center center" fxLayout="column">
 
-    <div>
-      <app-header></app-header>
-
-      <div id="subheading" [@transitionAnimations]="transition">
-        I'm looking for <strong>{{serviceType.toLowerCase()}}</strong> services...
-      </div>
+  <div fxLayout="column" class="header">
+    <app-header></app-header>
+    <div id="subheading" [@transitionAnimations]="transition">
+      I'm looking for <strong>{{serviceType.toLowerCase()}}</strong> services...
     </div>
+  </div>
 
-    <div *ngIf="dataSource.data.length == 0" [@transitionAnimations]="transition">
+  <div fxLayout="column" fxLayoutGap="1em" class="content">
+
+    <div *ngIf="dataSource.data.length==0" [@transitionAnimations]="transition">
       <strong><i class="far fa-frown"></i> No services found!</strong>
       <div>Looks like we don't have any services listed for this category yet.</div>
     </div>
 
-    <div *ngIf="dataSource.data.length > 0" [@transitionAnimations]="transition">
+    <div *ngIf="dataSource.data.length>0" [@transitionAnimations]="transition" class="service">
       <div fxLayout="row">
         <mat-form-field fxFlex="18em" fxFlex.xs="50%">
           <mat-label><i class="fas fa-search"></i> Search</mat-label>
