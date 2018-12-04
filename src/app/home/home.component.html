@@ -18,7 +18,7 @@
             <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
 
               <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
-                <mat-label>Which services are you looking for?</mat-label>
+                <mat-label><i class="fas fa-concierge-bell fa-sm"></i> Which services are you looking for?</mat-label>
                 <mat-select formControlName="services" multiple [required]="true">
                   <mat-option *ngFor="let service of serviceList" [value]="service.service">{{service.service}}</mat-option>
                 </mat-select>
@@ -31,7 +31,7 @@
               </mat-form-field>
 
               <mat-form-field fxFlex="45%" fxFlex.sm="45" fxFlex.xs="100%">
-                <mat-label>Where are you?</mat-label>
+                <mat-label><i class="fas fa-map-marker-alt fa-sm"></i> Where are you?</mat-label>
                 <input matInput type="text" formControlName="location" placeholder="ex. 'Detroit' or '645 Griswold St, Detroit, MI'" [required]="true">
                 <mat-hint>
                   Type in your city or address located in Michigan.
@@ -54,7 +54,7 @@
       <mat-tab label="By Categories">
         <div class="mat-tab-contents">
           <div fxLayout="row wrap" fxLayoutAlign="center">
-            <a fxFlex.xs="90%" href="#" [routerLink]="'services/'+service.service" routerLinkActive="active" class="service-tile" *ngFor="let service of serviceList">{{service.service}}</a>
+            <a fxFlex="45%" fxFlex.xs="90%" href="#" [routerLink]="'services/'+service.service" routerLinkActive="active" class="service-tile" *ngFor="let service of serviceList">{{service.service}}</a>
           </div>
         </div>
       </mat-tab>

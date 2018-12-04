@@ -11,7 +11,7 @@
     font-weight: 600;
     text-decoration: none;
     height: auto;
-    min-width: 20em;
+    min-width: 19em;
     width: 30%;
     background-color: rgba(255, 255, 255, 0);
     transition: 0.2s;
@@ -24,7 +24,7 @@
 .service-tile:hover {
     cursor: pointer;
     transition: 0.4s;
-    margin-right: 0.1em;
+    margin-right: 0.5em;
     transform: scale(1.025);
     border-left-width: 0.4em;
     border-left-color: #5c5c5c;
