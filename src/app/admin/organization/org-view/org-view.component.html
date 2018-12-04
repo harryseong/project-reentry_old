@@ -1,7 +1,12 @@
 <div fxLayoutAlign="center center">
   <div fxLayout="column" class="content">
 
-    <div fxLayout="column" class="org-section" *ngIf="org">
+    <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="!org">
+      <mat-spinner [diameter]="75"></mat-spinner>
+      <div>Loading...</div>
+    </div>
+
+    <div fxLayout="column" class="org-section" *ngIf="org" [@transitionAnimations]="transition">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5em" fxLayoutAlign="start">
         <span>
           <button mat-stroked-button routerLink="/admin/organization/all" routerLinkActive="active">

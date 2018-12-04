@@ -74,7 +74,7 @@ const materialModules = [
   MatPaginatorModule,
   MatSidenavModule,
   MatChipsModule,
-  MatTabsModule
+  MatTabsModule,
 ];
 
 @NgModule({

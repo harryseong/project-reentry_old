@@ -14,7 +14,6 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AdminComponent } from './admin/admin.component';
 import {RouterModule, Routes} from '@angular/router';
-import { ServiceComponent } from './admin/service/service.component';
 import { HomeComponent } from './home/home.component';
 import {AuthGuard} from './auth/auth.guard';
 import { UsersComponent } from './admin/users/users.component';
@@ -55,7 +54,6 @@ const appRoutes: Routes = [
     OrganizationComponent,
     NavbarComponent,
     AdminComponent,
-    ServiceComponent,
     HomeComponent,
     UsersComponent,
     DialogComponent,

@@ -50,6 +50,10 @@ mat-sidenav {
   overflow-x: scroll;
 }
 
+.progress-spinner {
+  margin-top: 5em;
+}
+
 table {
   width: 100%;
 }
