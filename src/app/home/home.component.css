@@ -17,8 +17,8 @@
     transition: 0.2s;
     padding: 1em;
     margin: 0.5em;
-    border-radius: 0.15em;
-    border: 0.1em solid black;
+    border-radius: 0.175em;
+    border: 0.05em solid #515151;
 }
 
 .service-tile:hover {
@@ -26,7 +26,7 @@
     transition: 0.4s;
     margin-right: 0.5em;
     transform: scale(1.025);
-    border-left: 0.4em solid black;
+    border-left: 0.27em solid #515151;
 }
 
 .mat-tab-contents {
