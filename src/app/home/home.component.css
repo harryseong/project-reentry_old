@@ -26,8 +26,7 @@
     transition: 0.4s;
     margin-right: 0.5em;
     transform: scale(1.025);
-    border-left-width: 0.4em;
-    border-left-color: #5c5c5c;
+    border-left: 0.4em solid black;
 }
 
 .mat-tab-contents {
