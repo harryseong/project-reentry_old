@@ -33,6 +33,18 @@ table.mat-table {
   background-color: rgba(255, 255, 255, 0);
 }
 
+table {
+  width: 100%;
+}
+
+table td, table th {
+  padding: 0 0.3em;
+}
+
+table td {
+  font-size: 0.9em;
+}
+
 mat-sidenav {
   width: 18em;
 }
@@ -71,14 +83,6 @@ mat-sidenav {
 
 .progress-spinner {
   margin-top: 5em;
-}
-
-table {
-  width: 100%;
-}
-
-table td {
-  font-size: 0.9em;
 }
 
 button.edit-button {
