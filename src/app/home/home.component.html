@@ -63,6 +63,10 @@
                   <th>My Place ID</th>
                   <td>{{servicesNearMe.myLocation}}</td>
                 </tr>
+                <tr *ngFor="let org of servicesNearMe.orgList">
+                  <th>{{org.name}}</th>
+                  <td>{{org.description}}</td>
+                </tr>
               </table>
 
               <button mat-stroked-button type="button" (click)="back()">BACK</button>

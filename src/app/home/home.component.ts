@@ -21,6 +21,7 @@ export interface ServicesNearMe {
   loading: boolean;
   myLocation: any;
   serviceCategories: string[];
+  orgList: any[];
 }
 
 @Component({
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit {
     this.firestoreService.services.valueChanges()
       .subscribe(services => this.serviceList = this.firestoreService._sort(services, 'service'));
     this.transition = 'fadeIn';
-    this.servicesNearMe = {display: false, loading: false, myLocation: null, serviceCategories: []};
+    this.servicesNearMe = {display: false, loading: false, myLocation: null, serviceCategories: [], orgList: []};
   }
 
   findServices() {
@@ -68,11 +69,16 @@ export class HomeComponent implements OnInit {
         const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
         const state = stateAddressComponent.short_name;
         if (state === 'MI') {
-          const formattedAddress = results[0].formatted_address;
           this.servicesNearMe.display = true;
           this.servicesNearMe.myLocation = results[0].place_id;
           this.servicesNearMe.serviceCategories = this.servicesForm.get('services').value;
           this.servicesForm.reset();
+          this.firestoreService.organizations.valueChanges().subscribe(
+            rsp => {
+              this.servicesNearMe.orgList = rsp.filter(
+                org => org.services.some(service => this.servicesNearMe.serviceCategories.includes(service)));
+            }
+          );
           this.servicesNearMe.loading = false;
         } else if (state !== 'MI') {
           this.servicesNearMe.loading = false;
@@ -96,6 +102,6 @@ export class HomeComponent implements OnInit {
   }
 
   back() {
-    this.servicesNearMe = {display: false, loading: false, myLocation: null, serviceCategories: []};
+    this.servicesNearMe = {display: false, loading: false, myLocation: null, serviceCategories: [], orgList: []};
   }
 }
