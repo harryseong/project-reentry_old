@@ -48,7 +48,6 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'services/view/:serviceCategory', component: ServicesCategoryComponent },
-  { path: 'services/near', component: ServicesNearComponent },
   { path: 'service/view/:name', component: ServiceViewComponent },
 ];
 
