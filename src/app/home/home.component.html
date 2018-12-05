@@ -53,24 +53,13 @@
           </form>
 
           <div fxLayout="column" fxLayoutGap="0.5em" *ngIf="servicesNearMe.display==true && servicesNearMe.loading==false">
-            <div fxLayout="column" fxLayoutGap="1em">
-              <table>
-                <tr>
-                  <th>Services</th>
-                  <td>{{servicesNearMe.serviceCategories}}</td>
-                </tr>
-                <tr>
-                  <th>My Place ID</th>
-                  <td>{{servicesNearMe.myLocation}}</td>
-                </tr>
-                <tr *ngFor="let org of servicesNearMe.orgList">
-                  <th>{{org.name}}</th>
-                  <td>{{org.description}}</td>
-                </tr>
-              </table>
-
-              <button mat-stroked-button type="button" (click)="back()">BACK</button>
+            <div *ngFor="let org of servicesNearMe.orgList">
+              <div>{{org.name}}</div>
+              <p>{{org.description}}</p>
+              <mat-divider></mat-divider>
             </div>
+
+            <button mat-stroked-button type="button" (click)="back()">BACK</button>
           </div>
 
         </div>

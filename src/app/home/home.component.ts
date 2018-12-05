@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
           this.servicesNearMe.loading = false;
         } else if (state !== 'MI') {
           this.servicesNearMe.loading = false;
-          const message = 'The myLocation provided was not found to be in Michigan. Please input a Michigan city or address.';
+          const message = 'The location provided was not found to be in Michigan. Please input a Michigan city or address.';
           const action = 'OK';
           this.zone.run(() => {
             this.userService.openSnackBar(message, action);
