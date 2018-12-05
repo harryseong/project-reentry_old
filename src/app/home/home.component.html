@@ -13,8 +13,13 @@
 
         <div class="mat-tab-contents" fxLayout="column" fxLayoutGap="1.5em" fxLayoutAlign="start start">
 
-          <form [formGroup]="servicesForm" id="find-services-form" [@transitionAnimations]="transition" fxFill>
+          <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="servicesNearMe.loading==true">
+            <mat-spinner [diameter]="75"></mat-spinner>
+            <div>Loading...</div>
+          </div>
 
+          <form [formGroup]="servicesForm" id="find-services-form" [@transitionAnimations]="transition" fxFill
+                *ngIf="servicesNearMe.display==false && servicesNearMe.loading==false">
             <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
 
               <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
@@ -45,8 +50,24 @@
             <button type="button" mat-stroked-button [disabled]="!servicesForm.valid" id="find-services-button" (click)="findServices()">
               <span><i class="fas fa-search"></i> FIND SERVICES NEAR ME</span>
             </button>
-
           </form>
+
+          <div fxLayout="column" fxLayoutGap="0.5em" *ngIf="servicesNearMe.display==true && servicesNearMe.loading==false">
+            <div fxLayout="column" fxLayoutGap="1em">
+              <table>
+                <tr>
+                  <th>Services</th>
+                  <td>{{servicesNearMe.serviceCategories}}</td>
+                </tr>
+                <tr>
+                  <th>My Place ID</th>
+                  <td>{{servicesNearMe.myLocation}}</td>
+                </tr>
+              </table>
+
+              <button mat-stroked-button type="button" (click)="back()">BACK</button>
+            </div>
+          </div>
 
         </div>
       </mat-tab>
@@ -54,7 +75,7 @@
       <mat-tab label="By Categories">
         <div class="mat-tab-contents">
           <div fxLayout="row wrap" fxLayoutAlign="center">
-            <a fxFlex="45%" fxFlex.xs="90%" href="#" [routerLink]="'services/'+service.service" routerLinkActive="active" class="service-tile" *ngFor="let service of serviceList">{{service.service}}</a>
+            <a fxFlex="45%" fxFlex.xs="90%" href="#" [routerLink]="'services/view/'+service.service" routerLinkActive="active" class="service-tile" *ngFor="let service of serviceList">{{service.service}}</a>
           </div>
         </div>
       </mat-tab>

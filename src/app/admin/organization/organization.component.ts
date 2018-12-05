@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FirestoreService} from '../../../shared/firestore/firestore.service';
+import {FirestoreService} from '../../../shared/services/firestore/firestore.service';
 import {MatTableDataSource, Sort} from '@angular/material';
 import {Router} from '@angular/router';
 

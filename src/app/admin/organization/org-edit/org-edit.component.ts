@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {FirestoreService} from '../../../../shared/firestore/firestore.service';
+import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import {ErrorStateMatcher, MatDialog} from '@angular/material';
 import {DialogComponent} from '../../../../shared/dialog/dialog.component';
 

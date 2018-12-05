@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {FirestoreService} from '../../../shared/firestore/firestore.service';
+import {FirestoreService} from '../../../shared/services/firestore/firestore.service';
 import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 declare var google: any;

@@ -32,3 +32,7 @@
 .mat-tab-contents {
     padding: 1em 0;
 }
+
+.progress-spinner {
+    margin-top: 2em;
+}

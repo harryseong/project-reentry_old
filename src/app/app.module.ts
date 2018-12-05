@@ -28,7 +28,6 @@ import { ServicesComponent } from './services/services.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ServiceViewComponent } from './services/service-view/service-view.component';
 import { ServicesCategoryComponent } from './services/services-category/services-category.component';
-import { ServicesNearComponent } from './services/services-near/services-near.component';
 
 const appRoutes: Routes = [
   {
@@ -48,9 +47,9 @@ const appRoutes: Routes = [
   },
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'services/:serviceCategory', component: ServicesCategoryComponent },
+  { path: 'services/view/:serviceCategory', component: ServicesCategoryComponent },
   { path: 'services/near', component: ServicesNearComponent },
-  { path: 'service/:name', component: ServiceViewComponent },
+  { path: 'service/view/:name', component: ServiceViewComponent },
 ];
 
 @NgModule({
@@ -71,7 +70,6 @@ const appRoutes: Routes = [
     ServicesComponent,
     ServiceViewComponent,
     ServicesCategoryComponent,
-    ServicesNearComponent
   ],
   imports: [
     RouterModule.forRoot(

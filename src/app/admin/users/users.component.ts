@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FirestoreService} from '../../../shared/firestore/firestore.service';
+import {FirestoreService} from '../../../shared/services/firestore/firestore.service';
 import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource, Sort} from '@angular/material';
 import {DialogComponent} from '../../../shared/dialog/dialog.component';
-import {UserService} from '../../../shared/user/user.service';
+import {UserService} from '../../../shared/services/user/user.service';
 
 @Component({
   selector: 'app-users',
