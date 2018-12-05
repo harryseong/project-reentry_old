@@ -5,6 +5,7 @@ import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@a
 import {ErrorStateMatcher} from '@angular/material';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {UserService} from '../../shared/user/user.service';
+import {Router} from '@angular/router';
 declare var google: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit {
   transition = '';
 
   constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService, private userService: UserService,
-              private zone: NgZone) { }
+              private zone: NgZone, private router: Router) { }
 
   ngOnInit() {
     this.firestoreService.services.valueChanges()
@@ -48,17 +49,22 @@ export class HomeComponent implements OnInit {
 
   findServices() {
     const address = this.servicesForm.get('location').value;
-    this.codeAddress(address, this.userService, this.servicesForm, this.zone);
+    this.codeAddress(address);
   }
 
-  codeAddress(address: string, userService: UserService, servicesForm, zone) {
+  codeAddress(address: string) {
+    const router = this.router;
+    const servicesForm = this.servicesForm;
+    const userService = this.userService;
+    const zone = this.zone;
+
     this.geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == 'OK') {
         const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
         const state = stateAddressComponent.short_name;
         if (state === 'MI') {
           const formattedAddress = results[0].formatted_address;
-          alert('Inputted location is in Michigan: ' + formattedAddress + '. Redirect to "Found Services" page.');
+          zone.run(() => router.navigate(['/services/near'])).then();
         } else if (state !== 'MI') {
           const message = 'The location provided was not found to be in Michigan. Please input a Michigan city or address.';
           const action = 'OK';

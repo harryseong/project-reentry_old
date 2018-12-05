@@ -11,7 +11,7 @@
 
     <div *ngIf="dataSource==null || dataSource.data.length==0" [@transitionAnimations]="transition">
       <strong><i class="far fa-frown"></i> No services found!</strong>
-      <div>Looks like we don't have any services listed for this category yet.</div>
+      <div>This feature is still in testing.</div>
     </div>
 
     <div *ngIf="dataSource!=null && dataSource.data.length>0" [@transitionAnimations]="transition" class="service">
