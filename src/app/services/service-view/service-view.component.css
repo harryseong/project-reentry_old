@@ -1,0 +1,28 @@
+.org-section {
+    margin-bottom: 1em;
+}
+
+.org-name {
+    font-size: 1.75em;
+    font-weight: 500;
+}
+
+#gMap {
+    height: 15em;
+    width: 25em;
+    margin-top: 1em;
+}
+
+table, th, td {
+    width: auto;
+    text-align: left;
+}
+th, td {
+    padding: 0 0.2em;
+}
+th {
+    font-weight: 500;
+}
+h4#services-header {
+    margin: 0;
+}

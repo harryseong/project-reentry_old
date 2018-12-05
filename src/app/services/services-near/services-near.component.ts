@@ -1,25 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import {FirestoreService} from '../../../shared/firestore/firestore.service';
+import {animate, style, transition, trigger} from '@angular/animations';
 import {MatTableDataSource, Sort} from '@angular/material';
-import {Router} from '@angular/router';
+import {FirestoreService} from '../../../shared/firestore/firestore.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-organization',
-  templateUrl: './organization.component.html',
-  styleUrls: ['./organization.component.css']
+  selector: 'app-services-near',
+  templateUrl: './services-near.component.html',
+  styleUrls: ['./services-near.component.css'],
+  animations: [
+    trigger('transitionAnimations', [
+      transition('* => fadeIn', [
+        style({ opacity: 0 }),
+        animate(750, style({ opacity: 1 })),
+      ])
+    ])
+  ]
 })
-export class OrganizationComponent implements OnInit {
+export class ServicesNearComponent implements OnInit {
   displayedColumns: string[] = ['name', 'languages', 'services', 'website', 'city'];
   dataSource: MatTableDataSource<any>;
   orgList: any[] = [];
+  serviceCategory: string;
+  transition = '';
 
-  constructor(private firestoreService: FirestoreService, private router: Router) {}
+  constructor(private firestoreService: FirestoreService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.serviceCategory = this.route.snapshot.params['serviceCategory'];
     this.firestoreService.organizations.valueChanges().subscribe(
       rsp => {
-        this.orgList = rsp;
-        this.dataSource = new MatTableDataSource(rsp);
+        this.orgList = rsp.filter(org => org.services.includes(this.serviceCategory));
+        this.dataSource = new MatTableDataSource(this.orgList);
+        this.transition = 'fadeIn';
         // Set custom filter predicate for searching nested fields of organization objects.
         this.dataSource.filterPredicate = (data, filter: string)  => {
           const accumulator = (currentTerm, key) => {
@@ -80,11 +93,5 @@ export class OrganizationComponent implements OnInit {
       search += data[key];
     }
     return search;
-  }
-
-  viewOrg(orgName: string) {
-    alert(orgName);
-
-    this.router.navigate(['/admin/organization/view/', {name: orgName}]);
   }
 }

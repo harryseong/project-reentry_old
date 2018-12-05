@@ -1,0 +1,106 @@
+<div fxLayoutAlign="center center">
+  <div fxLayout="column" class="content">
+
+    <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="!org">
+      <mat-spinner [diameter]="75"></mat-spinner>
+      <div>Loading...</div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="1.5em" class="org-section" *ngIf="org">
+      <div fxLayout="column" fxLayoutGap="0.2em">
+        <div class="org-name">{{org.name}}</div>
+        <div>{{org.description}}</div>
+      </div>
+
+      <div *ngIf="org.services!=null">
+        <h4 id="services-header">Services Provided</h4>
+        <ul>
+          <li *ngFor="let service of org.services">{{service}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div fxLayout="column" class="org-section" *ngIf="org">
+      <mat-divider></mat-divider>
+      <h4><i class="far fa-clock"></i> Hours</h4>
+      <div *ngIf="org.specifyHours==true">
+        <table>
+          <tr *ngFor="let day of daysOfWeek">
+            <th>{{day}}</th>
+            <td>{{org.hours[day]['open']==true ?
+              (formatTime(org.hours[day]['start']) + ' - ' + formatTime(org.hours[day]['end'])) : 'Closed'}}
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div *ngIf="org.specifyHours==false">None specified</div>
+    </div>
+
+    <div fxLayout="column" class="org-section">
+      <div *ngIf="org">
+        <mat-divider></mat-divider>
+        <h4><i class="fas fa-map-marker-alt"></i> Address</h4>
+
+        <div>{{org.address.streetAddress1}}, {{org.address.streetAddress2}}</div>
+        <div>{{org.address.city}}, {{org.address.state}} {{org.address.zipCode}}</div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div id="gMap"></div>
+      </div>
+    </div>
+
+    <div fxLayout="column" class="org-section" *ngIf="org && org.website != null && org.website != ''">
+      <mat-divider></mat-divider>
+      <h4><i class="fas fa-globe"></i> Website</h4>
+      <div><a href="{{org.website}}" target="_blank">{{org.website}}</a></div>
+    </div>
+
+    <div fxLayout="column" class="org-section" *ngIf="org && ((org.contact.name != null && org.contact.name != '') ||
+         (org.contact.email != null && org.contact.email != '') || (org.contact.phone != null && org.contact.phone != ''))">
+      <mat-divider></mat-divider>
+      <h4><i class="far fa-address-book"></i> Contact Information</h4>
+      <div *ngIf="org.contact.name!=null">{{org.contact.name}}</div>
+      <div *ngIf="org.contact.email!=null"><a href="mailto:{{org.contact.email}}">{{org.contact.email}}</a></div>
+      <div *ngIf="org.contact.phone!=null"><a href="tel:{{org.contact.phone}}" >{{org.contact.phone}}</a></div>
+    </div>
+
+    <div fxLayout="column" class="org-section" *ngIf="org">
+      <mat-divider></mat-divider>
+      <h4><i class="fas fa-info-circle"></i> Other Information</h4>
+
+      <div>
+        <table id="other-info-table">
+          <tr *ngIf="org.languages != null && org.languages.length > 0">
+            <th>Other Languages Spoken</th>
+            <td>
+              <span *ngFor="let language of org.languages; last as isLast">
+                {{language}}<span *ngIf="!isLast">, </span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th>What to Bring</th>
+            <td>{{org.bringWithYou=='' ? 'None specified' : org.bringWithYou}}</td>
+          </tr>
+          <tr>
+            <th>Payment</th>
+            <td>{{org.payment}}</td>
+          </tr>
+          <tr>
+            <th>Transportation Provided</th>
+            <td>{{org.transportation ? 'Yes' : 'No'}}</td>
+          </tr>
+          <tr>
+            <th>Eligibility Requirements</th>
+            <td>{{org.eligibilityRequirements ? 'Yes' : 'No'}}</td>
+          </tr>
+          <tr>
+            <th>Senior Requirements</th>
+            <td>{{org.seniorRequirements ? 'Yes' : 'No'}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

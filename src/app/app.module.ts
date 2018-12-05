@@ -26,6 +26,9 @@ import { OrgViewComponent } from './admin/organization/org-view/org-view.compone
 import { HeaderComponent } from './header/header.component';
 import { ServicesComponent } from './services/services.component';
 import {HttpClientModule} from '@angular/common/http';
+import { ServiceViewComponent } from './services/service-view/service-view.component';
+import { ServicesCategoryComponent } from './services/services-category/services-category.component';
+import { ServicesNearComponent } from './services/services-near/services-near.component';
 
 const appRoutes: Routes = [
   {
@@ -45,7 +48,8 @@ const appRoutes: Routes = [
   },
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'services/:service', component: ServicesComponent },
+  { path: 'services/:serviceCategory', component: ServicesCategoryComponent },
+  { path: 'service/:name', component: ServiceViewComponent },
 ];
 
 @NgModule({
@@ -63,7 +67,10 @@ const appRoutes: Routes = [
     OrgEditComponent,
     OrgViewComponent,
     HeaderComponent,
-    ServicesComponent
+    ServicesComponent,
+    ServiceViewComponent,
+    ServicesCategoryComponent,
+    ServicesNearComponent
   ],
   imports: [
     RouterModule.forRoot(
