@@ -52,11 +52,16 @@
             </button>
           </form>
 
-          <div fxLayout="column" fxLayoutGap="0.5em" *ngIf="servicesNearMe.display==true && servicesNearMe.loading==false">
-            <div *ngFor="let org of servicesNearMe.orgList">
-              <div>{{org.name}}</div>
-              <p>{{org.description}}</p>
-              <mat-divider></mat-divider>
+          <div fxLayout="column" fxFill fxLayoutGap="0.5em" *ngIf="servicesNearMe.display==true && servicesNearMe.loading==false">
+            <div *ngFor="let org of servicesNearMe.orgList; last as isLast">
+              <h4><a [routerLink]="['/service/view', org.name]">{{org.name}}</a></h4>
+              <div>{{org.address.streetAddress1}}</div>
+              <div>{{org.address.city}}, {{org.address.state}}</div>
+              <mat-divider *ngIf="!isLast"></mat-divider>
+            </div>
+
+            <div *ngIf="servicesNearMe.orgList==null || servicesNearMe.orgList.length==0">
+              No services found.
             </div>
 
             <button mat-stroked-button type="button" (click)="back()">BACK</button>

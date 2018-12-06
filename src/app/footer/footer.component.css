@@ -9,3 +9,11 @@ footer {
     font-size: 1.1em;
     font-weight: 600;
 }
+
+.social-media-icon {
+    transition: 0.5s;
+}
+
+.social-media-icon:hover {
+    transition: 0.5s;
+}
