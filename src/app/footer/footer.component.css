@@ -10,6 +10,10 @@ footer {
     font-weight: 600;
 }
 
+#sado-logo-img {
+    width: 12em;
+}
+
 .social-media-icon, .social-media-icon:visited {
     background-color: white;
     color: #5c5c5c;
