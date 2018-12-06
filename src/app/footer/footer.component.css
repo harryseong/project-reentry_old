@@ -10,10 +10,22 @@ footer {
     font-weight: 600;
 }
 
-.social-media-icon {
-    transition: 0.5s;
+.social-media-icon, .social-media-icon:visited {
+    background-color: white;
+    color: #5c5c5c;
+    transition: 0.3s;
 }
 
 .social-media-icon:hover {
-    transition: 0.5s;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.fb-icon:hover {
+    color: #4267b2;
+    margin-right: 0.02em;
+}
+
+.twitter-icon:hover {
+    color: #38A1F3;
 }
