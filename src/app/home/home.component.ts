@@ -16,12 +16,20 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-export interface ServicesNearMe {
+export interface ServicesNearMeState {
   display: boolean;
   loading: boolean;
+  myLocationId: any;
   myLocation: any;
   serviceCategories: string[];
   orgList: any[];
+}
+
+export interface SearchFilterControls {
+  distanceRadius: number;
+  includeReligiousOrgs: boolean;
+  includeOrgsWithEligibilityReqs: boolean;
+  showOnlyOrgsWithTransport: boolean;
 }
 
 @Component({
@@ -44,7 +52,8 @@ export class HomeComponent implements OnInit {
     location: new FormControl('', [Validators.required]),
     services: new FormControl([], [Validators.required]),
   });
-  servicesNearMe: ServicesNearMe;
+  servicesNearMeState: ServicesNearMeState;
+  searchFilterControls: SearchFilterControls;
   transition = '';
 
   constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService, private userService: UserService,
@@ -54,11 +63,13 @@ export class HomeComponent implements OnInit {
     this.firestoreService.services.valueChanges()
       .subscribe(services => this.serviceList = this.firestoreService._sort(services, 'service'));
     this.transition = 'fadeIn';
-    this.servicesNearMe = {display: false, loading: false, myLocation: null, serviceCategories: [], orgList: []};
+    this.servicesNearMeState = {display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: [], orgList: []};
+    this.searchFilterControls = {distanceRadius: 5, includeOrgsWithEligibilityReqs: true,
+      includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
   }
 
   findServices() {
-    this.servicesNearMe.loading = true;
+    this.servicesNearMeState.loading = true;
     const address = this.servicesForm.get('location').value;
     this.codeAddress(address);
   }
@@ -69,19 +80,20 @@ export class HomeComponent implements OnInit {
         const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
         const state = stateAddressComponent.short_name;
         if (state === 'MI') {
-          this.servicesNearMe.display = true;
-          this.servicesNearMe.myLocation = results[0].place_id;
-          this.servicesNearMe.serviceCategories = this.servicesForm.get('services').value;
+          this.servicesNearMeState.display = true;
+          this.servicesNearMeState.myLocation = results[0].formatted_address;
+          this.servicesNearMeState.myLocationId = results[0].place_id;
+          this.servicesNearMeState.serviceCategories = this.servicesForm.get('services').value;
           this.servicesForm.reset();
           this.firestoreService.organizations.valueChanges().subscribe(
             rsp => {
-              this.servicesNearMe.orgList = rsp.filter(
-                org => org.services.some(service => this.servicesNearMe.serviceCategories.includes(service)));
+              this.servicesNearMeState.orgList = rsp.filter(
+                org => org.services.some(service => this.servicesNearMeState.serviceCategories.includes(service)));
             }
           );
-          this.servicesNearMe.loading = false;
+          this.servicesNearMeState.loading = false;
         } else if (state !== 'MI') {
-          this.servicesNearMe.loading = false;
+          this.servicesNearMeState.loading = false;
           const message = 'The location provided was not found to be in Michigan. Please input a Michigan city or address.';
           const action = 'OK';
           this.zone.run(() => {
@@ -90,7 +102,7 @@ export class HomeComponent implements OnInit {
           this.servicesForm.get('location').reset();
         }
       } else {
-        this.servicesNearMe.loading = false;
+        this.servicesNearMeState.loading = false;
         const message = 'The app could not reach geocoding services. Please refresh the page and try again.';
         const action = 'OK';
         this.zone.run(() => {
@@ -102,6 +114,8 @@ export class HomeComponent implements OnInit {
   }
 
   back() {
-    this.servicesNearMe = {display: false, loading: false, myLocation: null, serviceCategories: [], orgList: []};
+    this.servicesNearMeState = {display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: [], orgList: []};
+    this.searchFilterControls = {distanceRadius: 5, includeOrgsWithEligibilityReqs: true,
+      includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
   }
 }

@@ -6,6 +6,11 @@
     margin-top: 2em;
 }
 
+.org-filter-controls {
+    margin: 0 1em;
+    font-size: 0.8em;
+}
+
 .service-tile {
     font-size: 0.8em;
     font-weight: 600;
@@ -27,6 +32,11 @@
     margin-right: 0.5em;
     transform: scale(1.025);
     border-left: 0.27em solid #515151;
+}
+
+.test {
+    background-color: rgba(255, 255, 255, 0);
+    border: 0.05em solid #9b9b9b;
 }
 
 .mat-tab-contents {

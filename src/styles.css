@@ -101,18 +101,18 @@ button.delete-button {
 a {
   cursor: pointer;
   text-decoration: underline;
-  color: #777777;
-  transition: 0.1s;
+  color: #555555;
+  transition: 0.2s;
 }
 a:visited {
-  color: #5c5c5c;
-  transition: 0.1s;
+  color: #555555;
+  transition: 0.2s;
 }
 a:hover {
   color: #191919;
 }
 a, a:hover, a:visited {
-  transition: 0.1s;
+  transition: 0.2s;
 }
 
 #project-reentry-header {

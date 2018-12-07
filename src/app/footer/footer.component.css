@@ -11,18 +11,25 @@ footer {
 }
 
 #sado-logo-img {
-    width: 12em;
+    width: 9em;
 }
 
 .social-media-icon, .social-media-icon:visited {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     color: #5c5c5c;
     transition: 0.3s;
+    border: solid 0.05em #828282;
+}
+
+.social-media-icon span {
+    display: block;
 }
 
 .social-media-icon:hover {
+    background-color: white;
     transform: scale(1.05);
     transition: 0.3s;
+    border: solid 0.05em #696969;
 }
 
 .fb-icon:hover {
