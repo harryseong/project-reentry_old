@@ -6,6 +6,7 @@ import {ErrorStateMatcher} from '@angular/material';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {UserService} from '../../shared/services/user/user.service';
 import {Router} from '@angular/router';
+import {GoogleMapsService} from '../../shared/services/google-maps/google-maps.service';
 declare var google: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -57,14 +58,14 @@ export class HomeComponent implements OnInit {
   transition = '';
 
   constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService, private userService: UserService,
-              private zone: NgZone, private router: Router) { }
+              private zone: NgZone, private router: Router, private googleMapsService: GoogleMapsService) { }
 
   ngOnInit() {
     this.firestoreService.services.valueChanges()
       .subscribe(services => this.serviceList = this.firestoreService._sort(services, 'service'));
     this.transition = 'fadeIn';
     this.servicesNearMeState = {display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: [], orgList: []};
-    this.searchFilterControls = {distanceRadius: 5, includeOrgsWithEligibilityReqs: true,
+    this.searchFilterControls = {distanceRadius: 20, includeOrgsWithEligibilityReqs: true,
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
   }
 
@@ -85,13 +86,45 @@ export class HomeComponent implements OnInit {
           this.servicesNearMeState.myLocationId = results[0].place_id;
           this.servicesNearMeState.serviceCategories = this.servicesForm.get('services').value;
           this.servicesForm.reset();
-          this.firestoreService.organizations.valueChanges().subscribe(
-            rsp => {
-              this.servicesNearMeState.orgList = rsp.filter(
-                org => org.services.some(service => this.servicesNearMeState.serviceCategories.includes(service)));
+
+          // Get organizations and filter them here.
+          this.firestoreService.organizations.valueChanges().subscribe(rsp => {
+            const filteredOrgs = rsp.filter(org =>
+              org.services.some(service => this.servicesNearMeState.serviceCategories.includes(service)));
+            let orgCount = 0;
+
+            if (filteredOrgs.length > 0) {
+              filteredOrgs.forEach(org => {
+                this.googleMapsService.distanceMatrixService.getDistanceMatrix(
+                  {
+                    origins: [this.servicesNearMeState.myLocation],
+                    destinations: [org.address.gpsCoords],
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    unitSystem: google.maps.UnitSystem.IMPERIAL
+                  }, (response, status2) => {
+                    if (status2.toString() === 'OK') {
+                      org['distance'] = response.rows[0].elements[0].distance.text;
+                      this.servicesNearMeState.orgList.push(org);
+                      orgCount++;
+                      console.log('Org Count: ' + orgCount);
+
+                      if (orgCount === filteredOrgs.length) {
+                        console.log('Org Count: ' + orgCount + ' READY!');
+                        const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+                        this.servicesNearMeState.orgList = filteredOrgs.sort((a, b) => {
+                          return collator.compare(a.distance, b.distance);
+                        });
+                        this.servicesNearMeState.loading = false;
+                      }
+                    }
+                  }
+                );
+              });
+            } else {
+              console.log('Org Count: ' + orgCount + ' NO ORGS!!');
+              this.servicesNearMeState.loading = false;
             }
-          );
-          this.servicesNearMeState.loading = false;
+          });
         } else if (state !== 'MI') {
           this.servicesNearMeState.loading = false;
           const message = 'The location provided was not found to be in Michigan. Please input a Michigan city or address.';
@@ -115,7 +148,7 @@ export class HomeComponent implements OnInit {
 
   back() {
     this.servicesNearMeState = {display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: [], orgList: []};
-    this.searchFilterControls = {distanceRadius: 5, includeOrgsWithEligibilityReqs: true,
+    this.searchFilterControls = {distanceRadius: 20, includeOrgsWithEligibilityReqs: true,
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
   }
 }

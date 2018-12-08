@@ -62,20 +62,20 @@
               </div>
             </div>
 
-            <mat-card class="test mat-elevation-z0">
-              <div fxLayout="column" fxLayoutGap="1em" class="org-filter-controls">
-                <div fxLayout="column" fxLayoutGap="0">
-                  <div>
-                    Show organizations within <strong>{{searchFilterControls.distanceRadius}} mile<span *ngIf="searchFilterControls.distanceRadius>1">s</span></strong> from me
-                  </div>
-                  <div>
-                    <mat-slider fxFlex="50" fxFlex.sm="60" fxFlex.xs="100" [max]="100" [min]="1" [step]="1" [thumbLabel]="true" [tickInterval]="5" [(ngModel)]="searchFilterControls.distanceRadius"></mat-slider>
-                  </div>
-                </div>
-                <div fxLayout="column" fxLayoutGap="1em">
+            <mat-card class="org-filter-controls mat-elevation-z0">
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3em" fxLayoutGap.xs="2em">
+                <div fxLayout="column" fxFlex="50" fxLayoutGap="1em">
                   <div><mat-slide-toggle [(ngModel)]="searchFilterControls.includeReligiousOrgs">Include religious organizations</mat-slide-toggle></div>
-                  <div><mat-slide-toggle [(ngModel)]="searchFilterControls.includeOrgsWithEligibilityReqs">Include organizations with eligibility requirements</mat-slide-toggle></div>
-                  <div><mat-slide-toggle [(ngModel)]="searchFilterControls.showOnlyOrgsWithTransport">Show only organizations that provide transportation</mat-slide-toggle></div>
+                  <div><mat-slide-toggle [(ngModel)]="searchFilterControls.includeOrgsWithEligibilityReqs">No eligibility requirements</mat-slide-toggle></div>
+                  <div><mat-slide-toggle [(ngModel)]="searchFilterControls.showOnlyOrgsWithTransport">Provides transportation</mat-slide-toggle></div>
+                </div>
+                <div fxLayout="column" fxFlex="45" fxLayoutGap="0">
+                  <div>
+                    Show organizations within <strong>{{searchFilterControls.distanceRadius}} mile<span *ngIf="searchFilterControls.distanceRadius>1">s</span></strong> from me.
+                  </div>
+                  <div>
+                    <mat-slider fxFlex="100" [max]="100" [min]="1" [step]="1" [thumbLabel]="true" [tickInterval]="5" [(ngModel)]="searchFilterControls.distanceRadius"></mat-slider>
+                  </div>
                 </div>
               </div>
             </mat-card>
@@ -86,6 +86,7 @@
                 <div fxLayout="column" fxFlex="50">
                   <a [routerLink]="['/service/view', org.name]">{{org.name}}</a>
                   <div>{{org.address.streetAddress1}}, {{org.address.city}}, {{org.address.state}}</div>
+                  <div>Distance: {{org.distance}}</div>
                 </div>
                 <div fxLayout="column" fxFlex="50">
                   <strong>Services Provided</strong>
