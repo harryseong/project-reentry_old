@@ -54,15 +54,6 @@
             </td>
           </ng-container>
 
-          <!-- Website Column -->
-          <ng-container matColumnDef="website">
-            <th mat-header-cell *matHeaderCellDef> Website </th>
-            <td mat-cell *matCellDef="let element">
-              <span *ngIf="element.website == null || element.website == ''">n/a</span>
-              <a href="{{element.website}}" target="_blank" *ngIf="element.website != null">{{element.website}}</a>
-            </td>
-          </ng-container>
-
           <!-- City Column -->
           <ng-container matColumnDef="city">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
