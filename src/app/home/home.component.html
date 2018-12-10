@@ -13,10 +13,10 @@
 
         <div class="mat-tab-contents" fxLayout="column" fxLayoutGap="1.5em" fxLayoutAlign="start start">
 
-          <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="servicesNearMeState.loading==true">
-            <mat-spinner [diameter]="75"></mat-spinner>
-            <div>Loading...</div>
-          </div>
+          <!--<div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="loading==true">-->
+            <!--<mat-spinner [diameter]="75"></mat-spinner>-->
+            <!--<div>Loading...</div>-->
+          <!--</div>-->
 
           <form [formGroup]="servicesForm" id="find-services-form" [@transitionAnimations]="transition" fxFill
                 *ngIf="servicesNearMeState.display==false && servicesNearMeState.loading==false">
@@ -52,35 +52,48 @@
             </button>
           </form>
 
-          <div fxLayout="column" fxFill fxLayoutGap="1em" *ngIf="servicesNearMeState.display==true && servicesNearMeState.loading==false">
+          <div fxLayout="column" fxFill fxLayoutGap="1em" *ngIf="servicesNearMeState.display==true">
 
             <div fxLayout="row" fxLayoutAlign="start start">
-              <h3>Services Near {{servicesNearMeState.myLocation}}</h3>
+              <div fxLayout="column" fxLayoutGap="1em">
+                <div>
+                  Services Near <strong>{{servicesNearMeState.myLocation}}</strong>
+                </div>
+                <div>
+                  <mat-chip-list *ngFor="let category of servicesNearMeState.serviceCategories">
+                    <mat-chip >{{category}}</mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+
               <span class="spacer"></span>
+
               <div>
                 <button mat-stroked-button type="button" (click)="back()">BACK</button>
               </div>
             </div>
 
+            <!--Filter Controls-->
             <mat-card class="org-filter-controls mat-elevation-z0">
               <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3em" fxLayoutGap.xs="2em">
                 <div fxLayout="column" fxFlex="50" fxLayoutGap="1em">
-                  <div><mat-slide-toggle [(ngModel)]="searchFilterControls.includeReligiousOrgs">Include religious organizations</mat-slide-toggle></div>
-                  <div><mat-slide-toggle [(ngModel)]="searchFilterControls.includeOrgsWithEligibilityReqs">No eligibility requirements</mat-slide-toggle></div>
-                  <div><mat-slide-toggle [(ngModel)]="searchFilterControls.showOnlyOrgsWithTransport">Provides transportation</mat-slide-toggle></div>
+                  <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.includeReligiousOrgs">Include religious organizations</mat-slide-toggle></div>
+                  <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.noEligibilityRequirements">No eligibility requirements</mat-slide-toggle></div>
+                  <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.showOnlyOrgsWithTransport">Provides transportation</mat-slide-toggle></div>
                 </div>
                 <div fxLayout="column" fxFlex="45" fxLayoutGap="0">
                   <div>
-                    Show organizations within <strong>{{searchFilterControls.distanceRadius}} mile<span *ngIf="searchFilterControls.distanceRadius>1">s</span></strong> from me.
+                    <mat-slider fxFlex="100" [max]="200" [min]="1" [step]="1" [thumbLabel]="true" [tickInterval]="10"
+                                (change)="updateFilter()" [(ngModel)]="searchFilterControls.distanceRadius"></mat-slider>
                   </div>
                   <div>
-                    <mat-slider fxFlex="100" [max]="100" [min]="1" [step]="1" [thumbLabel]="true" [tickInterval]="5" [(ngModel)]="searchFilterControls.distanceRadius"></mat-slider>
+                    Show organizations within <strong>{{searchFilterControls.distanceRadius}} mile<span *ngIf="searchFilterControls.distanceRadius>1">s</span></strong> from me.
                   </div>
                 </div>
               </div>
             </mat-card>
 
-            <div *ngFor="let org of servicesNearMeState.orgList; last as isLast">
+            <div *ngFor="let org of filteredOrgList; last as isLast">
 
               <div fxLayout="row" fxLayoutGap="1em">
                 <div fxLayout="column" fxFlex="50">
@@ -99,7 +112,7 @@
               <mat-divider *ngIf="!isLast"></mat-divider>
             </div>
 
-            <div *ngIf="servicesNearMeState.orgList==null || servicesNearMeState.orgList.length==0">
+            <div *ngIf="filteredOrgList==null || filteredOrgList.length==0">
               No services found.
             </div>
           </div>
