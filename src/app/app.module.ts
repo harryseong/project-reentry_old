@@ -28,6 +28,7 @@ import { ServicesComponent } from './services/services.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ServiceViewComponent } from './services/service-view/service-view.component';
 import { ServicesCategoryComponent } from './services/services-category/services-category.component';
+import { NearMeComponent } from './home/near-me/near-me.component';
 
 const appRoutes: Routes = [
   {
@@ -69,6 +70,7 @@ const appRoutes: Routes = [
     ServicesComponent,
     ServiceViewComponent,
     ServicesCategoryComponent,
+    NearMeComponent,
   ],
   imports: [
     RouterModule.forRoot(

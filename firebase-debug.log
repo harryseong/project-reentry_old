@@ -1,0 +1,68 @@
+[debug] [2018-12-10T21:12:05.386Z] ----------------------------------------------------------------------
+[debug] [2018-12-10T21:12:05.388Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-12-10T21:12:05.388Z] CLI Version:   6.1.2
+[debug] [2018-12-10T21:12:05.388Z] Platform:      darwin
+[debug] [2018-12-10T21:12:05.389Z] Node Version:  v10.1.0
+[debug] [2018-12-10T21:12:05.389Z] Time:          Mon Dec 10 2018 15:12:05 GMT-0600 (CST)
+[debug] [2018-12-10T21:12:05.389Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-12-10T21:12:05.399Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-12-10T21:12:05.400Z] > authorizing via signed-in user
+[debug] [2018-12-10T21:12:05.400Z] [iam] checking project project-reentry for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2018-12-10T21:12:05.401Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/project-reentry:testIamPermissions  
+
+[debug] [2018-12-10T21:12:05.771Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-10T21:12:05.772Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/project-reentry  
+ 
+[debug] [2018-12-10T21:12:05.957Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'project-reentry'...
+[info] 
+[info] i  deploying database, storage, firestore, hosting
+[info] i  database: checking rules syntax...
+[debug] [2018-12-10T21:12:05.960Z] >>> HTTP REQUEST PUT https://project-reentry.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    ".read": false,
+    ".write": false
+  }
+}
+[debug] [2018-12-10T21:12:06.143Z] <<< HTTP RESPONSE 200
+[info] ✔  database: rules syntax for database project-reentry is valid
+[debug] [2018-12-10T21:12:06.144Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/project-reentry  
+ 
+[debug] [2018-12-10T21:12:06.780Z] <<< HTTP RESPONSE 200
+[info] i  storage: checking storage.rules for compilation errors...
+[debug] [2018-12-10T21:12:06.781Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/project-reentry:test  
+
+[debug] [2018-12-10T21:12:06.862Z] <<< HTTP RESPONSE 200
+[info] ✔  storage: rules file storage.rules compiled successfully
+[info] i  firestore: checking firestore.rules for compilation errors...
+[debug] [2018-12-10T21:12:06.864Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/project-reentry:test  
+
+[debug] [2018-12-10T21:12:06.917Z] <<< HTTP RESPONSE 200
+[info] ✔  firestore: rules file firestore.rules compiled successfully
+[debug] [2018-12-10T21:12:06.918Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/project-reentry/versions  
+
+[debug] [2018-12-10T21:12:07.702Z] <<< HTTP RESPONSE 200
+[info] i  storage: uploading rules storage.rules...
+[debug] [2018-12-10T21:12:07.703Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/project-reentry/rulesets  
+
+[debug] [2018-12-10T21:12:07.848Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-10T21:12:07.849Z] [rules] created ruleset projects/project-reentry/rulesets/10da6592-0fcb-499b-bf73-2929503ccb28
+[info] i  firestore: uploading rules firestore.rules...
+[debug] [2018-12-10T21:12:07.850Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/project-reentry/rulesets  
+
+[debug] [2018-12-10T21:12:07.851Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1beta1/projects/project-reentry/databases/(default)/indexes  
+ 
+[debug] [2018-12-10T21:12:07.961Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-10T21:12:07.961Z] [rules] created ruleset projects/project-reentry/rulesets/0168c43a-f0ca-4ca5-a9ec-5b97791e5137
+[debug] [2018-12-10T21:12:08.043Z] <<< HTTP RESPONSE 200
+[info] i  hosting[project-reentry]: beginning deploy...
+[info] i  hosting[project-reentry]: found 16 files in dist/project-reentry
+[debug] [2018-12-10T21:12:08.050Z] [hosting] hash cache [ZGlzdC9wcm9qZWN0LXJlZW50cnk] load error: lines is not defined
+[debug] [2018-12-10T21:12:09.000Z] [hosting] hash cache [ZGlzdC9wcm9qZWN0LXJlZW50cnk] stored for 16 files
+[debug] [2018-12-10T21:12:09.000Z] [hosting][hash queue][FINAL]
+[debug] [2018-12-10T21:12:09.000Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/project-reentry/versions/3be8018dc1e0e13b:populateFiles  
+ <request body omitted>
