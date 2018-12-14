@@ -2,10 +2,25 @@
     margin-top: 1em;
 }
 
-.org-filter-controls {
+.org-filter-controls, .org-card {
     background-color: rgba(255, 255, 255, 0);
     border: 0.05em solid #cdcdcd;
-    font-size: 0.8em;
+}
+
+.org-filter-controls {
+    font-size: 0.9em;
+}
+
+.org-card, .org-filter-controls {
+    font-size: 0.9em;
+    padding: 0.75em;
+    margin-bottom: 0.25em;
+}
+
+.org-name {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-bottom: 0.75em;
 }
 
 .progress-spinner {

@@ -137,10 +137,8 @@ export class NearMeComponent implements OnInit {
                 org['distance'] = response.rows[0].elements[0].distance.text;
                 this.orgList.push(org);
                 orgCount++;
-                console.log('Org Count: ' + orgCount);
 
                 if (orgCount === filteredOrgs.length) {
-                  console.log('Org Count: ' + orgCount + ' READY!');
                   const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
                   // Sort orgs by distance.
                   this.orgList = filteredOrgs.sort((a, b) => {
@@ -157,7 +155,6 @@ export class NearMeComponent implements OnInit {
           );
         });
       } else {
-        console.log('Org Count: ' + orgCount + ' NO ORGS!!');
         this.loading = false;
       }
     });
