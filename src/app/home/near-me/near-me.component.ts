@@ -148,7 +148,9 @@ export class NearMeComponent implements OnInit {
                   });
                   this.filteredOrgList = Object.assign([], this.orgList);
                   this.updateFilter();
-                  this.loading = false;
+                  this.zone.run(() => {
+                    this.loading = false;
+                  });
                 }
               }
             }
