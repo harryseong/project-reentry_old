@@ -14,9 +14,9 @@
 
       <div *ngIf="org.services!=null">
         <h4 id="services-header">Services Provided</h4>
-        <ul>
-          <li *ngFor="let service of org.services">{{service}}</li>
-        </ul>
+        <mat-chip-list>
+          <mat-chip *ngFor="let service of org.services">{{service}}</mat-chip>
+        </mat-chip-list>
       </div>
     </div>
 

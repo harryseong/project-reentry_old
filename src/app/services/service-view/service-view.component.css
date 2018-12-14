@@ -23,6 +23,7 @@ th, td {
 th {
     font-weight: 500;
 }
-h4#services-header {
-    margin: 0;
+
+h4 {
+    margin-bottom: 0.5em;
 }

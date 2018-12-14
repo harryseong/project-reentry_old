@@ -2,13 +2,22 @@
     margin-top: 1em;
 }
 
+.near-me-header {
+    font-size: 1.3em;
+    font-weight: 400;
+}
+
+.selected-category {
+    font-size: 0.8em;
+}
+
 .org-filter-controls, .org-card {
     background-color: rgba(255, 255, 255, 0);
     border: 0.05em solid #cdcdcd;
 }
 
 .org-filter-controls {
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .org-card, .org-filter-controls {
