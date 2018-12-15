@@ -4,7 +4,7 @@
     <div>Loading...</div>
   </div>
 
-  <form [formGroup]="servicesForm" id="find-services-form" [@transitionAnimations]="transition" fxFill fxLayout="column" fxLayoutGap="2em"
+  <form [formGroup]="servicesForm" [@transitionAnimations]="transition" fxFill fxLayout="column" fxLayoutGap="2em"
         *ngIf="servicesNearMeState.display==false && loading==false">
 
     <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
@@ -42,41 +42,50 @@
 
   <div fxLayout="column" fxFill fxLayoutGap="1em" *ngIf="servicesNearMeState.display==true && loading==false">
 
-    <!--Filter Controls-->
-    <mat-card class="org-filter-controls mat-elevation-z0">
-      <div fxLayout="column" fxLayoutGap="1em">
-        <div fxLayout="row" fxLayoutAlign="start start">
-          <div fxLayout="column" fxLayoutGap="1em">
-            <div class="near-me-header">
-              Services Near <strong>{{servicesNearMeState.myLocation}}</strong>
-            </div>
-            <div fxLayout="column" fxLayoutGap="0.5em">
-              <div>
-                <strong>Selected Categories</strong>
-              </div>
-              <div>
-                <mat-chip-list>
-                  <mat-chip class="selected-category" *ngFor="let category of servicesNearMeState.serviceCategories">{{category}}</mat-chip>
-                </mat-chip-list>
-              </div>
-            </div>
-          </div>
-
-          <span class="spacer"></span>
-
+    <!--Services Near Me Header-->
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div fxLayout="column" fxLayoutGap="1em" class="near-me-header-div">
+        <div class="near-me-header" fxLayout="row wrap">
+          <div>Services Near&nbsp;</div>
           <div>
-            <button mat-stroked-button type="button" (click)="back()">
-              <span><i class="fas fa-angle-left"></i> BACK</span>
-            </button>
+            <strong>{{servicesNearMeState.myLocation}}</strong>
           </div>
         </div>
-
-        <div>
-          <mat-divider></mat-divider>
+        <div fxLayout="column" fxLayoutGap="0.5em">
+          <div>
+            <strong>Selected Categories</strong>
+          </div>
+          <div>
+            <mat-chip-list>
+              <mat-chip class="selected-category" *ngFor="let category of servicesNearMeState.serviceCategories">{{category}}</mat-chip>
+            </mat-chip-list>
+          </div>
         </div>
+      </div>
 
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3em" fxLayoutGap.xs="2em">
-          <div fxLayout="column" fxFlex="50" fxLayoutGap="1em">
+      <span class="spacer"></span>
+
+      <div>
+        <button mat-stroked-button type="button" (click)="back()">
+          <span><i class="fas fa-angle-left"></i> BACK</span>
+        </button>
+      </div>
+    </div>
+
+    <!--Filter Controls-->
+    <mat-accordion>
+      <mat-expansion-panel class="org-filter-controls mat-elevation-z0" (opened)="filterControlsVisible = true"
+                           (closed)="filterControlsVisible = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span><i class="fas fa-sliders-h"></i> Search Filters</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            Click to {{filterControlsVisible==false ? 'view' : 'hide'}} filter options.
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1em" fxLayoutGap.xs="1em">
+          <div fxLayout="column" fxFlex="50" fxLayoutGap="0.75em">
             <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.includeReligiousOrgs">Include religious organizations</mat-slide-toggle></div>
             <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.noEligibilityRequirements">No eligibility requirements</mat-slide-toggle></div>
             <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.showOnlyOrgsWithTransport">Provides transportation</mat-slide-toggle></div>
@@ -91,11 +100,12 @@
             </div>
           </div>
         </div>
-      </div>
-    </mat-card>
 
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <!--List of Services-->
     <mat-card class="org-card mat-elevation-z0" *ngFor="let org of filteredOrgList; last as isLast">
-
       <div class="org-name">
         <a [routerLink]="['/service/view', org.name]">{{org.name}}</a>
       </div>
@@ -115,14 +125,12 @@
         </div>
 
         <div fxLayout="column" fxFlex="25" fxFlex.sm="40" fxFlexAlign="end">
-          <div fxFlexAlign="end">
-            <strong>{{org.distance}} away</strong>
-          </div>
+          <div fxFlexAlign="end" class="miles-away">{{org.distance}} away</div>
         </div>
       </div>
-
     </mat-card>
 
+    <!--Display if No Services Found-->
     <mat-card class="org-card mat-elevation-z0" *ngIf="filteredOrgList==null || filteredOrgList.length==0">
       <div>
         <strong><i class="fas fa-info-circle"></i> No Services Found</strong>

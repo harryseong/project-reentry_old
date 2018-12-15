@@ -54,6 +54,7 @@ export class NearMeComponent implements OnInit {
   });
   servicesNearMeState: ServicesNearMeState;
   searchFilterControls: SearchFilterControls;
+  filterControlsVisible = false;
   loading = false;
   orgList: any[] = [];
   filteredOrgList: any[] = [];

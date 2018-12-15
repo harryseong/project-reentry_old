@@ -1,5 +1,18 @@
-#find-services-form {
-    margin-top: 1em;
+.mat-expansion-panel-header {
+    height: auto;
+    padding: 0 0.75em;
+}
+/deep/ .org-filter-controls .mat-expansion-panel-body {
+    padding: 0 0.75em 0.75em;
+}
+
+.miles-away {
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.near-me-header-div  {
+    font-size: 0.8em;
 }
 
 .near-me-header {
@@ -17,10 +30,11 @@
 }
 
 .org-filter-controls {
+    transition: 3s;
     font-size: 0.8em;
 }
 
-.org-card, .org-filter-controls {
+.org-card {
     font-size: 0.9em;
     padding: 0.75em;
     margin-bottom: 0.25em;
