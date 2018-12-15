@@ -186,6 +186,7 @@ export class NearMeComponent implements OnInit {
     this.searchFilterControls = {distanceRadius: 120, noEligibilityRequirements: false,
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
     this.orgList = this.filteredOrgList = [];
+    this.filterControlsVisible = false;
   }
 
 }
