@@ -20,24 +20,24 @@ export class UserService {
         // If logged in, check that the user exists in the firestore users collection.
         console.log('A user is logged in.');
         this.isLoggedIn = true;
-        const usersRef = this.db.collection('users').doc(authState.email).ref
-          .onSnapshot(doc => {
-            // If the user does not exist, create a firestore user doc and set role to "user" by default.
-            if (!doc.exists) {
-              this.db.collection('users').doc(authState.email).set(
-                {
-                  uid: authState.uid,
-                  email: authState.email,
-                  role: 'user'
-                });
-              this.isAdmin = false;
-              console.warn('User, ' + authState.email + ' did not exist in the Firestore.');
-            } else {
-              // If the user does exist, check if the user is an admin.
-              this.isAdmin = doc.data().role === 'admin';
-              console.log('User, ' + authState.email + ' does exist. User is ' + (this.isAdmin ? '' : 'not ') + 'an admin.');
-            }
-          });
+        const usersRef = this.db.collection('users').doc(authState.email).ref;
+        usersRef.get().then(doc => {
+          // If the user does not exist, create a firestore user doc and set role to "user" by default.
+          if (doc.exists) {
+            // If the user does exist, check if the user is an admin.
+            this.isAdmin = doc.data().role === 'admin';
+            console.log('User, ' + authState.email + ' does exist. User is ' + (this.isAdmin ? '' : 'not ') + 'an admin.');
+          } else {
+            this.db.collection('users').doc(authState.email).set(
+              {
+                uid: authState.uid,
+                email: authState.email,
+                role: 'user'
+              });
+            this.isAdmin = false;
+            console.warn('User, ' + authState.email + ' did not exist in the Firestore.');
+          }
+        });
         return authState;
       }
     })
