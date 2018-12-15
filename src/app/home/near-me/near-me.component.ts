@@ -87,7 +87,7 @@ export class NearMeComponent implements OnInit {
     this.geocoder.geocode( { 'address': address}, (results, status) => {
       if (status.toString() === 'OK') {
         const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
-        const state = stateAddressComponent.short_name;
+        const state = stateAddressComponent !== undefined ? stateAddressComponent.short_name : null;
         if (state === 'MI') {
           this.servicesNearMeState.display = true;
           this.servicesNearMeState.myLocation = results[0].formatted_address;
