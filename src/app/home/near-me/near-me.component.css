@@ -1,10 +1,7 @@
 .mat-expansion-panel-header {
-    background-color: rgba(255, 255, 255, 0);
-    height: auto;
     padding: 0 0.75em;
 }
 /deep/ .org-filter-controls .mat-expansion-panel-body {
-    background-color: rgba(255, 255, 255, 0);
     padding: 0 0.75em 0.75em;
 }
 
@@ -26,17 +23,15 @@
     font-size: 0.8em;
 }
 
-.org-filter-controls, .org-card {
-    background-color: rgba(255, 255, 255, 0);
-    border: 0.05em solid #cdcdcd;
-}
-
 .org-filter-controls {
-    transition: 3s;
+    border: 0.05em solid #cdcdcd;
+    background-color: rgba(255, 255, 255, 0.81);
     font-size: 0.8em;
 }
 
-.org-card {
+.near-me-header-card, .org-card {
+    background-color: rgba(255, 255, 255, 0.81);
+    border: 0.05em solid #cdcdcd;
     font-size: 0.9em;
     padding: 0.75em;
     margin-bottom: 0.25em;

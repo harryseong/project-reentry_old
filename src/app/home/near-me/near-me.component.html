@@ -43,34 +43,34 @@
   <div fxLayout="column" fxFill fxLayoutGap="1em" *ngIf="servicesNearMeState.display==true && loading==false">
 
     <!--Services Near Me Header-->
-    <div fxLayout="row" fxLayoutAlign="start start">
-      <div fxLayout="column" fxLayoutGap="1em" class="near-me-header-div">
-        <div class="near-me-header" fxLayout="row wrap">
-          <div>Services Near&nbsp;</div>
-          <div>
-            <strong>{{servicesNearMeState.myLocation}}</strong>
+    <mat-card class="near-me-header-card mat-elevation-z0">
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <div fxLayout="column" fxLayoutGap="1em" class="near-me-header-div">
+          <div class="near-me-header" fxLayout="row wrap">
+            <div>Services Near&nbsp;</div>
+            <div>
+              <strong>{{servicesNearMeState.myLocation}}</strong>
+            </div>
+          </div>
+          <div fxLayout="column" fxLayoutGap="0.5em">
+            <div>
+              <strong>Selected Categories</strong>
+            </div>
+            <div>
+              <mat-chip-list>
+                <mat-chip class="selected-category" *ngFor="let category of servicesNearMeState.serviceCategories">{{category}}</mat-chip>
+              </mat-chip-list>
+            </div>
           </div>
         </div>
-        <div fxLayout="column" fxLayoutGap="0.5em">
-          <div>
-            <strong>Selected Categories</strong>
-          </div>
-          <div>
-            <mat-chip-list>
-              <mat-chip class="selected-category" *ngFor="let category of servicesNearMeState.serviceCategories">{{category}}</mat-chip>
-            </mat-chip-list>
-          </div>
+
+        <span class="spacer"></span>
+
+        <div>
+          <a href="javascript:void(0)" (click)="back()">Try another search</a>
         </div>
       </div>
-
-      <span class="spacer"></span>
-
-      <div>
-        <button mat-stroked-button type="button" (click)="back()">
-          <span><i class="fas fa-angle-left"></i> BACK</span>
-        </button>
-      </div>
-    </div>
+    </mat-card>
 
     <!--Filter Controls-->
     <mat-accordion>
@@ -87,7 +87,7 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1em" fxLayoutGap.xs="1em">
           <div fxLayout="column" fxFlex="50" fxLayoutGap="0.75em">
             <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.includeReligiousOrgs">Include religious organizations</mat-slide-toggle></div>
-            <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.noEligibilityRequirements">No eligibility requirements</mat-slide-toggle></div>
+            <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.noEligibilityRequirements">Has no eligibility requirements</mat-slide-toggle></div>
             <div><mat-slide-toggle (change)="updateFilter()" [(ngModel)]="searchFilterControls.showOnlyOrgsWithTransport">Provides transportation</mat-slide-toggle></div>
           </div>
           <div fxLayout="column" fxFlex="45" fxLayoutGap="0">

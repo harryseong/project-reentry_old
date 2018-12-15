@@ -29,6 +29,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { ServiceViewComponent } from './services/service-view/service-view.component';
 import { ServicesCategoryComponent } from './services/services-category/services-category.component';
 import { NearMeComponent } from './home/near-me/near-me.component';
+import { HelpDialogComponent } from './footer/help-dialog/help-dialog.component';
 
 const appRoutes: Routes = [
   {
@@ -71,6 +72,7 @@ const appRoutes: Routes = [
     ServiceViewComponent,
     ServicesCategoryComponent,
     NearMeComponent,
+    HelpDialogComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -94,6 +96,7 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     DialogComponent,
+    HelpDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

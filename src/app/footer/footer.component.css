@@ -4,6 +4,10 @@ footer {
     flex-shrink: 0;
 }
 
+#need-help-link {
+    margin-top: 1em;
+}
+
 .org-title {
     color: #000000;
     font-size: 1.1em;

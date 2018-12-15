@@ -19,6 +19,7 @@
     margin-right: 0.5em;
     transform: scale(1.025);
     border-left: 0.27em solid #515151;
+    background-color: rgb(255, 255, 255);
 }
 
 .mat-tab-contents {

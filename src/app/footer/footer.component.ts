@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HelpDialogComponent} from './help-dialog/help-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
+  // Open help dialog with instructions when user clicks on the "I need help" link in the footer.
+  openHelpDialog(): void {
+    const dialogRef = this.dialog.open(HelpDialogComponent, {
+      width: '30em',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }
