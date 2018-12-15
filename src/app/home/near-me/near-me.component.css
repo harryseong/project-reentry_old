@@ -1,8 +1,10 @@
 .mat-expansion-panel-header {
+    background-color: rgba(255, 255, 255, 0);
     height: auto;
     padding: 0 0.75em;
 }
 /deep/ .org-filter-controls .mat-expansion-panel-body {
+    background-color: rgba(255, 255, 255, 0);
     padding: 0 0.75em 0.75em;
 }
 
