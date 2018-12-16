@@ -66,10 +66,10 @@ export class UsersComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(message => {
       // If the result is not null, open confirmation snackBar. Otherwise, the dialog was closed without clicking the save button.
-      if (result != null) {
-        this.userService.openSnackBar(result, 'OK');
+      if (message != null) {
+        this.userService.openSnackBar(message, 'OK', 4000);
       }
       console.log('The dialog was closed');
     });

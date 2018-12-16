@@ -3,7 +3,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {Router} from '@angular/router';
 
 @Injectable({
@@ -61,18 +61,18 @@ export class UserService {
   confirmLoginStatus() {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        this.openSnackBar('You are logged in.', 'OK');
+        this.openSnackBar('You are logged in.', 'OK', 4000);
       } else {
-        this.openSnackBar('You have logged out.', 'OK');
+        this.openSnackBar('You have logged out.', 'OK', 4000);
       }
     });
   }
 
   // Function for opening snackbar.
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, duration?: number) {
     this.zone.run(() => {
       this.snackBar.open(message, action, {
-        duration: 3500,
+        duration: duration,
         verticalPosition: 'bottom'
       });
     });

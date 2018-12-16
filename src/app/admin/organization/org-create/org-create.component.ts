@@ -170,7 +170,7 @@ export class OrgCreateComponent implements OnInit {
     const zone = this.zone;
 
     this.geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == 'OK') {
+      if (status.toString() === 'OK') {
         const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
         const state = stateAddressComponent.short_name;
         if (state === 'MI') {
@@ -183,7 +183,7 @@ export class OrgCreateComponent implements OnInit {
           const message = 'New organization was successfully saved.';
           const action = 'OK';
           zone.run(() => {
-            userService.openSnackBar(message, action);
+            userService.openSnackBar(message, action, 4000);
           });
           orgForm.reset();
           window.scroll(0, 0);
