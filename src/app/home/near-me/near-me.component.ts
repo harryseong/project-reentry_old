@@ -48,6 +48,7 @@ export interface SearchFilterControls {
 export class NearMeComponent implements OnInit {
   geocoder = new google.maps.Geocoder();
   serviceList: any[] = [];
+  anyServicesSelected = false;
   servicesForm = new FormGroup({
     location: new FormControl('', [Validators.required]),
     services: new FormControl([], [Validators.required]),
@@ -73,6 +74,17 @@ export class NearMeComponent implements OnInit {
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
   }
 
+  anyServicesToggle() {
+    const servicesFormServices = this.servicesForm.get('services');
+    if (servicesFormServices.value.includes('Any Services')) {
+      servicesFormServices.setValue(['Any Services']);
+      this.anyServicesSelected = true;
+    } else {
+      servicesFormServices.setValue([]);
+      this.anyServicesSelected = false;
+    }
+  }
+
   findServices() {
     this.loading = true;
     const address = this.servicesForm.get('location').value;
@@ -93,24 +105,23 @@ export class NearMeComponent implements OnInit {
           this.servicesNearMeState.myLocation = results[0].formatted_address;
           this.servicesNearMeState.myLocationId = results[0].place_id;
           this.servicesNearMeState.serviceCategories = this.servicesForm.get('services').value;
-          this.servicesForm.reset();
           this.getAndFilterOrgs();
         } else if (state !== 'MI') {
           this.loading = false;
           const message = 'The location provided was not found to be in Michigan. Please input a Michigan city or address.';
           const action = 'OK';
-          this.zone.run(() => {
-            this.userService.openSnackBar(message, action);
-          });
+          this.zone.run(() => this.userService.openSnackBar(message, action));
           this.servicesForm.get('location').reset();
         }
       } else {
         this.servicesNearMeState.loading = false;
-        const message = 'The app could not reach geocoding services. Please refresh the page and try again.';
+        const message = results.length === 0 ? 'The provided location is not valid. Please try again.' :
+          'The app could not reach geocoding services. Please refresh the page and try again.';
+        this.servicesForm.get('location').reset();
+        this.loading = false;
         const action = 'OK';
-        this.zone.run(() => {
-          this.userService.openSnackBar(message, action);
-        });        console.warn('Geocode was not successful for the following reason: ' + status);
+        this.zone.run(() => this.userService.openSnackBar(message, action));
+        console.warn('Geocode was not successful for the following reason: ' + status);
         return null;
       }
     });
@@ -121,8 +132,8 @@ export class NearMeComponent implements OnInit {
    */
   getAndFilterOrgs() {
     this.firestoreService.organizations.valueChanges().subscribe(rsp => {
-      const filteredOrgs = rsp.filter(org =>
-        org.services.some(service => this.servicesNearMeState.serviceCategories.includes(service)));
+      const filteredOrgs = this.anyServicesSelected ? rsp :
+        rsp.filter(org => org.services.some(service => this.servicesNearMeState.serviceCategories.includes(service)));
       let orgCount = 0;
 
       if (filteredOrgs.length > 0) {
@@ -147,9 +158,7 @@ export class NearMeComponent implements OnInit {
                   });
                   this.filteredOrgList = Object.assign([], this.orgList);
                   this.updateFilter();
-                  this.zone.run(() => {
-                    this.loading = false;
-                  });
+                  this.zone.run(() => this.loading = false);
                 }
               }
             }
@@ -182,11 +191,13 @@ export class NearMeComponent implements OnInit {
   }
 
   back() {
+    this.anyServicesSelected = false;
     this.servicesNearMeState = {display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: []};
     this.searchFilterControls = {distanceRadius: 120, noEligibilityRequirements: false,
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
     this.orgList = this.filteredOrgList = [];
     this.filterControlsVisible = false;
+    this.servicesForm.get('location').reset('');
+    this.servicesForm.get('services').reset([]);
   }
-
 }
