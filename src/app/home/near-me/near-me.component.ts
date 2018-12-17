@@ -48,10 +48,9 @@ export interface SearchFilterControls {
 export class NearMeComponent implements OnInit {
   geocoder = new google.maps.Geocoder();
   serviceList: any[] = [];
-  anyServicesSelected = false;
   servicesForm = new FormGroup({
     location: new FormControl('', [Validators.required]),
-    services: new FormControl([], [Validators.required]),
+    services: new FormControl([]),
   });
   servicesNearMeState: ServicesNearMeState;
   searchFilterControls: SearchFilterControls;
@@ -72,17 +71,6 @@ export class NearMeComponent implements OnInit {
       display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: []};
     this.searchFilterControls = {distanceRadius: 120, noEligibilityRequirements: false,
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
-  }
-
-  anyServicesToggle() {
-    const servicesFormServices = this.servicesForm.get('services');
-    if (servicesFormServices.value.includes('Any Services')) {
-      servicesFormServices.setValue(['Any Services']);
-      this.anyServicesSelected = true;
-    } else {
-      servicesFormServices.setValue([]);
-      this.anyServicesSelected = false;
-    }
   }
 
   findServices() {
@@ -132,7 +120,7 @@ export class NearMeComponent implements OnInit {
    */
   getAndFilterOrgs() {
     this.firestoreService.organizations.valueChanges().subscribe(rsp => {
-      const filteredOrgs = this.anyServicesSelected ? rsp :
+      const filteredOrgs = this.servicesForm.get('services').value.length === 0  ? rsp :
         rsp.filter(org => org.services.some(service => this.servicesNearMeState.serviceCategories.includes(service)));
       let orgCount = 0;
 
@@ -191,7 +179,6 @@ export class NearMeComponent implements OnInit {
   }
 
   back() {
-    this.anyServicesSelected = false;
     this.servicesNearMeState = {display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: []};
     this.searchFilterControls = {distanceRadius: 120, noEligibilityRequirements: false,
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};

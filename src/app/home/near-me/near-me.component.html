@@ -8,20 +8,6 @@
     <form [formGroup]="servicesForm" [@transitionAnimations]="transition" fxFill fxLayout="column" fxLayoutGap="2em">
 
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
-        <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
-          <mat-label><i class="fas fa-concierge-bell fa-sm"></i> Which services are you looking for?</mat-label>
-          <mat-select formControlName="services" multiple [required]="true">
-            <mat-option value="Any Services" (click)="anyServicesToggle()">Any Services</mat-option>
-            <mat-option *ngFor="let service of serviceList" [value]="service.service" [disabled]="anyServicesSelected">{{service.service}}</mat-option>
-          </mat-select>
-          <mat-hint>
-            Select at least one type of service.
-          </mat-hint>
-          <mat-error *ngIf="servicesForm.get('services').hasError('required')">
-            Please select at least one type of service.
-          </mat-error>
-        </mat-form-field>
-
         <mat-form-field fxFlex="45%" fxFlex.sm="45" fxFlex.xs="100%">
           <mat-label><i class="fas fa-map-marker-alt fa-sm"></i> Where are you?</mat-label>
           <input matInput type="text" formControlName="location" placeholder="ex. 'Detroit' or '645 Griswold St, Detroit, MI'" [required]="true">
@@ -31,6 +17,13 @@
           <mat-error *ngIf="servicesForm.get('location').hasError('required')">
             A city or address located in Michigan is required.
           </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
+          <mat-label><i class="fas fa-concierge-bell fa-sm"></i> Which services are you looking for?</mat-label>
+          <mat-select formControlName="services" multiple>
+            <mat-option *ngFor="let service of serviceList" [value]="service.service" [disabled]="anyServicesSelected">{{service.service}}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
 
@@ -54,7 +47,7 @@
               <strong>{{servicesNearMeState.myLocation}}</strong>
             </div>
           </div>
-          <div fxLayout="column" fxLayoutGap="0.5em">
+          <div fxLayout="column" fxLayoutGap="0.5em" *ngIf="servicesNearMeState.serviceCategories.length > 0">
             <div>
               <strong>Selected Categor{{servicesNearMeState.serviceCategories.length>1 ? 'ies' : 'y'}}</strong>
             </div>
