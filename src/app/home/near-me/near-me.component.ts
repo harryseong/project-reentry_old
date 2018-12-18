@@ -69,7 +69,7 @@ export class NearMeComponent implements OnInit {
     this.transition = 'fadeIn';
     this.servicesNearMeState = {
       display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: []};
-    this.searchFilterControls = {distanceRadius: 120, noEligibilityRequirements: false,
+    this.searchFilterControls = {distanceRadius: 25, noEligibilityRequirements: false,
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
   }
 
@@ -180,7 +180,7 @@ export class NearMeComponent implements OnInit {
 
   back() {
     this.servicesNearMeState = {display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: []};
-    this.searchFilterControls = {distanceRadius: 120, noEligibilityRequirements: false,
+    this.searchFilterControls = {distanceRadius: 25, noEligibilityRequirements: false,
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
     this.orgList = this.filteredOrgList = [];
     this.filterControlsVisible = false;

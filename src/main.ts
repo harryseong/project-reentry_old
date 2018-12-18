@@ -6,6 +6,10 @@ import { environment } from './environments/environment';
 
 import 'hammerjs';
 
+import 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+
 if (environment.production) {
   enableProdMode();
 }

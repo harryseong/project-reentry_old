@@ -15,7 +15,7 @@ export class UserService {
       if (!authState) {
         this.isLoggedIn = false;
         this.isAdmin = false;
-        console.warn('No user is currently logged in.');
+        console.log('No user is currently logged in.');
       } else {
         // If logged in, check that the user exists in the firestore users collection.
         console.log('A user is logged in.');
@@ -35,7 +35,7 @@ export class UserService {
                 role: 'user'
               });
             this.isAdmin = false;
-            console.warn('User, ' + authState.email + ' did not exist in the Firestore.');
+            console.log('User, ' + authState.email + ' did not exist in the Firestore.');
           }
         });
         return authState;
