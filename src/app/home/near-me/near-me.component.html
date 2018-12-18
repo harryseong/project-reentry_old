@@ -24,8 +24,7 @@
 
         <mat-form-field fxFlex="45%" fxFlex.sm="45" fxFlex.xs="100%">
           <mat-label><i class="fas fa-map-marker-alt fa-sm"></i> Where are you?</mat-label>
-          <input matInput type="text" formControlName="location" placeholder="ex. 'Detroit' or '645 Griswold St, Detroit, MI'"
-                 (keyup.enter)="findServices()" [required]="true">
+          <input matInput type="text" formControlName="location" placeholder="ex. 'Detroit' or '645 Griswold St, Detroit, MI'" [required]="true">
           <mat-hint>
             Type in your city or address located in Michigan.
           </mat-hint>
