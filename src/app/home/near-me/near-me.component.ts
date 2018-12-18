@@ -102,7 +102,7 @@ export class NearMeComponent implements OnInit {
 
   findServices() {
     const address = this.servicesForm.get('location').value;
-    if (address !== '') {
+    if (address !== '' && this.servicesForm.get('services').value.length > 0) {
       this.loading = true;
       this.codeAddress(address);
     }
