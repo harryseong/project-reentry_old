@@ -16,7 +16,6 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-
 export interface ServicesNearMeState {
   display: boolean;
   loading: boolean;
@@ -50,7 +49,7 @@ export class NearMeComponent implements OnInit {
   serviceList: any[] = [];
   servicesForm = new FormGroup({
     location: new FormControl('', [Validators.required]),
-    services: new FormControl([]),
+    services: new FormControl([], [Validators.required]),
   });
   servicesNearMeState: ServicesNearMeState;
   searchFilterControls: SearchFilterControls;
@@ -59,6 +58,7 @@ export class NearMeComponent implements OnInit {
   orgList: any[] = [];
   filteredOrgList: any[] = [];
   transition = '';
+  selectAllSelected = false;
 
   constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService, private userService: UserService,
               private zone: NgZone, private router: Router, private googleMapsService: GoogleMapsService) { }
@@ -73,10 +73,39 @@ export class NearMeComponent implements OnInit {
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
   }
 
+  selectAllToggle() {
+    const selectedServices = this.servicesForm.get('services');
+    if (selectedServices.value.includes('all')) {
+      this.selectAllSelected = true;
+      selectedServices.setValue([...selectedServices.value, ...this.serviceList.map(service => service.service)]);
+    } else {
+      this.selectAllSelected = false;
+      const index = selectedServices.value.indexOf('all', 0);
+      if (index > -1) {
+        selectedServices.setValue(selectedServices.value.splice(index, 1));
+      }
+    }
+  }
+
+  serviceSelection() {
+    const selectedServices = this.servicesForm.get('services');
+
+    // If "Select All" is selected and one option is unselected.
+    if (this.selectAllSelected && selectedServices.value.length === this.serviceList) {
+      this.selectAllSelected = false;
+      const index = selectedServices.value.indexOf('all', 0);
+      if (index > -1) {
+        selectedServices.setValue(selectedServices.value.splice(index, 1));
+      }
+    }
+  }
+
   findServices() {
-    this.loading = true;
     const address = this.servicesForm.get('location').value;
-    this.codeAddress(address);
+    if (address !== '') {
+      this.loading = true;
+      this.codeAddress(address);
+    }
   }
 
   /**

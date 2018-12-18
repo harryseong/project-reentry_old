@@ -10,14 +10,22 @@
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
         <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
           <mat-label><i class="fas fa-concierge-bell fa-sm"></i> Which services are you looking for?</mat-label>
-          <mat-select formControlName="services" multiple>
-            <mat-option *ngFor="let service of serviceList" [value]="service.service" [disabled]="anyServicesSelected">{{service.service}}</mat-option>
+          <mat-select formControlName="services" multiple [required]="true">
+            <mat-option value="All Services" (click)="selectAllToggle()"><strong>Select All Services</strong></mat-option>
+            <mat-option *ngFor="let service of serviceList" [value]="service.service" (click)="serviceSelection()">{{service.service}}</mat-option>
           </mat-select>
+          <mat-hint>
+            Select at least one type of service.
+          </mat-hint>
+          <mat-error *ngIf="servicesForm.get('services').hasError('required')">
+            Please select at least one type of service.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field fxFlex="45%" fxFlex.sm="45" fxFlex.xs="100%">
           <mat-label><i class="fas fa-map-marker-alt fa-sm"></i> Where are you?</mat-label>
-          <input matInput type="text" formControlName="location" placeholder="ex. 'Detroit' or '645 Griswold St, Detroit, MI'" [required]="true">
+          <input matInput type="text" formControlName="location" placeholder="ex. 'Detroit' or '645 Griswold St, Detroit, MI'"
+                 (keyup.enter)="findServices()" [required]="true">
           <mat-hint>
             Type in your city or address located in Michigan.
           </mat-hint>
