@@ -213,7 +213,7 @@ export class NearMeComponent implements OnInit {
       includeReligiousOrgs: true, showOnlyOrgsWithTransport: false};
     this.orgList = this.filteredOrgList = [];
     this.filterControlsVisible = false;
-    this.servicesForm.get('location').reset('');
-    this.servicesForm.get('services').reset([]);
+    this.servicesForm.get('location').reset();
+    this.servicesForm.get('services').reset();
   }
 }
