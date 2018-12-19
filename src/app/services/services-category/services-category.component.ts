@@ -9,6 +9,12 @@ import {animate, style, transition, trigger} from '@angular/animations';
   templateUrl: './services-category.component.html',
   styleUrls: ['./services-category.component.css'],
   animations: [
+    trigger('headerAnimations', [
+      transition('* => headerFadeIn', [
+        style({ opacity: 0 }),
+        animate(750, style({ opacity: 1 })),
+      ])
+    ]),
     trigger('transitionAnimations', [
       transition('* => fadeIn', [
         style({ opacity: 0 }),
@@ -22,16 +28,20 @@ export class ServicesCategoryComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   orgList: any[] = [];
   serviceCategory: string;
+  headerTransition = '';
   transition = '';
+  loading = true;
 
   constructor(private firestoreService: FirestoreService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.headerTransition = 'headerFadeIn';
     this.serviceCategory = this.route.snapshot.params['serviceCategory'];
     this.firestoreService.organizations.valueChanges().subscribe(
       rsp => {
         this.orgList = rsp.filter(org => org.services.includes(this.serviceCategory));
         this.dataSource = new MatTableDataSource(this.orgList);
+        this.loading = false;
         this.transition = 'fadeIn';
         // Set custom filter predicate for searching nested fields of organization objects.
         this.dataSource.filterPredicate = (data, filter: string)  => {

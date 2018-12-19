@@ -1,20 +1,24 @@
 <div fxLayoutAlign="center center" fxLayout="column">
-
   <div fxLayout="column" class="header">
     <app-header></app-header>
-    <div id="subheading" [@transitionAnimations]="transition">
+    <div id="subheading" [@headerAnimations]="headerTransition">
       I'm looking for <strong>{{serviceCategory.toLowerCase()}}</strong> services...
     </div>
   </div>
 
-  <div fxLayout="column" fxLayoutGap="1em" class="content">
+  <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="loading==true">
+    <mat-spinner [diameter]="75"></mat-spinner>
+    <div>Loading...</div>
+  </div>
 
-    <div *ngIf="dataSource==null || dataSource.data.length==0" [@transitionAnimations]="transition">
+  <div fxLayout="column" fxLayoutGap="1em" class="content" [@transitionAnimations]="transition">
+
+    <div *ngIf="(dataSource==null || dataSource.data.length==0) && loading==false">
       <strong><i class="fas fa-info-circle"></i> No services found!</strong>
       <div>Looks like we don't have any services listed for this category yet.</div>
     </div>
 
-    <div *ngIf="dataSource!=null && dataSource.data.length>0" [@transitionAnimations]="transition" class="service">
+    <div *ngIf="dataSource!=null && dataSource.data.length>0 && loading==false" class="service">
       <div fxLayout="row">
         <mat-form-field fxFlex="18em" fxFlex.xs="50%">
           <mat-label><i class="fas fa-search"></i> Search</mat-label>
