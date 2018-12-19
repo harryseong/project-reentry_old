@@ -5,7 +5,8 @@
   </div>
 
   <div [hidden]="servicesNearMeState.display==true || loading==true" fxFill>
-    <form [formGroup]="servicesForm" [@transitionAnimations]="transition" fxFill fxLayout="column" fxLayoutGap="2em">
+    <form [formGroup]="servicesForm" [@transitionAnimations]="transition" fxFill fxLayout="column" fxLayoutGap="2em"
+          (keydown.enter)="$event.preventDefault()">
 
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">
         <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
@@ -24,7 +25,8 @@
 
         <mat-form-field fxFlex="45%" fxFlex.sm="45" fxFlex.xs="100%">
           <mat-label><i class="fas fa-map-marker-alt fa-sm"></i> Where are you?</mat-label>
-          <input matInput type="text" formControlName="location" placeholder="ex. 'Detroit' or '645 Griswold St, Detroit, MI'" [required]="true">
+          <input matInput type="text" formControlName="location" placeholder="ex. 'Detroit' or '645 Griswold St, Detroit, MI'"
+                 [required]="true" (keyup.enter)="findServices()">
           <mat-hint>
             Type in your city or address located in Michigan.
           </mat-hint>
@@ -39,6 +41,7 @@
           <span><i class="fas fa-search"></i> FIND SERVICES NEAR ME</span>
         </button>
       </div>
+
     </form>
   </div>
 
