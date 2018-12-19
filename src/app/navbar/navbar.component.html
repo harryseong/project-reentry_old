@@ -69,16 +69,16 @@
 
           <mat-menu #userMenu="matMenu">
             <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="user.isAdmin">
-              <span><i class="fas fa-cogs"></i> Admin</span>
+              <span><i class="fas fa-cogs fa-fw"></i> Admin</span>
             </button>
             <button mat-menu-item (click)="user.logout()">
-              <span><i class="fas fa-sign-out-alt"></i> Log Out</span>
+              <span><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</span>
             </button>
           </mat-menu>
 
           <mat-menu #adminMenu="matMenu">
-            <button mat-menu-item routerLink="admin/organization/all" routerLinkActive="active"><i class="fas fa-landmark"></i> Organizations</button>
-            <button mat-menu-item routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users"></i> Users</button>
+            <button mat-menu-item routerLink="admin/organization/all" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i> Organizations</button>
+            <button mat-menu-item routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users fa-fw"></i> Users</button>
           </mat-menu>
 
         </mat-toolbar>

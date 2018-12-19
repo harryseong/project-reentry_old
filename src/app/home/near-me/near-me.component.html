@@ -37,7 +37,8 @@
       </div>
 
       <div>
-        <button type="button" mat-stroked-button [disabled]="!servicesForm.valid" id="find-services-button" (click)="findServices()">
+        <button type="button" mat-stroked-button [disabled]="!servicesForm.valid" id="find-services-button"
+                (keyup.enter)="findServices()" (click)="findServices()">
           <span><i class="fas fa-search"></i> FIND SERVICES NEAR ME</span>
         </button>
       </div>
