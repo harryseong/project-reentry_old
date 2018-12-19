@@ -39,7 +39,7 @@ export interface SearchFilterControls {
     trigger('transitionAnimations', [
       transition('* => fadeIn', [
         style({ opacity: 0 }),
-        animate(750, style({ opacity: 1 })),
+        animate(500, style({ opacity: 1 })),
       ])
     ])
   ]

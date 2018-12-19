@@ -15,10 +15,6 @@
           <button mat-icon-button (click)="drawer.close()"><i class="fas fa-times"></i></button>
         </div>
       </div>
-      <a href="#" mat-list-item (click)="user.logout(); drawer.close()" *ngIf="user.isLoggedIn"><span><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;Log Out</span></a>
-      <mat-divider *ngIf="user.isLoggedIn"></mat-divider>
-      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" routerLink="admin/organization/all" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations</a>
-      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users fa-fw"></i>&nbsp;Users</a>
 
       <!--If logged out-->
       <div fxLayout="row" fxLayoutAlign="start" mat-list-item *ngIf="!user.isLoggedIn">
@@ -28,13 +24,19 @@
           <button mat-icon-button (click)="drawer.close()"><i class="fas fa-times"></i></button>
         </div>
       </div>
-      <a href="#" mat-list-item (click)="user.login(); drawer.close()" *ngIf="!user.isLoggedIn"><span><i class="fas fa-sign-in-alt fa-fw"></i> Log In</span></a>
 
       <mat-divider></mat-divider>
-
       <a href="#" routerLink="" routerLinkActive="active" mat-list-item (click)="drawer.close()">Project Reentry</a>
-      <!--<a href="#" routerLink="services" routerLinkActive="active" mat-list-item (click)="drawer.close()">Services</a>-->
       <a href="#" routerLink="about" routerLinkActive="active" mat-list-item (click)="drawer.close()">About Us</a>
+
+      <mat-divider *ngIf="user.isLoggedIn"></mat-divider>
+      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" routerLink="admin/organization/all" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations</a>
+      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users fa-fw"></i>&nbsp;Users</a>
+
+
+      <mat-divider></mat-divider>
+      <a href="#" mat-list-item (click)="user.logout(); drawer.close()" *ngIf="user.isLoggedIn"><span><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;Log Out</span></a>
+      <a href="#" mat-list-item (click)="user.login(); drawer.close()" *ngIf="!user.isLoggedIn"><span><i class="fas fa-sign-in-alt fa-fw"></i> Log In</span></a>
 
     </mat-nav-list>
   </mat-sidenav>
@@ -48,7 +50,6 @@
 
           <button mat-icon-button fxHide="false" fxHide.gt-xs (click)="drawer.toggle()"><i class="fas fa-bars"></i></button>
           <button mat-button routerLink="" routerLinkActive="active" class="logo-button">Project Reentry</button>
-          <!--<button mat-button routerLink="services" routerLinkActive="active" fxShow="false" fxShow.gt-xs>Services</button>-->
           <button mat-button routerLink="about" routerLinkActive="active" fxShow="false" fxShow.gt-xs>About Us</button>
 
           <span class="spacer"></span>
