@@ -30,6 +30,7 @@ import { ServiceViewComponent } from './services/service-view/service-view.compo
 import { ServicesCategoryComponent } from './services/services-category/services-category.component';
 import { NearMeComponent } from './home/near-me/near-me.component';
 import { HelpDialogComponent } from './footer/help-dialog/help-dialog.component';
+import { ByCategoriesComponent } from './home/by-categories/by-categories.component';
 
 const appRoutes: Routes = [
   {
@@ -73,6 +74,7 @@ const appRoutes: Routes = [
     ServicesCategoryComponent,
     NearMeComponent,
     HelpDialogComponent,
+    ByCategoriesComponent,
   ],
   imports: [
     RouterModule.forRoot(

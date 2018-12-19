@@ -10,7 +10,6 @@
     <mat-tab-group mat-align-tabs="start" [@transitionAnimations]="transition">
 
       <mat-tab label="Near Me">
-
         <div class="mat-tab-contents">
           <app-near-me fxFill></app-near-me>
         </div>
@@ -18,9 +17,7 @@
 
       <mat-tab label="By Categories">
         <div class="mat-tab-contents">
-          <div fxLayout="row wrap" fxLayoutAlign="center">
-            <a fxFlex="45%" fxFlex.xs="90%" href="#" [routerLink]="'services/view/'+service.service" routerLinkActive="active" class="service-tile" *ngFor="let service of serviceList">{{service.service}}</a>
-          </div>
+          <app-by-categories></app-by-categories>
         </div>
       </mat-tab>
 

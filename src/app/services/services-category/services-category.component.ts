@@ -18,7 +18,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
   ]
 })
 export class ServicesCategoryComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'languages', 'services', 'city'];
+  displayedColumns: string[] = ['name', 'services', 'city'];
   dataSource: MatTableDataSource<any>;
   orgList: any[] = [];
   serviceCategory: string;

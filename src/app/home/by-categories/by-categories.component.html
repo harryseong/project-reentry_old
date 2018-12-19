@@ -1,0 +1,3 @@
+<div fxLayout="row wrap" fxLayoutAlign="center">
+  <a fxFlex="45%" fxFlex.xs="90%" href="#" [routerLink]="'services/view/'+service.service" routerLinkActive="active" class="category-tile" *ngFor="let service of serviceCategories">{{service.service}}</a>
+</div>

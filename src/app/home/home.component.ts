@@ -17,13 +17,10 @@ import {FirestoreService} from '../../shared/services/firestore/firestore.servic
 })
 export class HomeComponent implements OnInit {
   transition = '';
-  serviceList: string[] = [];
 
-  constructor(private firestoreService: FirestoreService) { }
+  constructor() { }
 
   ngOnInit() {
     this.transition = 'fadeIn';
-    this.firestoreService.services.valueChanges()
-      .subscribe(services => this.serviceList = this.firestoreService._sort(services, 'service'));
   }
 }
