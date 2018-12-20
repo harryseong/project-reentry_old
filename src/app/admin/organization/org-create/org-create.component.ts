@@ -85,10 +85,10 @@ export class OrgCreateComponent implements OnInit {
       phone: new FormControl('', [Validators.pattern('^\\(?([0-9]{3})\\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$')]),
     }),
     languages: new FormControl([]),
-    payment: new FormControl('', [Validators.required]),
-    transportation: new FormControl('', [Validators.required]),
-    seniorRequirements: new FormControl('', [Validators.required]),
-    eligibilityRequirements: new FormControl('', [Validators.required]),
+    payment: new FormControl(''),
+    transportation: new FormControl(''),
+    seniorRequirements: new FormControl(''),
+    eligibilityRequirements: new FormControl(''),
     bringWithYou: new FormControl(''),
     additionalNotes: new FormControl('')
   });

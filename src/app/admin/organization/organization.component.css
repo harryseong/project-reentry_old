@@ -11,3 +11,8 @@ table td {
 table th, table td {
     padding: 0 0.2em;
 }
+
+.page-header {
+    font-size: 1.4em;
+    font-weight: 600;
+}

@@ -128,3 +128,14 @@ a, a:hover, a:visited {
 #michigan-outline-img {
   height: 3.2em;
 }
+
+.page-header {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin: 1em 0;
+}
+
+.section-header {
+  font-size: 1.2em;
+  font-weight: 600;
+}

@@ -43,7 +43,7 @@ const appRoutes: Routes = [
       // { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
       { path: 'organization/all', component: OrganizationComponent},
       { path: 'organization/new', component: OrgCreateComponent},
-      { path: 'organization/edit', component: OrgEditComponent},
+      { path: 'organization/edit/:name', component: OrgEditComponent},
       { path: 'organization/view/:name', component: OrgViewComponent},
       { path: 'users', component: UsersComponent},
     ]

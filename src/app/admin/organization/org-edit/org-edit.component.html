@@ -2,14 +2,20 @@
   <div fxLayout="column" class="content">
 
     <div fxLayout="row" fxLayoutAlign="start center">
-      <h3><i class="fas fa-landmark"></i>&nbsp;Edit Organization</h3>
+      <div class="page-header">
+        <i class="fas fa-landmark fa-fw"></i>&nbsp;Edit {{orgName}}
+      </div>
+
       <span class="spacer"></span>
-      <button mat-stroked-button routerLink="/admin/organization/all" routerLinkActive="active">
-        <span><i class="fas fa-times"></i> Cancel</span>
-      </button>
+
+      <div fxLayoutAlign="start start">
+        <button mat-stroked-button [routerLink]="['/admin/organization/view', orgName]" routerLinkActive="active">
+          <span><i class="fas fa-times"></i> Cancel</span>
+        </button>
+      </div>
     </div>
 
-    <form fxLayout="column" [formGroup]="orgForm" (ngSubmit)="onSubmit()">
+    <form fxLayout="column" fxLayoutGap="1.5em" [formGroup]="orgForm" (ngSubmit)="onSubmit()" *ngIf="org != null">
 
       <div fxLayout="column" fxLayoutGap="1em">
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
@@ -25,11 +31,8 @@
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="65%" fxFlex.sm="75%" fxFlex.xs="100%">
             <mat-label>Description</mat-label>
-            <textarea matInput rows="1" [required]="true" formControlName="description" [errorStateMatcher]="matcher"></textarea>
+            <textarea matInput rows="1" formControlName="description"></textarea>
             <mat-hint>Enter a brief description about the organization.</mat-hint>
-            <mat-error *ngIf="orgForm.get('description').hasError('required')">
-              Description is required.
-            </mat-error>
           </mat-form-field>
         </div>
 
@@ -45,14 +48,54 @@
           </mat-form-field>
 
           <button type="button" mat-stroked-button class="edit-item-list-button" (click)="editList('service')">
-            <span><i class="far fa-edit"></i> Service List</span>
+            <span><i class="far fa-edit fa-fw"></i> Service List</span>
           </button>
         </div>
       </div>
 
-      <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+      <div>
+        <mat-divider></mat-divider>
+      </div>
 
-      <div formGroupName="address" fxLayout="column" fxLayoutGap="1.5em">
+      <div fxLayout="column" fxLayoutGap="1em">
+        <div class="section-header">
+          <i class="far fa-clock fa-fw"></i> Hours
+        </div>
+
+        <div>
+          <mat-slide-toggle formControlName="specifyHours" (change)="specifyHours()">Specify Hours</mat-slide-toggle>
+        </div>
+
+        <div [hidden]="orgForm.get('specifyHours').value==false">
+          <div fxLayout="column" fxLayoutGap="0">
+            <div fxLayout="row" fxFlex="100%" fxLayoutGap="0.5em" *ngFor="let day of daysOfWeek"
+                 [formGroup]="orgForm.get('hours').get(day)">
+              <div fxLayoutAlign="start center" fxFlex="8em">
+                <mat-checkbox formControlName="open" (change)="toggleDay(day)">{{day}}</mat-checkbox>
+              </div>
+              <mat-form-field fxFlex="7em">
+                <mat-label>Start</mat-label>
+                <input matInput type="time" formControlName="start">
+              </mat-form-field>
+              <mat-form-field fxFlex="7em">
+                <mat-label>End</mat-label>
+                <input matInput type="time" formControlName="end">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div formGroupName="address" fxLayout="column" fxLayoutGap="1em">
+        <div class="section-header">
+          <i class="fas fa-map-marker-alt fa-fw"></i> Address
+        </div>
+
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
             <mat-label>Street Address</mat-label>
@@ -100,21 +143,35 @@
         </div>
       </div>
 
-      <h3><i class="fas fa-globe"></i> Website</h3>
-
-      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
-        <mat-form-field fxFlex="47%" fxFlex.xs="100%">
-          <mat-label>URL</mat-label>
-          <input matInput type="url" formControlName="website" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="orgForm.get('website').hasError('pattern')">
-            Enter a valid web url.
-          </mat-error>
-        </mat-form-field>
+      <div>
+        <mat-divider></mat-divider>
       </div>
 
-      <h3><i class="far fa-address-book"></i> Contact Information</h3>
+      <div fxLayout="column" fxLayoutGap="1em">
+        <div class="section-header">
+          <i class="fas fa-globe fa-fw"></i> Website
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field fxFlex="47%" fxFlex.xs="100%">
+            <mat-label>URL</mat-label>
+            <input matInput type="url" formControlName="website" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="orgForm.get('website').hasError('pattern')">
+              Enter a valid web url.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div>
+        <mat-divider></mat-divider>
+      </div>
 
       <div formGroupName="contact" fxLayout="column" fxLayoutGap="1em">
+        <div class="section-header">
+          <i class="far fa-address-book fa-fw"></i> Contact Information
+        </div>
+
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
             <mat-label>Name</mat-label>
@@ -122,7 +179,7 @@
           </mat-form-field>
 
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
-            <mat-label><i class="far fa-envelope"></i> Email</mat-label>
+            <mat-label><i class="far fa-envelope fa-fw"></i> Email</mat-label>
             <input matInput formControlName="email" [errorStateMatcher]="matcher">
             <mat-error *ngIf="orgForm.get('contact.email').hasError('email')">
               Enter a valid email address.
@@ -130,7 +187,7 @@
           </mat-form-field>
 
           <mat-form-field fxFlex="30%" fxFlex.sm="47%" fxFlex.xs="100%">
-            <mat-label><i class="fas fa-mobile-alt"></i> Phone</mat-label>
+            <mat-label><i class="fas fa-mobile-alt fa-fw"></i> Phone</mat-label>
             <input matInput type="tel" formControlName="phone" [errorStateMatcher]="matcher">
             <mat-error *ngIf="orgForm.get('contact.phone').hasError('pattern')">
               Enter a valid US phone number.
@@ -139,26 +196,32 @@
         </div>
       </div>
 
-      <h3><i class="fas fa-info-circle"></i> Other Information</h3>
+      <div>
+        <mat-divider></mat-divider>
+      </div>
 
       <div fxLayout="column" fxLayoutGap="1em">
+        <div class="section-header">
+          <i class="fas fa-info-circle fa-fw"></i> Other Information
+        </div>
+
         <div fxLayout="row wrap" fxLayoutGap="1.5em" fxLayoutGap.xs="0" fxLayoutAlign="start center">
           <mat-form-field fxFlex="65%" fxFlex.xs="100%">
-            <mat-label><i class="fas fa-language"></i> Other Languages Spoken</mat-label>
+            <mat-label><i class="fas fa-language fa-fw"></i> Other Languages Spoken</mat-label>
             <mat-select formControlName="languages" multiple>
               <mat-option *ngFor="let language of languageList" [value]="language.language">{{language.language}}</mat-option>
             </mat-select>
           </mat-form-field>
 
           <button type="button" mat-stroked-button (click)="editList('language')">
-            <span><i class="far fa-edit"></i> Language List</span>
+            <span><i class="far fa-edit fa-fw"></i> Language List</span>
           </button>
         </div>
 
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
-            <mat-label><i class="fas fa-file-invoice-dollar"></i> Payment</mat-label>
-            <mat-select [required]="true" formControlName="payment" [errorStateMatcher]="matcher">
+            <mat-label><i class="fas fa-file-invoice-dollar fa-fw"></i> Payment</mat-label>
+            <mat-select formControlName="payment">
               <mat-option *ngFor="let payment of paymentOptions" [value]=payment>{{payment}}</mat-option>
             </mat-select>
             <mat-error *ngIf="orgForm.get('payment').hasError('required')">
@@ -167,8 +230,8 @@
           </mat-form-field>
 
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
-            <mat-label><i class="fas fa-bus"></i> Transportation Provided</mat-label>
-            <mat-select [required]="true" formControlName="transportation" [errorStateMatcher]="matcher">
+            <mat-label><i class="fas fa-bus fa-fw"></i> Transportation Provided</mat-label>
+            <mat-select formControlName="transportation">
               <mat-option [value]="true">Yes</mat-option>
               <mat-option [value]=false>No</mat-option>
             </mat-select>
@@ -181,7 +244,7 @@
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
             <mat-label>Senior Requiments</mat-label>
-            <mat-select [required]="true" formControlName="seniorRequirements" [errorStateMatcher]="matcher">
+            <mat-select formControlName="seniorRequirements">
               <mat-option [value]="true">Yes</mat-option>
               <mat-option [value]=false>No</mat-option>
             </mat-select>
@@ -192,7 +255,7 @@
 
           <mat-form-field fxFlex="47%" fxFlex.xs="100%">
             <mat-label>Eligibility Requiments</mat-label>
-            <mat-select [required]="true" formControlName="eligibilityRequirements" [errorStateMatcher]="matcher">
+            <mat-select formControlName="eligibilityRequirements">
               <mat-option [value]="true">Yes</mat-option>
               <mat-option [value]=false>No</mat-option>
             </mat-select>
@@ -206,11 +269,20 @@
           <mat-form-field fxFlex="100%">
             <mat-label>What to Bring</mat-label>
             <input matInput type="url" formControlName="bringWithYou">
+            <mat-hint>Enter a list of things that should be brought when visiting this organization.</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
+          <mat-form-field fxFill>
+            <mat-label>Additional Notes</mat-label>
+            <textarea matInput rows="1" formControlName="additionalNotes"></textarea>
+            <mat-hint>Enter any other additional notes about the organization.</mat-hint>
           </mat-form-field>
         </div>
       </div>
 
-      <button mat-stroked-button (click)="onSubmit()" [disabled]="!orgForm.valid" id="save-org-button">
+      <button type="button" mat-stroked-button (click)="onSubmit()" [disabled]="!orgForm.valid" id="save-org-button">
         <span><i class="far fa-save"></i> Save Organization</span>
       </button>
 

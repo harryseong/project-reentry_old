@@ -1,11 +1,6 @@
 <div fxLayoutAlign="center center">
   <div fxLayout="column" class="content">
 
-    <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="!org">
-      <mat-spinner [diameter]="75"></mat-spinner>
-      <div>Loading...</div>
-    </div>
-
     <div fxLayout="column" class="org-section" *ngIf="org" [@transitionAnimations]="transition">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5em" fxLayoutAlign="start">
         <span>
@@ -15,7 +10,7 @@
         </span>
         <span class="spacer"></span>
         <span fxLayout="row" fxLayoutGap="0.5em" class="no-wrap">
-          <button mat-stroked-button class="edit-button">
+          <button mat-stroked-button class="edit-button" [routerLink]="['/admin/organization/edit', orgName]">
             <span><i class="far fa-edit"></i>&nbsp;Edit</span>
           </button>
           <button mat-stroked-button class="delete-button">
@@ -25,17 +20,22 @@
       </div>
     </div>
 
-    <div fxLayout="column" fxLayoutGap="1.5em" class="org-section" *ngIf="org">
+    <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="!org">
+      <mat-spinner [diameter]="75"></mat-spinner>
+      <div>Loading...</div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="0" class="org-section" *ngIf="org">
       <div fxLayout="column" fxLayoutGap="0.2em">
         <div class="org-name">{{org.name}}</div>
-        <div>{{org.description}}</div>
+        <div *ngIf="org.description != null && org.description != ''">{{org.description}}</div>
       </div>
 
       <div *ngIf="org.services!=null">
         <h4 id="services-header">Services Provided</h4>
-        <ul>
-          <li *ngFor="let service of org.services">{{service}}</li>
-        </ul>
+        <mat-chip-list>
+          <mat-chip *ngFor="let service of org.services">{{service}}</mat-chip>
+        </mat-chip-list>
       </div>
     </div>
 
@@ -43,7 +43,7 @@
       <mat-divider></mat-divider>
       <h4><i class="far fa-clock"></i> Hours</h4>
       <div *ngIf="org.specifyHours==true">
-        <table>
+        <table id="hours-table">
           <tr *ngFor="let day of daysOfWeek">
             <th>{{day}}</th>
             <td>{{org.hours[day]['open']==true ?
@@ -60,11 +60,16 @@
         <mat-divider></mat-divider>
         <h4><i class="fas fa-map-marker-alt"></i> Address</h4>
 
-        <div>{{org.address.streetAddress1}}, {{org.address.streetAddress2}}</div>
-        <div>{{org.address.city}}, {{org.address.state}} {{org.address.zipCode}}</div>
+        <div>
+          <a href="https://www.google.com/maps/place/{{org.address.streetAddress1 + org.address.streetAddress2 + ', ' +
+          org.address.city + ', ' + org.address.state + ' ' + org.address.zipCode}}" target="_blank">
+            {{org.address.streetAddress1}}, {{org.address.streetAddress2}}<br>
+            {{org.address.city}}, {{org.address.state}} {{org.address.zipCode}}
+          </a>
+        </div>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutAlign="start start">
         <div id="gMap"></div>
       </div>
     </div>
@@ -117,6 +122,10 @@
           <tr>
             <th>Senior Requirements</th>
             <td>{{org.seniorRequirements ? 'Yes' : 'No'}}</td>
+          </tr>
+          <tr *ngIf="org.additionalNotes != null && org.additionalNotes != ''">
+            <th>Additional Notes</th>
+            <td>{{org.additionalNotes}}</td>
           </tr>
         </table>
       </div>

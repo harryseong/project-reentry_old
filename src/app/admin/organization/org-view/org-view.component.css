@@ -23,6 +23,18 @@ th, td {
 th {
     font-weight: 500;
 }
-h4#services-header {
-    margin: 0;
+
+h4 {
+    margin-bottom: 0.5em;
+}
+
+#other-info-table th {
+    text-align: right;
+    vertical-align: top;
+    min-width: 12.5em;
+}
+
+#other-info-table td {
+    text-align: left;
+    vertical-align: top;
 }
