@@ -89,7 +89,8 @@ export class OrgCreateComponent implements OnInit {
     transportation: new FormControl('', [Validators.required]),
     seniorRequirements: new FormControl('', [Validators.required]),
     eligibilityRequirements: new FormControl('', [Validators.required]),
-    bringWithYou: new FormControl('')
+    bringWithYou: new FormControl(''),
+    additionalNotes: new FormControl('')
   });
   serviceList: any[] = [];
   languageList: any[] = [];

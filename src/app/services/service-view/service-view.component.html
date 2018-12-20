@@ -6,7 +6,7 @@
       <div>Loading...</div>
     </div>
 
-    <div fxLayout="column" fxLayoutGap="1.5em" class="org-section" *ngIf="org">
+    <div fxLayout="column" fxLayoutGap="0" class="org-section" *ngIf="org">
       <div fxLayout="column" fxLayoutGap="0.2em">
         <div class="org-name">{{org.name}}</div>
         <div>{{org.description}}</div>
@@ -24,7 +24,7 @@
       <mat-divider></mat-divider>
       <h4><i class="far fa-clock"></i> Hours</h4>
       <div *ngIf="org.specifyHours==true">
-        <table>
+        <table id="hours-table">
           <tr *ngFor="let day of daysOfWeek">
             <th>{{day}}</th>
             <td>{{org.hours[day]['open']==true ?
@@ -41,11 +41,16 @@
         <mat-divider></mat-divider>
         <h4><i class="fas fa-map-marker-alt"></i> Address</h4>
 
-        <div>{{org.address.streetAddress1}}, {{org.address.streetAddress2}}</div>
-        <div>{{org.address.city}}, {{org.address.state}} {{org.address.zipCode}}</div>
+        <div>
+          <a href="https://www.google.com/maps/place/{{org.address.streetAddress1 + org.address.streetAddress2 + ', ' +
+          org.address.city + ', ' + org.address.state + org.address.zipCode}}" target="_blank">
+            {{org.address.streetAddress1}}, {{org.address.streetAddress2}}<br>
+            {{org.address.city}}, {{org.address.state}} {{org.address.zipCode}}
+          </a>
+        </div>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutAlign="start start">
         <div id="gMap"></div>
       </div>
     </div>
@@ -98,6 +103,10 @@
           <tr>
             <th>Senior Requirements</th>
             <td>{{org.seniorRequirements ? 'Yes' : 'No'}}</td>
+          </tr>
+          <tr *ngIf="org.additionalNotes != null && org.additionalNotes != ''">
+            <th>Additional Notes</th>
+            <td>{{org.additionalNotes}}</td>
           </tr>
         </table>
       </div>

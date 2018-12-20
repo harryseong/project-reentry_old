@@ -35,6 +35,7 @@ export class ServicesCategoryComponent implements OnInit {
   constructor(private firestoreService: FirestoreService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.headerTransition = 'headerFadeIn';
     this.serviceCategory = this.route.snapshot.params['serviceCategory'];
     this.firestoreService.organizations.valueChanges().subscribe(

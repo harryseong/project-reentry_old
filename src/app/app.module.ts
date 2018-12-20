@@ -79,7 +79,9 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
         appRoutes,
-        { enableTracing: true } // <-- debugging purposes only
+        {
+          enableTracing: true // <-- debugging purposes only
+        }
     ),
     AngularFireModule.initializeApp(environment.firebase, 'project-reentry'),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
