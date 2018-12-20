@@ -9,7 +9,7 @@
     <div fxLayout="column" fxLayoutGap="0" class="org-section" *ngIf="org">
       <div fxLayout="column" fxLayoutGap="0.2em">
         <div class="org-name">{{org.name}}</div>
-        <div>{{org.description}}</div>
+        <div *ngIf="org.description != null && org.description != ''">{{org.description}}</div>
       </div>
 
       <div *ngIf="org.services!=null">
