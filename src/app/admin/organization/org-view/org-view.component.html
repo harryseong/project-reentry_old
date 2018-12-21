@@ -14,7 +14,7 @@
           </div>
 
           <div fxLayout="row" fxLayoutGap="0.5em" class="no-wrap edit-delete-div">
-            <button mat-icon-button class="edit-button" [routerLink]="['/admin/organization/edit', orgName]">
+            <button mat-icon-button class="edit-button" routerLink="/admin/organization/edit/{{orgName}}" routerLinkActive="active">
               <span fxLayout="row" fxLayoutAlign="center center"><i class="far fa-edit fa-fw"></i></span>
             </button>
             <button mat-icon-button class="delete-button" (click)="openOrgDeleteDialog(orgName)">
