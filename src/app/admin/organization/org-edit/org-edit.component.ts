@@ -221,7 +221,7 @@ export class OrgEditComponent implements OnInit {
               console.log('no documents found');
             } else {
               querySnapshot.forEach(docSnapshot => firestoreService.organizations.doc(docSnapshot.id).set(orgForm.value));
-              router.navigate(['/admin/organization/view', orgForm.get('name').value]);
+              zone.run(() => router.navigate(['/admin/organization/view', orgForm.get('name').value]));
             }
           });
           const message = 'New organization was successfully saved.';

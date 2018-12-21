@@ -186,8 +186,8 @@ export class OrgCreateComponent implements OnInit {
           const action = 'OK';
           zone.run(() => {
             userService.openSnackBar(message, action, 4000);
+            router.navigate(['/admin/organization/all']);
           });
-          router.navigate(['/admin/organization/all']);
         } else if (state !== 'MI') {
           const message = 'The address provided was not found to be in Michigan. Please input a valid Michigan address.';
           const action = 'OK';

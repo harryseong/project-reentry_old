@@ -35,7 +35,8 @@ h4 {
 #other-info-table th {
     text-align: right;
     vertical-align: top;
-    min-width: 12.5em;
+    white-space: nowrap;
+    width: auto;
 }
 
 #other-info-table td {

@@ -109,25 +109,25 @@
             <th>What to Bring</th>
             <td>{{org.bringWithYou=='' ? 'None specified' : org.bringWithYou}}</td>
           </tr>
-          <tr>
+          <tr *ngIf="org.payment != null && org.payment != ''">
             <th>Payment</th>
-            <td>{{org.payment}}</td>
+            <td>{{org.payment ? 'Yes' : 'No'}}</td>
           </tr>
-          <tr>
+          <tr *ngIf="org.transportation != null && org.transportation != ''">
             <th>Transportation Provided</th>
             <td>{{org.transportation ? 'Yes' : 'No'}}</td>
           </tr>
-          <tr>
+          <tr *ngIf="org.eligibilityRequirements != null && org.eligibilityRequirements != ''">
             <th>Eligibility Requirements</th>
             <td>{{org.eligibilityRequirements ? 'Yes' : 'No'}}</td>
           </tr>
-          <tr>
+          <tr *ngIf="org.seniorRequirements != null && org.seniorRequirements != ''">
             <th>Senior Requirements</th>
             <td>{{org.seniorRequirements ? 'Yes' : 'No'}}</td>
           </tr>
-          <tr *ngIf="org.additionalNotes != null && org.additionalNotes != ''">
+          <tr>
             <th>Additional Notes</th>
-            <td>{{org.additionalNotes}}</td>
+            <td>{{org.additionalNotes == '' ? 'None' : org.additionalNotes}}</td>
           </tr>
         </table>
       </div>
