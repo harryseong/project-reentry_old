@@ -40,7 +40,7 @@ export class ServiceViewComponent implements OnInit {
               this.org = org.data();
               this.pageReady = 'fadeIn';
               const gpsCoords = this.org.address.gpsCoords;
-              const mapOption = {zoom: 15, mapTypeId: google.maps.MapTypeId.ROADMAP};
+              const mapOption = {zoom: 15, mapTypeId: google.maps.MapTypeId.ROADMAP, draggable: false};
               const map = new google.maps.Map(document.getElementById('gMap'), mapOption);
               map.setCenter(gpsCoords);
               const marker = new google.maps.Marker({

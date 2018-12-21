@@ -15,7 +15,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AdminComponent } from './admin/admin.component';
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import {AuthGuard} from './auth/auth.guard';
+import {AuthGuard} from '../shared/auth/auth.guard';
 import { UsersComponent } from './admin/users/users.component';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 import { FooterComponent } from './footer/footer.component';
