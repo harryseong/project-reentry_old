@@ -5,6 +5,7 @@ import {ErrorStateMatcher, MatDialog} from '@angular/material';
 import {DialogComponent} from '../../../../shared/dialog/dialog.component';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {animate, style, transition, trigger} from '@angular/animations';
 declare var google: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -18,7 +19,15 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-org-edit',
   templateUrl: './org-edit.component.html',
-  styleUrls: ['./org-edit.component.css']
+  styleUrls: ['./org-edit.component.css'],
+  animations: [
+    trigger('transitionAnimations', [
+      transition('* => fadeIn', [
+        style({ opacity: 0 }),
+        animate(1000, style({ opacity: 1 })),
+      ])
+    ])
+  ]
 })
 export class OrgEditComponent implements OnInit {
   geocoder = new google.maps.Geocoder();
@@ -29,7 +38,8 @@ export class OrgEditComponent implements OnInit {
   orgName = '';
   org: any = null;
   daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  pageReady = '';
+  transition = '';
+  pageReady = false;
   paymentOptions = ['Free', 'Insurance', 'Medicaid', 'Sliding Scale'];
 
   constructor(private firestoreService: FirestoreService, public dialog: MatDialog, private userService: UserService,
@@ -124,7 +134,8 @@ export class OrgEditComponent implements OnInit {
               this.daysOfWeek.forEach(day => {
                 this.toggleDay(day);
               });
-              this.pageReady = 'fadeIn';
+              this.pageReady = true;
+              this.transition = 'fadeIn';
             });
         });
       }

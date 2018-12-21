@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./organization.component.css']
 })
 export class OrganizationComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'languages', 'services', 'website', 'city'];
+  displayedColumns: string[] = ['name', 'services', 'website', 'city'];
   dataSource: MatTableDataSource<any>;
   orgList: any[] = [];
 

@@ -1,0 +1,15 @@
+<div mat-dialog-title>Delete Organization?</div>
+
+<div mat-dialog-content>
+  <p>
+    Are you sure you would like to delete {{data.orgName}}?
+  </p>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end" fxLayout="row" fxLayoutGap="0.2em">
+  <button mat-button (click)="closeDialog()">
+    <span><i class="fas fa-times fa-fw"></i> Cancel</span>
+  </button>
+  <button mat-button (click)="deleteOrg()" class="delete-button">
+    <span><i class="far fa-trash-alt fa-fw"></i> Delete</span>
+  </button>
+</div>

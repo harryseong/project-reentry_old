@@ -23,6 +23,10 @@ h4 {
     margin-bottom: 0.5em;
 }
 
+#other-info-table, #hours-table {
+    font-size: 0.9em;
+}
+
 #other-info-table th {
     text-align: right;
     vertical-align: top;
@@ -45,7 +49,7 @@ h4 {
 .edit-button, .delete-button {
     background-color: rgba(255, 255, 255, 0);
     transition: 0.3s;
-    border: solid 0.05em #828282;
+    border: solid 0.05em #9b9b9b;
 }
 
 .edit-button:hover, .delete-button:hover {

@@ -31,6 +31,7 @@ import { ServicesCategoryComponent } from './services/services-category/services
 import { NearMeComponent } from './home/near-me/near-me.component';
 import { HelpDialogComponent } from './footer/help-dialog/help-dialog.component';
 import { ByCategoriesComponent } from './home/by-categories/by-categories.component';
+import { OrgDeleteDialogComponent } from './admin/organization/org-view/org-delete-dialog/org-delete-dialog.component';
 
 const appRoutes: Routes = [
   {
@@ -75,6 +76,7 @@ const appRoutes: Routes = [
     NearMeComponent,
     HelpDialogComponent,
     ByCategoriesComponent,
+    OrgDeleteDialogComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -100,7 +102,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     DialogComponent,
-    HelpDialogComponent
+    HelpDialogComponent,
+    OrgDeleteDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

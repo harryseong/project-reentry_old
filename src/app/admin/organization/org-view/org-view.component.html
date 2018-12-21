@@ -6,7 +6,7 @@
       <div>Loading...</div>
     </div>
 
-    <div fxLayout="column" fxLayoutGap="0" class="org-section" *ngIf="org">
+    <div fxLayout="column" fxLayoutGap="0" class="org-section" *ngIf="pageReady==true" [@transitionAnimations]="transition">
       <div fxLayout="column" fxLayoutGap="0.2em">
         <div fxLayout="row wrap" fxLayoutAlign="start end">
           <div class="page-header page-header-org">
@@ -15,10 +15,10 @@
 
           <div fxLayout="row" fxLayoutGap="0.5em" class="no-wrap edit-delete-div">
             <button mat-icon-button class="edit-button" [routerLink]="['/admin/organization/edit', orgName]">
-              <span><i class="far fa-edit fa-fw"></i></span>
+              <span fxLayout="row" fxLayoutAlign="center center"><i class="far fa-edit fa-fw"></i></span>
             </button>
-            <button mat-icon-button class="delete-button">
-              <span><i class="far fa-trash-alt fa-fw"></i></span>
+            <button mat-icon-button class="delete-button" (click)="openOrgDeleteDialog(orgName)">
+              <span fxLayout="row" fxLayoutAlign="center center"><i class="far fa-trash-alt fa-fw"></i></span>
             </button>
           </div>
 

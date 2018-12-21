@@ -10,12 +10,17 @@
 
       <div fxLayoutAlign="start start">
         <button mat-stroked-button [routerLink]="['/admin/organization/view', orgName]" routerLinkActive="active">
-          <span><i class="fas fa-times"></i> Cancel</span>
+          <span><i class="fas fa-times fa-fw"></i> Cancel</span>
         </button>
       </div>
     </div>
 
-    <form fxLayout="column" fxLayoutGap="1.5em" [formGroup]="orgForm" *ngIf="org != null">
+    <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="!org">
+      <mat-spinner [diameter]="75"></mat-spinner>
+      <div>Loading...</div>
+    </div>
+
+    <form fxLayout="column" fxLayoutGap="1.5em" [formGroup]="orgForm" *ngIf="pageReady==true" [@transitionAnimations]="transition">
 
       <div fxLayout="column" fxLayoutGap="1em">
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
@@ -283,7 +288,7 @@
       </div>
 
       <button type="button" mat-stroked-button (click)="onSubmit()" [disabled]="!orgForm.valid" id="save-org-button">
-        <span><i class="far fa-save"></i> Save Changes</span>
+        <span><i class="far fa-save fa-fw"></i> Save Changes</span>
       </button>
 
     </form>
