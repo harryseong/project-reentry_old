@@ -33,3 +33,28 @@ h4 {
     text-align: left;
     vertical-align: top;
 }
+
+.page-header-org {
+    margin-bottom: 0.2em;
+}
+
+.edit-delete-div {
+    margin-left: 0.5em;
+}
+
+.edit-button, .delete-button {
+    background-color: rgba(255, 255, 255, 0);
+    transition: 0.3s;
+    border: solid 0.05em #828282;
+}
+
+.edit-button:hover, .delete-button:hover {
+    background-color: #ffffff;
+    transform: scale(1.04);
+    transition: 0.3s;
+    border: solid 0.05em #696969;
+}
+
+.edit-button span, .delete-button span {
+    display: block;
+}

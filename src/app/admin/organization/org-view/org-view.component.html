@@ -1,25 +1,6 @@
 <div fxLayoutAlign="center center">
   <div fxLayout="column" class="content">
 
-    <div fxLayout="column" class="org-section" *ngIf="org" [@transitionAnimations]="transition">
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5em" fxLayoutAlign="start">
-        <span>
-          <button mat-stroked-button routerLink="/admin/organization/all" routerLinkActive="active">
-            <span><i class="fas fa-angle-left"></i> All Organizations</span>
-          </button>
-        </span>
-        <span class="spacer"></span>
-        <span fxLayout="row" fxLayoutGap="0.5em" class="no-wrap">
-          <button mat-stroked-button class="edit-button" [routerLink]="['/admin/organization/edit', orgName]">
-            <span><i class="far fa-edit"></i>&nbsp;Edit</span>
-          </button>
-          <button mat-stroked-button class="delete-button">
-            <span><i class="far fa-trash-alt"></i>&nbsp;Delete</span>
-          </button>
-        </span>
-      </div>
-    </div>
-
     <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="!org">
       <mat-spinner [diameter]="75"></mat-spinner>
       <div>Loading...</div>
@@ -27,7 +8,28 @@
 
     <div fxLayout="column" fxLayoutGap="0" class="org-section" *ngIf="org">
       <div fxLayout="column" fxLayoutGap="0.2em">
-        <div class="page-header">{{org.name}}</div>
+        <div fxLayout="row wrap" fxLayoutAlign="start end">
+          <div class="page-header page-header-org">
+            {{orgName}}
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="0.5em" class="no-wrap edit-delete-div">
+            <button mat-icon-button class="edit-button" [routerLink]="['/admin/organization/edit', orgName]">
+              <span><i class="far fa-edit fa-fw"></i></span>
+            </button>
+            <button mat-icon-button class="delete-button">
+              <span><i class="far fa-trash-alt fa-fw"></i></span>
+            </button>
+          </div>
+
+          <span class="spacer"></span>
+
+          <span fxLayout="row" fxLayoutGap="0.5em" class="no-wrap">
+            <button mat-stroked-button routerLink="/admin/organization/all" routerLinkActive="active">
+              <span><i class="fas fa-angle-left"></i> Back</span>
+            </button>
+          </span>
+        </div>
         <div *ngIf="org.description != null && org.description != ''">{{org.description}}</div>
       </div>
 

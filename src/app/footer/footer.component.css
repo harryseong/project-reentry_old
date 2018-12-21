@@ -31,7 +31,7 @@ footer {
 
 .social-media-icon:hover {
     background-color: white;
-    transform: scale(1.05);
+    transform: scale(1.04);
     transition: 0.3s;
     border: solid 0.05em #696969;
 }
