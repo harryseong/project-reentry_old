@@ -130,6 +130,7 @@ export class OrgEditComponent implements OnInit {
       }
     });
   }
+
   specifyHours() {
     const hoursFormGroup = this.orgForm.get('hours');
     const specifyHours = this.orgForm.get('specifyHours').value;
@@ -187,7 +188,9 @@ export class OrgEditComponent implements OnInit {
 
   codeAddress(address: string) {
     const firestoreService = this.firestoreService;
+    const originalOrgName = this.orgName;
     const orgForm = this.orgForm;
+    const router = this.router;
     const userService = this.userService;
     const zone = this.zone;
 
@@ -201,14 +204,20 @@ export class OrgEditComponent implements OnInit {
           const lng = results[0].geometry.location.lng();
           orgForm.get('address').get('gpsCoords').get('lat').setValue(lat);
           orgForm.get('address').get('gpsCoords').get('lng').setValue(lng);
-          firestoreService.organizations.add(orgForm.value);
+          const query = firestoreService.organizations.ref.where('name', '==', originalOrgName);
+          query.get().then(querySnapshot => {
+            if (querySnapshot.empty) {
+              console.log('no documents found');
+            } else {
+              querySnapshot.forEach(docSnapshot => firestoreService.organizations.doc(docSnapshot.id).set(orgForm.value));
+              router.navigate(['/admin/organization/view', orgForm.get('name').value]);
+            }
+          });
           const message = 'New organization was successfully saved.';
           const action = 'OK';
           zone.run(() => {
             userService.openSnackBar(message, action, 4000);
           });
-          orgForm.reset();
-          window.scroll(0, 0);
         } else if (state !== 'MI') {
           const message = 'The address provided was not found to be in Michigan. Please input a Michigan address.';
           const action = 'OK';

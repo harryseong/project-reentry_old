@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <form fxLayout="column" fxLayoutGap="1.5em" [formGroup]="orgForm" (ngSubmit)="onSubmit()" *ngIf="org != null">
+    <form fxLayout="column" fxLayoutGap="1.5em" [formGroup]="orgForm" *ngIf="org != null">
 
       <div fxLayout="column" fxLayoutGap="1em">
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1.5em" fxLayoutGap.xs="0.5em">
@@ -283,7 +283,7 @@
       </div>
 
       <button type="button" mat-stroked-button (click)="onSubmit()" [disabled]="!orgForm.valid" id="save-org-button">
-        <span><i class="far fa-save"></i> Save Organization</span>
+        <span><i class="far fa-save"></i> Save Changes</span>
       </button>
 
     </form>
