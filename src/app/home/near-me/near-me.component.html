@@ -12,7 +12,7 @@
         <mat-form-field fxFlex="50%" fxFlex.sm="50%" fxFlex.xs="100%">
           <mat-label><i class="fas fa-concierge-bell fa-sm fa-fw"></i> Which services are you looking for?</mat-label>
           <mat-select formControlName="services" multiple [required]="true">
-            <mat-option value="All Services" (click)="selectAllToggle()"><strong>Select All Services</strong></mat-option>
+            <mat-option value="All Services" (click)="selectAllToggle()">--- Select All ---</mat-option>
             <mat-option *ngFor="let service of serviceList" [value]="service.service" (click)="serviceSelection()">{{service.service}}</mat-option>
           </mat-select>
           <mat-hint>

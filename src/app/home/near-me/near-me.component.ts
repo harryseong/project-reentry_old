@@ -75,28 +75,29 @@ export class NearMeComponent implements OnInit {
 
   selectAllToggle() {
     const selectedServices = this.servicesForm.get('services');
-    if (selectedServices.value.includes('all')) {
+    if (selectedServices.value.includes('All Services')) {
       this.selectAllSelected = true;
-      selectedServices.setValue([...selectedServices.value, ...this.serviceList.map(service => service.service)]);
+      selectedServices.setValue([...this.serviceList.map(service => service.service), 'All Services']);
     } else {
-      this.selectAllSelected = false;
-      const index = selectedServices.value.indexOf('all', 0);
-      if (index > -1) {
-        selectedServices.setValue(selectedServices.value.splice(index, 1));
-      }
+      selectedServices.setValue([]);
     }
   }
 
   serviceSelection() {
-    const selectedServices = this.servicesForm.get('services');
+    const selectedServices = this.servicesForm.get('services').value;
 
     // If "Select All" is selected and one option is unselected.
-    if (this.selectAllSelected && selectedServices.value.length === this.serviceList) {
+    if (this.selectAllSelected === true && selectedServices.length === this.serviceList.length) {
       this.selectAllSelected = false;
-      const index = selectedServices.value.indexOf('all', 0);
+      const index = selectedServices.indexOf('All Services');
       if (index > -1) {
-        selectedServices.setValue(selectedServices.value.splice(index, 1));
+        selectedServices.splice(index, 1);
+        this.servicesForm.get('services').setValue(selectedServices);
       }
+    } else if (this.selectAllSelected === false && selectedServices.length === this.serviceList.length) {
+      this.selectAllSelected = true;
+      selectedServices.push('All Services');
+      this.servicesForm.get('services').setValue(selectedServices);
     }
   }
 
@@ -117,11 +118,12 @@ export class NearMeComponent implements OnInit {
       if (status.toString() === 'OK') {
         const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
         const state = stateAddressComponent !== undefined ? stateAddressComponent.short_name : null;
+        const selectedServices = this.servicesForm.get('services').value;
         if (state === 'MI') {
           this.servicesNearMeState.display = true;
           this.servicesNearMeState.myLocation = results[0].formatted_address;
           this.servicesNearMeState.myLocationId = results[0].place_id;
-          this.servicesNearMeState.serviceCategories = this.servicesForm.get('services').value;
+          this.servicesNearMeState.serviceCategories = selectedServices.includes('All Services') ? ['All Services'] : selectedServices;
           this.getAndFilterOrgs();
         } else if (state !== 'MI') {
           this.loading = false;
@@ -149,7 +151,7 @@ export class NearMeComponent implements OnInit {
    */
   getAndFilterOrgs() {
     this.firestoreService.organizations.valueChanges().subscribe(rsp => {
-      const filteredOrgs = this.servicesForm.get('services').value.length === 0  ? rsp :
+      const filteredOrgs = this.servicesForm.get('services').value.includes('All Services') ? rsp :
         rsp.filter(org => org.services.some(service => this.servicesNearMeState.serviceCategories.includes(service)));
       let orgCount = 0;
 
