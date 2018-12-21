@@ -32,7 +32,7 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
 export class OrgEditComponent implements OnInit {
   geocoder = new google.maps.Geocoder();
   matcher: SubscribeErrorStateMatcher; // For form error matching.
-  orgForm: FormGroup = null;
+  orgForm: FormGroup;
   serviceList: any[] = [];
   languageList: any[] = [];
   orgName = '';
@@ -124,10 +124,10 @@ export class OrgEditComponent implements OnInit {
                     [Validators.pattern('^\\(?([0-9]{3})\\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$')]),
                 }),
                 languages: new FormControl(this.org.languages),
-                payment: new FormControl(this.org.payment, [Validators.required]),
-                transportation: new FormControl(this.org.transportation, [Validators.required]),
-                seniorRequirements: new FormControl(this.org.seniorRequirements, [Validators.required]),
-                eligibilityRequirements: new FormControl(this.org.eligibilityRequirements, [Validators.required]),
+                payment: new FormControl(this.org.payment),
+                transportation: new FormControl(this.org.transportation),
+                seniorRequirements: new FormControl(this.org.seniorRequirements),
+                eligibilityRequirements: new FormControl(this.org.eligibilityRequirements),
                 bringWithYou: new FormControl(this.org.bringWithYou),
                 additionalNotes: new FormControl(this.org.additionalNotes)
               });
