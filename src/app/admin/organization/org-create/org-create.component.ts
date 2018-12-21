@@ -167,13 +167,14 @@ export class OrgCreateComponent implements OnInit {
   codeAddress(address: string) {
     const firestoreService = this.firestoreService;
     const orgForm = this.orgForm;
+    const router = this.router;
     const userService = this.userService;
     const zone = this.zone;
 
     this.geocoder.geocode( { 'address': address}, function(results, status) {
       if (status.toString() === 'OK') {
         const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
-        const state = stateAddressComponent.short_name;
+        const state = stateAddressComponent !== undefined ? stateAddressComponent.short_name : null;
         if (state === 'MI') {
           // Get lat and lng of address and save them in Firestore.
           const lat = results[0].geometry.location.lat();
@@ -186,22 +187,19 @@ export class OrgCreateComponent implements OnInit {
           zone.run(() => {
             userService.openSnackBar(message, action, 4000);
           });
-          orgForm.reset();
-          window.scroll(0, 0);
+          router.navigate(['/admin/organization/all']);
         } else if (state !== 'MI') {
-          const message = 'The address provided was not found to be in Michigan. Please input a Michigan address.';
+          const message = 'The address provided was not found to be in Michigan. Please input a valid Michigan address.';
           const action = 'OK';
-          zone.run(() => {
-            userService.openSnackBar(message, action);
-          });
+          zone.run(() => userService.openSnackBar(message, action));
         }
       } else {
-        const message = 'The app could not reach geocoding services. Please refresh the page and try again.';
+        const message = results.length === 0 ? 'The provided address is not valid. Please try again.' :
+          'The app could not reach geocoding services. Please refresh the page and try again.';
         const action = 'OK';
-        zone.run(() => {
-          userService.openSnackBar(message, action);
-        });
+        zone.run(() => userService.openSnackBar(message, action));
         console.warn('Geocode was not successful for the following reason: ' + status);
+        return null;
       }
     });
   }
