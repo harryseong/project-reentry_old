@@ -141,10 +141,14 @@
       <div>
         <strong><i class="fas fa-info-circle"></i> No Services Found</strong>
       </div>
-      No services belonging to selected categor{{servicesNearMeState.serviceCategories.length>1 ? 'ies' : 'y'}} were found within
-      <strong>{{searchFilterControls.distanceRadius}} mile<span *ngIf="searchFilterControls.distanceRadius>1">s</span></strong>
-      of <strong>{{servicesNearMeState.myLocation}}</strong>.<br>
-      Please try adjusting the filter options or <a href="javascript:void(0)" (click)="back()">try another search</a>.
+      <p>
+        No services belonging to selected categor{{servicesNearMeState.serviceCategories.length>1 ? 'ies' : 'y'}} were found within
+        <strong>{{searchFilterControls.distanceRadius}} mile<span *ngIf="searchFilterControls.distanceRadius>1">s</span></strong>
+        of <strong>{{servicesNearMeState.myLocation}}</strong>.
+      </p>
+      <p>
+        Please try adjusting the search filter options or <a href="javascript:void(0)" (click)="back()">try another search</a>.
+      </p>
     </mat-card>
 
   </div>
