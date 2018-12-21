@@ -34,7 +34,7 @@
       </div>
 
       <div *ngIf="org.services!=null">
-        <h4 id="services-header">Services Provided</h4>
+        <h4 id="services-header"><i class="fas fa-concierge-bell fa-fw"></i> Services Provided</h4>
         <mat-chip-list>
           <mat-chip *ngFor="let service of org.services">{{service}}</mat-chip>
         </mat-chip-list>
@@ -43,7 +43,7 @@
 
     <div fxLayout="column" class="org-section" *ngIf="org">
       <mat-divider></mat-divider>
-      <h4><i class="far fa-clock"></i> Hours</h4>
+      <h4><i class="far fa-clock fa-fw"></i> Hours</h4>
       <div *ngIf="org.specifyHours==true">
         <table id="hours-table">
           <tr *ngFor="let day of daysOfWeek">
@@ -60,7 +60,7 @@
     <div fxLayout="column" class="org-section">
       <div *ngIf="org">
         <mat-divider></mat-divider>
-        <h4><i class="fas fa-map-marker-alt"></i> Address</h4>
+        <h4><i class="fas fa-map-marker-alt fa-fw"></i> Address</h4>
 
         <div>
           <a href="https://www.google.com/maps/place/{{org.address.streetAddress1 + org.address.streetAddress2 + ', ' +
@@ -78,14 +78,14 @@
 
     <div fxLayout="column" class="org-section" *ngIf="org && org.website != null && org.website != ''">
       <mat-divider></mat-divider>
-      <h4><i class="fas fa-globe"></i> Website</h4>
+      <h4><i class="fas fa-globe fa-fw"></i> Website</h4>
       <div><a href="{{org.website}}" target="_blank">{{org.website}}</a></div>
     </div>
 
     <div fxLayout="column" class="org-section" *ngIf="org && ((org.contact.name != null && org.contact.name != '') ||
          (org.contact.email != null && org.contact.email != '') || (org.contact.phone != null && org.contact.phone != ''))">
       <mat-divider></mat-divider>
-      <h4><i class="far fa-address-book"></i> Contact Information</h4>
+      <h4><i class="far fa-address-book fa-fw"></i> Contact Information</h4>
       <div *ngIf="org.contact.name!=null">{{org.contact.name}}</div>
       <div *ngIf="org.contact.email!=null"><a href="mailto:{{org.contact.email}}">{{org.contact.email}}</a></div>
       <div *ngIf="org.contact.phone!=null"><a href="tel:{{org.contact.phone}}" >{{org.contact.phone}}</a></div>
@@ -93,7 +93,7 @@
 
     <div fxLayout="column" class="org-section" *ngIf="org">
       <mat-divider></mat-divider>
-      <h4><i class="fas fa-info-circle"></i> Other Information</h4>
+      <h4><i class="fas fa-info-circle fa-fw"></i> Other Information</h4>
 
       <div>
         <table id="other-info-table">
