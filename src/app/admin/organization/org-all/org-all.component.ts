@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {FirestoreService} from '../../../shared/services/firestore/firestore.service';
 import {MatTableDataSource, Sort} from '@angular/material';
+import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-organization',
-  templateUrl: './organization.component.html',
-  styleUrls: ['./organization.component.css']
+  selector: 'app-org-all',
+  templateUrl: './org-all.component.html',
+  styleUrls: ['./org-all.component.css']
 })
-export class OrganizationComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'services', 'website', 'city'];
+export class OrgAllComponent implements OnInit {
+  displayedColumns: string[] = ['name', 'services', 'city'];
   dataSource: MatTableDataSource<any>;
   orgList: any[] = [];
 
