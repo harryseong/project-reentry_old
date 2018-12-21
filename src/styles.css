@@ -86,7 +86,7 @@ mat-sidenav {
   margin-top: 5em;
 }
 
-button.edit-button {
+button.edit-button, button.save-button {
   color: #008dd5;
 }
 
