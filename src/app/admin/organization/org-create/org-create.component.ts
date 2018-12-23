@@ -160,7 +160,7 @@ export class OrgCreateComponent implements OnInit {
   onSubmit() {
     const ac = this.orgForm.get('address');
     const fullAddress = ac.get('streetAddress1').value + ' ' + ac.get('streetAddress2').value +  ', ' +
-      ac.get('city').value + ', ' + ac.get('state');
+      ac.get('city').value + ', ' + ac.get('state').value;
     this.codeAddress(fullAddress);
   }
 
