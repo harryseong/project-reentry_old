@@ -1,6 +1,6 @@
 import {Injectable, NgZone} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {auth} from 'firebase';
+import {auth} from 'firebase/app';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
@@ -63,7 +63,7 @@ export class UserService {
       if (user) {
         this.openSnackBar('You are logged in.', 'OK', 4000);
       } else {
-        this.openSnackBar('You have logged out.', 'OK', 4000);
+        this.openSnackBar('You are now logged out.', 'OK', 4000);
       }
     });
   }
