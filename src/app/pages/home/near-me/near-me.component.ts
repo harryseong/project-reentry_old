@@ -2,10 +2,10 @@ import {Component, NgZone, OnInit} from '@angular/core';
 import {ErrorStateMatcher} from '@angular/material';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {FirestoreService} from '../../../shared/services/firestore/firestore.service';
-import {UserService} from '../../../shared/services/user/user.service';
+import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
+import {UserService} from '../../../../shared/services/user/user.service';
 import {Router} from '@angular/router';
-import {GoogleMapsService} from '../../../shared/services/google-maps/google-maps.service';
+import {GoogleMapsService} from '../../../../shared/services/google-maps/google-maps.service';
 import {animate, style, transition, trigger} from '@angular/animations';
 declare var google: any;
 

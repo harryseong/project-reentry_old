@@ -17,17 +17,7 @@ export class OrgDeleteDialogComponent {
 
   deleteOrg() {
     this.dialogRef.close();
-    const query = this.firestoreService.organizations.ref.where('name', '==', this.data.orgName);
-    query.get().then(querySnapshot => {
-      if (querySnapshot.empty) {
-        console.log('no documents found');
-      } else {
-        querySnapshot.forEach(docSnapshot => this.firestoreService.organizations.doc(docSnapshot.id).delete());
-        this.router.navigate(['/admin/organization/all']);
-        const message = this.data.orgName + ' has been deleted.';
-        this.userService.openSnackBar(message, 'OK');
-      }
-    });
+    this.firestoreService.deleteOrg(this.data.orgName, true);
   }
 
   closeDialog(): void {

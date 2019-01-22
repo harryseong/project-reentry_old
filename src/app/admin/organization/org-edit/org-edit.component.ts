@@ -6,7 +6,7 @@ import {DialogComponent} from '../../../../shared/dialog/dialog.component';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {animate, style, transition, trigger} from '@angular/animations';
-declare var google: any;
+import {GoogleMapsService} from '../../../../shared/services/google-maps/google-maps.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
@@ -30,7 +30,6 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
   ]
 })
 export class OrgEditComponent implements OnInit {
-  geocoder = new google.maps.Geocoder();
   matcher: SubscribeErrorStateMatcher; // For form error matching.
   orgForm: FormGroup;
   serviceList: any[] = [];
@@ -43,7 +42,7 @@ export class OrgEditComponent implements OnInit {
   paymentOptions = ['Free', 'Insurance', 'Medicaid', 'Sliding Scale'];
 
   constructor(private firestoreService: FirestoreService, public dialog: MatDialog, private userService: UserService,
-              private zone: NgZone, private router: Router, private route: ActivatedRoute) { }
+              private zone: NgZone, private router: Router, private route: ActivatedRoute, private googleMapsService: GoogleMapsService) { }
 
   ngOnInit() {
     this.firestoreService.languages.valueChanges()
@@ -194,54 +193,6 @@ export class OrgEditComponent implements OnInit {
     const ac = this.orgForm.get('address');
     const fullAddress = ac.get('streetAddress1').value + ' ' + ac.get('streetAddress2').value +  ', ' +
       ac.get('city').value + ', ' + ac.get('state').value;
-    this.codeAddress(fullAddress);
-  }
-
-  codeAddress(address: string) {
-    const firestoreService = this.firestoreService;
-    const originalOrgName = this.orgName;
-    const orgForm = this.orgForm;
-    const router = this.router;
-    const userService = this.userService;
-    const zone = this.zone;
-
-    this.geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status.toString() === 'OK') {
-        const stateAddressComponent = results[0].address_components.find(ac => ac.types.includes('administrative_area_level_1'));
-        const state = stateAddressComponent !== undefined ? stateAddressComponent.short_name : null;
-        if (state === 'MI') {
-          // Get lat and lng of address and save them in Firestore.
-          const lat = results[0].geometry.location.lat();
-          const lng = results[0].geometry.location.lng();
-          orgForm.get('address').get('gpsCoords').get('lat').setValue(lat);
-          orgForm.get('address').get('gpsCoords').get('lng').setValue(lng);
-          const query = firestoreService.organizations.ref.where('name', '==', originalOrgName);
-          query.get().then(querySnapshot => {
-            if (querySnapshot.empty) {
-              console.log('no documents found');
-            } else {
-              querySnapshot.forEach(docSnapshot => firestoreService.organizations.doc(docSnapshot.id).set(orgForm.value));
-              zone.run(() => router.navigate(['/admin/organization/view', orgForm.get('name').value]));
-            }
-          });
-          const message = 'New organization was successfully saved.';
-          const action = 'OK';
-          zone.run(() => {
-            userService.openSnackBar(message, action, 4000);
-          });
-        } else if (state !== 'MI') {
-          const message = 'The address provided was not found to be in Michigan. Please input a valid Michigan address.';
-          const action = 'OK';
-          zone.run(() => userService.openSnackBar(message, action));
-        }
-      } else {
-        const message = results.length === 0 ? 'The provided address is not valid. Please try again.' :
-          'The app could not reach geocoding services. Please refresh the page and try again.';
-        const action = 'OK';
-        zone.run(() => userService.openSnackBar(message, action));
-        console.warn('Geocode was not successful for the following reason: ' + status);
-        return null;
-      }
-    });
+    this.googleMapsService.codeAddressAndUpdate(fullAddress, this.orgName, this.orgForm);
   }
 }

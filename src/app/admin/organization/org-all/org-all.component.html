@@ -4,6 +4,9 @@
     <div fxLayout="row wrap" fxLayoutAlign="start center">
       <div class="page-header"><i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations</div>
       <span class="spacer"></span>
+
+      <input type="file" (change)="uploadOrgCsv($event.target.files)">
+
       <button mat-stroked-button routerLink="/admin/organization/new" routerLinkActive="active">
         <span><i class="fas fa-plus fa-fw"></i>&nbsp;NEW</span>
       </button>

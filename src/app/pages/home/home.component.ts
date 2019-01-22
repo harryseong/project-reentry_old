@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
-import {FirestoreService} from '../../shared/services/firestore/firestore.service';
+import {FirestoreService} from '../../../shared/services/firestore/firestore.service';
 
 @Component({
   selector: 'app-home',
