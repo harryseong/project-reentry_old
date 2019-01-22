@@ -43,7 +43,8 @@ export class OrgViewComponent implements OnInit {
               this.pageReady = true;
               this.transition = 'fadeIn';
               const gpsCoords = this.org.address.gpsCoords;
-              const mapOption = {zoom: 15, mapTypeId: google.maps.MapTypeId.ROADMAP, draggable: false};
+              const mapOption = {zoom: 15, mapTypeId: google.maps.MapTypeId.ROADMAP, draggable: false, clickableIcons: false,
+                streetViewControl: false, streetViewControlOptions: false};
               const map = new google.maps.Map(document.getElementById('gMap'), mapOption);
               map.setCenter(gpsCoords);
               const marker = new google.maps.Marker({
