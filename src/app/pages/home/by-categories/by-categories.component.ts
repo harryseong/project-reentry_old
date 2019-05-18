@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-by-categories',
@@ -9,11 +10,15 @@ import {FirestoreService} from '../../../../shared/services/firestore/firestore.
 export class ByCategoriesComponent implements OnInit {
   serviceCategories: string[] = [];
 
-  constructor(private firestoreService: FirestoreService) {
+  constructor(private firestoreService: FirestoreService, private router: Router) {
   }
 
   ngOnInit() {
     this.firestoreService.services.valueChanges()
       .subscribe(serviceCategories => this.serviceCategories = this.firestoreService._sort(serviceCategories, 'service'));
+  }
+
+  selectCategory(category: string) {
+    this.router.navigate(['services/view/', category]);
   }
 }

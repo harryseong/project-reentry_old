@@ -78,4 +78,96 @@ export class FirestoreService {
       }
     });
   }
+
+  updateCategoryViewCount(category: string) {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth();
+    const query = this.services.ref.where('service', '==', category);
+    query.get().then(querySnapshot => {
+      if (querySnapshot.empty) {
+        console.log('no documents found');
+      } else {
+        querySnapshot.forEach(docSnapshot => {
+          const id = docSnapshot.id;
+          const data = docSnapshot.data();
+          const incrementCount = () => {
+            if (data.viewData[year] !== undefined) {
+              if (data.viewData[year][month] !== undefined) {
+                // Increment count for year-month.
+                data.viewData[year][month]++;
+              } else {
+                // Create month entry and set count to 0.
+                data.viewData[year][month] = 1;
+              }
+              // Update data on Firebase.
+              this.services.doc(id).set(data);
+            } else {
+              // If year does not exist, create year entry.
+              data.viewData[year] = {};
+              this.services.doc(id).set(data).then(() => {
+                // Create month entry and set count to 0.
+                data.viewData[year][month] = 1;
+                // Update data on Firebase.
+                this.services.doc(id).set(data);
+              });
+            }
+          };
+          if (data.viewData !== undefined) {
+            incrementCount();
+          } else {
+            data['viewData'] = {};
+            this.services.doc(id).set(data).then(() => {
+              incrementCount();
+            });
+          }
+        });
+      }
+    });
+  }
+
+  updateOrgViewCount(orgName: string) {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth();
+    const query = this.organizations.ref.where('name', '==', orgName);
+    query.get().then(querySnapshot => {
+      if (querySnapshot.empty) {
+        console.log('no documents found');
+      } else {
+        querySnapshot.forEach(docSnapshot => {
+          const id = docSnapshot.id;
+          const data = docSnapshot.data();
+          const incrementCount = () => {
+            if (data.viewData[year] !== undefined) {
+              if (data.viewData[year][month] !== undefined) {
+                // Increment count for year-month.
+                data.viewData[year][month]++;
+              } else {
+                // Create month entry and set count to 0.
+                data.viewData[year][month] = 1;
+              }
+              // Update data on Firebase.
+              this.organizations.doc(id).set(data);
+            } else {
+              // If year does not exist, create year entry.
+              data.viewData[year] = {};
+              this.organizations.doc(id).set(data).then(() => {
+                // Create month entry and set count to 0.
+                data.viewData[year][month] = 1;
+                // Update data on Firebase.
+                this.organizations.doc(id).set(data);
+              });
+            }
+          };
+          if (data.viewData !== undefined) {
+            incrementCount();
+          } else {
+            data['viewData'] = {};
+            this.organizations.doc(id).set(data).then(() => {
+              incrementCount();
+            });
+          }
+        });
+      }
+    });
+  }
 }

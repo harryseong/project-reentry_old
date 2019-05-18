@@ -1,3 +1,6 @@
+<button mat-stroked-button (click)="test()">TEST</button>
 <div fxLayout="row wrap" fxLayoutAlign="center">
-  <a fxFlex="45%" fxFlex.xs="90%" href="#" [routerLink]="'services/view/'+service.service" routerLinkActive="active" class="category-tile" *ngFor="let service of serviceCategories">{{service.service}}</a>
+  <div fxFlex="45%" fxFlex.xs="90%" class="category-tile" *ngFor="let service of serviceCategories" (click)="selectCategory(service.service)">
+    {{service.service}}
+  </div>
 </div>

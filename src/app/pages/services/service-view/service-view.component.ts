@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
-import {AngularFirestore} from '@angular/fire/firestore';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
@@ -25,17 +24,18 @@ export class ServiceViewComponent implements OnInit {
   daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   pageReady = '';
 
-  constructor(private db: AngularFirestore, private firestoreService: FirestoreService, private route: ActivatedRoute) { }
+  constructor(private firestoreService: FirestoreService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.orgName = this.route.snapshot.params['name'];
-    const query = this.db.collection('organizations').ref.where('name', '==', this.orgName);
+    this.firestoreService.updateOrgViewCount(this.orgName);
+    const query = this.firestoreService.organizations.ref.where('name', '==', this.orgName);
     query.get().then(querySnapshot => {
       if (querySnapshot.empty) {
         console.warn('no documents found');
       } else {
         querySnapshot.forEach(docSnapshot => {
-          this.db.collection('organizations').doc(docSnapshot.id).ref.get().then(
+          this.firestoreService.organizations.doc(docSnapshot.id).ref.get().then(
             org => {
               this.org = org.data();
               this.pageReady = 'fadeIn';

@@ -38,6 +38,7 @@ export class ServicesCategoryComponent implements OnInit {
     window.scrollTo(0, 0);
     this.headerTransition = 'headerFadeIn';
     this.serviceCategory = this.route.snapshot.params['serviceCategory'];
+    this.firestoreService.updateCategoryViewCount(this.serviceCategory);
     this.firestoreService.organizations.valueChanges().subscribe(
       rsp => {
         this.orgList = rsp.filter(org => org.services.includes(this.serviceCategory));
