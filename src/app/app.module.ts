@@ -30,6 +30,7 @@ import { HelpDialogComponent } from './footer/help-dialog/help-dialog.component'
 import { ByCategoriesComponent } from './pages/home/by-categories/by-categories.component';
 import { OrgDeleteDialogComponent } from './admin/organization/org-view/org-delete-dialog/org-delete-dialog.component';
 import { OrgAllComponent } from './admin/organization/org-all/org-all.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const appRoutes: Routes = [
   {
@@ -86,6 +87,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   exports: [
     MaterialModule,

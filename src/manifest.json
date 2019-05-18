@@ -1,0 +1,15 @@
+{
+  "name": "Project Reentry",
+  "short_name": "Project Reentry",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/michigan_logo.svg",
+      "sizes": "36x36 48x48 72x72 96x96 144x144 192x192"
+    }
+  ]
+}
