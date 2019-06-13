@@ -11,7 +11,7 @@ declare var google: any;
   styleUrls: ['./service-view.component.css'],
   animations: [
     trigger('transitionAnimations', [
-      transition('* => fadeIn', [
+      transition(':enter', [
         style({ opacity: 0 }),
         animate(750, style({ opacity: 1 })),
       ])
@@ -22,7 +22,7 @@ export class ServiceViewComponent implements OnInit {
   orgName = '';
   org: any = null;
   daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  pageReady = '';
+  isLoading = true;
 
   constructor(private firestoreService: FirestoreService, private route: ActivatedRoute) { }
 
@@ -38,7 +38,7 @@ export class ServiceViewComponent implements OnInit {
           this.firestoreService.organizations.doc(docSnapshot.id).ref.get().then(
             org => {
               this.org = org.data();
-              this.pageReady = 'fadeIn';
+              this.isLoading = false;
               const gpsCoords = this.org.address.gpsCoords;
               const mapOption = {zoom: 15, mapTypeId: google.maps.MapTypeId.ROADMAP, draggable: false, clickableIcons: false,
                 streetViewControl: false, streetViewControlOptions: false};

@@ -1,7 +1,7 @@
 <div fxLayoutAlign="center center" fxLayout="column">
   <div fxLayout="column" class="header">
     <app-header></app-header>
-    <div id="subheading" [@headerAnimations]="headerTransition">
+    <div id="subheading" [@transitionAnimations]>
       I'm looking for <strong>{{serviceCategory.toLowerCase()}}</strong> services...
     </div>
   </div>
@@ -11,15 +11,21 @@
     <div>Loading...</div>
   </div>
 
-  <div fxLayout="column" fxLayoutGap="1em" class="content" [@transitionAnimations]="transition">
+  <div fxLayout="column" fxLayoutGap="1em" class="content">
 
-    <div *ngIf="(dataSource==null || dataSource.data.length==0) && loading==false">
-      <strong><i class="fas fa-info-circle"></i> No Services Found</strong>
-      <div>Looks like we don't have any services listed for this category yet.</div>
+    <div *ngIf="(dataSource==null || dataSource.data.length==0) && loading==false" fxLayout="column" fxLayoutGap="1em" [@transitionAnimations]>
+      <div>
+        <strong><i class="fas fa-info-circle"></i> No Services Found</strong>
+        <div>Looks like we don't have any services listed for this category yet.</div>
+      </div>
+
     </div>
 
-    <div *ngIf="dataSource!=null && dataSource.data.length>0 && loading==false" class="service">
-      <div fxLayout="row">
+    <div *ngIf="dataSource!=null && dataSource.data.length>0 && loading==false" class="service" [@transitionAnimations]>
+      <div fxLayout="row" fxLayoutAlign="start baseline">
+
+        <span class="spacer"></span>
+
         <mat-form-field fxFlex="18em" fxFlex.xs="50%">
           <mat-label><i class="fas fa-search"></i> Search</mat-label>
           <input matInput (keyup)="applyFilter($event.target.value)">

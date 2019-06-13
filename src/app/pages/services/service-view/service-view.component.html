@@ -1,12 +1,12 @@
 <div fxLayoutAlign="center center">
   <div fxLayout="column" class="content">
 
-    <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="!org">
+    <div fxLayout="column" fxLayoutGap="1em" fxLayoutAlign="center center" fxFill class="progress-spinner" *ngIf="isLoading==true">
       <mat-spinner [diameter]="75"></mat-spinner>
       <div>Loading...</div>
     </div>
 
-    <div fxLayout="column" fxLayoutGap="0" class="org-section" *ngIf="org">
+    <div fxLayout="column" fxLayoutGap="0" class="org-section" *ngIf="isLoading==false" [@transitionAnimations]>
       <div fxLayout="column" fxLayoutGap="0.2em">
         <div class="page-header">{{org.name}}</div>
         <div *ngIf="org.description != null && org.description != ''">{{org.description}}</div>

@@ -11,9 +11,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import { NavbarComponent } from './navbar/navbar.component';
-import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import {AuthGuard} from '../shared/auth/auth.guard';
 import { UsersComponent } from './admin/users/users.component';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 import { FooterComponent } from './footer/footer.component';
@@ -31,23 +29,10 @@ import { ByCategoriesComponent } from './pages/home/by-categories/by-categories.
 import { OrgDeleteDialogComponent } from './admin/organization/org-view/org-delete-dialog/org-delete-dialog.component';
 import { OrgAllComponent } from './admin/organization/org-all/org-all.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-
-const appRoutes: Routes = [
-  {
-    path: 'admin',
-    children: [
-      { path: 'organization/all', component: OrgAllComponent, canActivate: [AuthGuard]},
-      { path: 'organization/new', component: OrgCreateComponent, canActivate: [AuthGuard]},
-      { path: 'organization/edit/:name', component: OrgEditComponent, canActivate: [AuthGuard]},
-      { path: 'organization/view/:name', component: OrgViewComponent, canActivate: [AuthGuard]},
-      { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
-    ]
-  },
-  { path: '', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'services/view/:serviceCategory', component: ServicesCategoryComponent },
-  { path: 'service/view/:name', component: ServiceViewComponent },
-];
+import {AppRoutingModule} from './app-routing.module';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
+import { BackButtonComponent } from './back-button/back-button.component';
 
 @NgModule({
   declarations: [
@@ -69,14 +54,12 @@ const appRoutes: Routes = [
     ByCategoriesComponent,
     OrgDeleteDialogComponent,
     OrgAllComponent,
+    PageNotFoundComponent,
+    AdminLoginComponent,
+    BackButtonComponent,
   ],
   imports: [
-    RouterModule.forRoot(
-        appRoutes,
-        {
-          enableTracing: true // <-- debugging purposes only
-        }
-    ),
+    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'project-reentry'),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,

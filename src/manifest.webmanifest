@@ -8,7 +8,7 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "assets/michigan_logo.svg",
+      "src": "assets/michigan_logo.png",
       "sizes": "36x36 48x48 72x72 96x96 144x144 192x192"
     }
   ]

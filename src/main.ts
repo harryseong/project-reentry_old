@@ -8,8 +8,6 @@ import 'hammerjs';
 
 import 'firebase/app';
 
-
-
 if (environment.production) {
   enableProdMode();
 }

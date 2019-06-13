@@ -1,0 +1,16 @@
+<div fxLayoutAlign="center center" fxLayout="column">
+
+  <div fxLayout="column" class="header">
+    <app-header></app-header>
+    <div id="subheading" [@transitionAnimations]>Admin</div>
+  </div>
+
+  <div fxLayout="column" fxLayoutGap="1em" class="content">
+
+    <button mat-stroked-button (click)="user.login()" *ngIf="!user.isLoggedIn">
+      <span><i class="fas fa-sign-in-alt"></i> Log In</span>
+    </button>
+
+  </div>
+
+</div>

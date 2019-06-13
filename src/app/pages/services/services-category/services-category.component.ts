@@ -3,20 +3,15 @@ import {MatTableDataSource, Sort} from '@angular/material';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-services-category',
   templateUrl: './services-category.component.html',
   styleUrls: ['./services-category.component.css'],
   animations: [
-    trigger('headerAnimations', [
-      transition('* => headerFadeIn', [
-        style({ opacity: 0 }),
-        animate(750, style({ opacity: 1 })),
-      ])
-    ]),
     trigger('transitionAnimations', [
-      transition('* => fadeIn', [
+      transition(':enter', [
         style({ opacity: 0 }),
         animate(750, style({ opacity: 1 })),
       ])
@@ -28,15 +23,12 @@ export class ServicesCategoryComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   orgList: any[] = [];
   serviceCategory: string;
-  headerTransition = '';
-  transition = '';
   loading = true;
 
-  constructor(private firestoreService: FirestoreService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private firestoreService: FirestoreService, private router: Router, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    this.headerTransition = 'headerFadeIn';
     this.serviceCategory = this.route.snapshot.params['serviceCategory'];
     this.firestoreService.updateCategoryViewCount(this.serviceCategory);
     this.firestoreService.organizations.valueChanges().subscribe(
@@ -44,7 +36,6 @@ export class ServicesCategoryComponent implements OnInit {
         this.orgList = rsp.filter(org => org.services.includes(this.serviceCategory));
         this.dataSource = new MatTableDataSource(this.orgList);
         this.loading = false;
-        this.transition = 'fadeIn';
         // Set custom filter predicate for searching nested fields of organization objects.
         this.dataSource.filterPredicate = (data, filter: string)  => {
           const accumulator = (currentTerm, key) => {
