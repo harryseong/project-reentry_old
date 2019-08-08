@@ -16,7 +16,7 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-org-create',
   templateUrl: './org-create.component.html',
-  styleUrls: ['./org-create.component.css']
+  styleUrls: ['./org-create.component.scss']
 })
 export class OrgCreateComponent implements OnInit {
   matcher: SubscribeErrorStateMatcher; // For form error matching.

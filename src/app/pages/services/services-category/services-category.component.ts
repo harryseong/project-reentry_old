@@ -8,7 +8,7 @@ import {Location} from '@angular/common';
 @Component({
   selector: 'app-services-category',
   templateUrl: './services-category.component.html',
-  styleUrls: ['./services-category.component.css'],
+  styleUrls: ['./services-category.component.scss'],
   animations: [
     trigger('transitionAnimations', [
       transition(':enter', [

@@ -19,7 +19,7 @@ export class SubscribeErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-org-edit',
   templateUrl: './org-edit.component.html',
-  styleUrls: ['./org-edit.component.css'],
+  styleUrls: ['./org-edit.component.scss'],
   animations: [
     trigger('transitionAnimations', [
       transition('* => fadeIn', [

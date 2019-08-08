@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-org-delete-dialog',
   templateUrl: './org-delete-dialog.component.html',
-  styleUrls: ['./org-delete-dialog.component.css']
+  styleUrls: ['./org-delete-dialog.component.scss']
 })
 export class OrgDeleteDialogComponent {
 

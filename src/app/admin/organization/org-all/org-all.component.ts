@@ -10,7 +10,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-org-all',
   templateUrl: './org-all.component.html',
-  styleUrls: ['./org-all.component.css']
+  styleUrls: ['./org-all.component.scss']
 })
 export class OrgAllComponent implements OnInit {
   displayedColumns: string[] = ['name', 'services', 'city'];

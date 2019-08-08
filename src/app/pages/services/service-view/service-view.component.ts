@@ -8,7 +8,7 @@ declare var google: any;
 @Component({
   selector: 'app-service-view',
   templateUrl: './service-view.component.html',
-  styleUrls: ['./service-view.component.css'],
+  styleUrls: ['./service-view.component.scss'],
   animations: [
     trigger('transitionAnimations', [
       transition(':enter', [

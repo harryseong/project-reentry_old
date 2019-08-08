@@ -34,7 +34,7 @@ export interface SearchFilterControls {
 @Component({
   selector: 'app-near-me',
   templateUrl: './near-me.component.html',
-  styleUrls: ['./near-me.component.css'],
+  styleUrls: ['./near-me.component.scss'],
   animations: [
     trigger('transitionAnimations', [
       transition('* => fadeIn', [

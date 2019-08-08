@@ -5,7 +5,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.css'],
+  styleUrls: ['./admin-login.component.scss'],
   animations: [
     trigger('transitionAnimations', [
       transition(':enter', [

@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-by-categories',
   templateUrl: './by-categories.component.html',
-  styleUrls: ['./by-categories.component.css']
+  styleUrls: ['./by-categories.component.scss']
 })
 export class ByCategoriesComponent implements OnInit {
   serviceCategories: string[] = [];

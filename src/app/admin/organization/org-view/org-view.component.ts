@@ -10,7 +10,7 @@ declare var google: any;
 @Component({
   selector: 'app-org-view',
   templateUrl: './org-view.component.html',
-  styleUrls: ['./org-view.component.css'],
+  styleUrls: ['./org-view.component.scss'],
   animations: [
   trigger('transitionAnimations', [
     transition('* => fadeIn', [
