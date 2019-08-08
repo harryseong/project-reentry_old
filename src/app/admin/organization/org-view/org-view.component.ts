@@ -4,7 +4,7 @@ import {FirestoreService} from '../../../../shared/services/firestore/firestore.
 import * as moment from 'moment';
 import {animate, style, transition, trigger} from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
-import {OrgDeleteDialogComponent} from './org-delete-dialog/org-delete-dialog.component';
+import {OrgDeleteDialogComponent} from '../../../../shared/dialogs/org-delete-dialog/org-delete-dialog.component';
 declare var google: any;
 
 @Component({

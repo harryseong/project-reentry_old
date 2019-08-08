@@ -2,12 +2,12 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {FirestoreService} from '../services/firestore/firestore.service';
+import {FirestoreService} from '../../services/firestore/firestore.service';
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css']
+  styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
   // Fields for user roles.

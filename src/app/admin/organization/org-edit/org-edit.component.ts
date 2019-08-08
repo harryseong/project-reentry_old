@@ -3,7 +3,7 @@ import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@a
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import {DialogComponent} from '../../../../shared/dialog/dialog.component';
+import {DialogComponent} from '../../../../shared/dialogs/dialog/dialog.component';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {animate, style, transition, trigger} from '@angular/animations';

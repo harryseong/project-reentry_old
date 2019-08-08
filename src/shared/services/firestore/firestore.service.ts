@@ -1,7 +1,7 @@
 import {Injectable, NgZone} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
-import {UserService} from '../user/user.service';
 import {Router} from '@angular/router';
+import {SnackBarService} from '../snackBar/snack-bar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,9 @@ export class FirestoreService {
   counties: AngularFirestoreCollection<any>;
   users: AngularFirestoreCollection<any>;
 
-  constructor(private db: AngularFirestore, private router: Router, private userService: UserService, private zone: NgZone) {
+  constructor(private db: AngularFirestore,
+              private router: Router,
+              private snackBarService: SnackBarService) {
     this.organizations = db.collection<any>('organizations');
     this.services = db.collection<any>('services');
     this.counties = db.collection<any>('counties');
@@ -34,10 +36,8 @@ export class FirestoreService {
         if (showSnackBar === true) {
           const message = 'New organization was successfully saved.';
           const action = 'OK';
-          this.zone.run(() => {
-            this.userService.openSnackBar(message, action, 4000);
-            this.router.navigate(['/admin/organization/all']);
-          });
+            this.snackBarService.openSnackBar(message, action, 4000);
+            this.router.navigate(['/', 'admin', 'organization', 'all']);
         }
       });
   }
@@ -49,16 +49,14 @@ export class FirestoreService {
         console.log('no documents found');
       } else {
         querySnapshot.forEach(docSnapshot => this.organizations.doc(docSnapshot.id).set(orgForm.value));
-        this.zone.run(() => this.router.navigate(['/admin/organization/view', orgForm.get('name').value]));
+        this.router.navigate(['/', 'admin', 'organization', 'view', orgForm.get('name').value]);
       }
     });
     console.log('Organization was successfully updated: ' + orgForm.get('name').value);
     if (showSnackBar === true) {
       const message = 'Organization was successfully updated.';
       const action = 'OK';
-      this.zone.run(() => {
-        this.userService.openSnackBar(message, action, 4000);
-      });
+      this.snackBarService.openSnackBar(message, action, 4000);
     }
   }
 
@@ -73,7 +71,8 @@ export class FirestoreService {
           querySnapshot.forEach(docSnapshot => this.organizations.doc(docSnapshot.id).delete());
           this.router.navigate(['/admin/organization/all']);
           const message = orgName + ' has been deleted.';
-          this.userService.openSnackBar(message, 'OK');
+            const action = 'OK';
+            this.snackBarService.openSnackBar(message, action);
         }
       }
     });

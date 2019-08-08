@@ -1,12 +1,12 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
-import {UserService} from '../../../../shared/services/user/user.service';
 import {Router} from '@angular/router';
 import {GoogleMapsService} from '../../../../shared/services/google-maps/google-maps.service';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {SnackBarService} from '../../../../shared/services/snackBar/snack-bar.service';
 declare var google: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -60,8 +60,11 @@ export class NearMeComponent implements OnInit {
   transition = '';
   selectAllSelected = false;
 
-  constructor(private afAuth: AngularFireAuth, private firestoreService: FirestoreService, private userService: UserService,
-              private zone: NgZone, private router: Router, private googleMapsService: GoogleMapsService) { }
+  constructor(private afAuth: AngularFireAuth,
+              private firestoreService: FirestoreService,
+              private snackBarService: SnackBarService,
+              private router: Router,
+              private googleMapsService: GoogleMapsService) { }
 
   ngOnInit() {
     this.firestoreService.services.valueChanges()
@@ -129,7 +132,7 @@ export class NearMeComponent implements OnInit {
           this.loading = false;
           const message = 'The location provided was not found to be in Michigan. Please input a Michigan city or address.';
           const action = 'OK';
-          this.zone.run(() => this.userService.openSnackBar(message, action));
+          this.snackBarService.openSnackBar(message, action);
           this.servicesForm.get('location').reset();
         }
       } else {
@@ -139,7 +142,7 @@ export class NearMeComponent implements OnInit {
         this.servicesForm.get('location').reset();
         this.loading = false;
         const action = 'OK';
-        this.zone.run(() => this.userService.openSnackBar(message, action));
+        this.snackBarService.openSnackBar(message, action);
         console.warn('Geocode was not successful for the following reason: ' + status);
         return null;
       }
@@ -177,7 +180,7 @@ export class NearMeComponent implements OnInit {
                   });
                   this.filteredOrgList = Object.assign([], this.orgList);
                   this.updateFilter();
-                  this.zone.run(() => this.loading = false);
+                  this.loading = false;
                 }
               }
             }

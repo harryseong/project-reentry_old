@@ -1,59 +1,48 @@
-import {Injectable, NgZone} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase/app';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
+import {BehaviorSubject} from 'rxjs';
+import {SnackBarService} from '../snackBar/snack-bar.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  authState = this.afAuth.authState.pipe(
-    map(authState => {
-      if (!authState) {
-        this.isLoggedIn = false;
-        this.isAdmin = false;
-        console.log('No user is currently logged in.');
-      } else {
-        // If logged in, check that the user exists in the firestore users collection.
-        console.log('A user is logged in.');
-        this.isLoggedIn = true;
-        const usersRef = this.db.collection('users').doc(authState.email).ref;
-        usersRef.get().then(doc => {
-          // If the user does not exist, create a firestore user doc and set role to "user" by default.
-          if (doc.exists) {
-            // If the user does exist, check if the user is an admin.
-            this.isAdmin = doc.data().role === 'admin';
-            console.log('User, ' + authState.email + ' does exist. User is ' + (this.isAdmin ? '' : 'not ') + 'an admin.');
-          } else {
-            this.db.collection('users').doc(authState.email).set(
-              {
-                uid: authState.uid,
-                email: authState.email,
-                role: 'user'
-              });
-            this.isAdmin = false;
-            console.log('User, ' + authState.email + ' did not exist in the Firestore.');
-          }
-        });
-        return authState;
-      }
-    })
-  );
-  isAdmin = false;
-  isLoggedIn = false;
+    user$ = new BehaviorSubject(null);
+    isAdmin = false;
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private snackBar: MatSnackBar, private router: Router,
-              private zone: NgZone) {}
+    constructor(private afAuth: AngularFireAuth,
+                private db: AngularFirestore,
+                private router: Router,
+                private snackBarService: SnackBarService) {
+      afAuth.user.subscribe(user => {
+          this.user$.next(user);
+          const usersRef = this.db.collection('users').doc(user.email).ref;
+          usersRef.get()
+              .then(doc => {
+                  if (doc.exists) {
+                      this.isAdmin = doc.data().role === 'admin';
+                      console.log('User, ' + user.email + ' found. User is ' + (this.isAdmin ? '' : 'not ') + 'an admin.');
+                  } else {
+                      this.db.collection('users').doc(user.email).set({uid: user.uid, email: user.email, role: 'user'});
+                      this.isAdmin = false;
+                      console.log('User, ' + user.email + ' newly saved in Firestore.');
+                  }
+              })
+              .catch(err => console.error(err));
+      });
+  }
 
   login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(() => this.confirmLoginStatus());
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+        .then(() => this.confirmLoginStatus());
   }
 
   logout() {
-    this.afAuth.auth.signOut().then(() => this.confirmLoginStatus());
+    this.afAuth.auth.signOut()
+        .then(() => this.confirmLoginStatus());
     this.isAdmin = false;
     this.router.navigateByUrl('');
   }
@@ -61,20 +50,12 @@ export class UserService {
   confirmLoginStatus() {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        this.openSnackBar('You are logged in.', 'OK', 4000);
+        this.snackBarService.openSnackBar('You are logged in.', 'OK', 4000);
       } else {
-        this.openSnackBar('You are now logged out.', 'OK', 4000);
+        this.snackBarService.openSnackBar('You are now logged out.', 'OK', 4000);
       }
     });
   }
 
-  // Function for opening snackbar.
-  openSnackBar(message: string, action: string, duration?: number) {
-    this.zone.run(() => {
-      this.snackBar.open(message, action, {
-        duration: duration,
-        verticalPosition: 'bottom'
-      });
-    });
-  }
+
 }

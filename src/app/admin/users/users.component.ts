@@ -1,12 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FirestoreService} from '../../../shared/services/firestore/firestore.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort, Sort } from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {DialogComponent} from '../../../shared/dialog/dialog.component';
-import {UserService} from '../../../shared/services/user/user.service';
+import {DialogComponent} from '../../../shared/dialogs/dialog/dialog.component';
+import {SnackBarService} from '../../../shared/services/snackBar/snack-bar.service';
 
 @Component({
   selector: 'app-users',
@@ -18,7 +16,9 @@ export class UsersComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   userList: any[] = [];
 
-  constructor(private firestoreService: FirestoreService, public dialog: MatDialog, private userService: UserService) { }
+  constructor(private firestoreService: FirestoreService,
+              public dialog: MatDialog,
+              private snackBarService: SnackBarService) { }
 
   ngOnInit() {
     this.firestoreService.users.valueChanges().subscribe(rsp => {
@@ -73,7 +73,7 @@ export class UsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(message => {
       // If the result is not null, open confirmation snackBar. Otherwise, the dialog was closed without clicking the save button.
       if (message != null) {
-        this.userService.openSnackBar(message, 'OK', 4000);
+        this.snackBarService.openSnackBar(message, 'OK', 4000);
       }
       console.log('The dialog was closed');
     });

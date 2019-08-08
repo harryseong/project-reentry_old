@@ -10,16 +10,17 @@ import {filter} from 'rxjs/operators';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  route = '';
+    user$ = null;
+    route = '';
 
-  constructor(public user: UserService, private router: Router, private location: Location) {
-    router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(val => {
-        this.route = location.path();
-      });
-  }
+    constructor(private location: Location,
+                private router: Router,
+                private userService: UserService) {
+        this.user$ = userService.user$;
+        router.events
+          .pipe(filter(event => event instanceof NavigationEnd))
+          .subscribe(val => this.route = location.path());
+    }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

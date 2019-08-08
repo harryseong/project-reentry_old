@@ -3,37 +3,42 @@
   <mat-sidenav #drawer mode="over" [autoFocus]="false" fxLayout="column" fxLayoutGap="1em" class="app-bg-color">
     <mat-nav-list>
 
-      <div fxLayout="row" fxLayoutAlign="start" mat-list-item *ngIf="user.authState | async as authState">
-
         <!--If logged in-->
-        <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="start center" class="sidenav-user">
-          <img class="sidenav-user-photo mat-elevation-z2" src="{{authState.photoURL}}" alt="user_photo">
-          <span class="sidenav-displayname" >{{authState.displayName}}</span>
+        <div fxLayout="row" fxLayoutAlign="start" mat-list-item *ngIf="user$ | async as user; else loggedOut">
+          <div fxLayout="row" fxLayoutGap="0.5em" fxLayoutAlign="start center" class="sidenav-user">
+          <img class="sidenav-user-photo mat-elevation-z2" src="{{user.photoURL}}" alt="user_photo">
+          <span class="sidenav-displayname" >{{user.displayName}}</span>
         </div>
         <span class="spacer"></span>
         <div fxLayout="end start" class="sidenav-close">
           <button mat-icon-button (click)="drawer.close()"><i class="fas fa-times"></i></button>
         </div>
-      </div>
-
-      <!--If logged out-->
-      <div fxLayout="row" fxLayoutAlign="start" mat-list-item *ngIf="!user.isLoggedIn">
-        <span class="spacer"></span>
-
-        <div fxLayout="end start" class="sidenav-close">
-          <button mat-icon-button (click)="drawer.close()"><i class="fas fa-times"></i></button>
         </div>
-      </div>
+
+        <!--If logged out-->
+        <ng-template #loggedOut>
+            <div fxLayout="row" fxLayoutAlign="start" mat-list-item>
+                <span class="spacer"></span>
+
+                <div fxLayout="end start" class="sidenav-close">
+                    <button mat-icon-button (click)="drawer.close()"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+        </ng-template>
 
       <mat-divider></mat-divider>
       <a href="#" routerLink="about" routerLinkActive="active" mat-list-item (click)="drawer.close()">About Us</a>
 
-      <mat-divider *ngIf="user.isLoggedIn"></mat-divider>
-      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" [routerLink]="['admin', 'organization', 'all']" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations</a>
-      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" [routerLink]="['admin', 'users']" routerLinkActive="active"><i class="fas fa-users fa-fw"></i>&nbsp;Users</a>
+<!--      <mat-divider *ngIf="user.isLoggedIn"></mat-divider>-->
+<!--      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" [routerLink]="['admin', 'organization', 'all']" routerLinkActive="active">-->
+<!--          <i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations-->
+<!--      </a>-->
+<!--      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" [routerLink]="['admin', 'users']" routerLinkActive="active">-->
+<!--          <i class="fas fa-users fa-fw"></i>&nbsp;Users-->
+<!--      </a>-->
 
-      <mat-divider></mat-divider>
-      <a href="#" mat-list-item (click)="user.logout(); drawer.close()" *ngIf="user.isLoggedIn"><span><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;Log Out</span></a>
+<!--      <mat-divider></mat-divider>-->
+<!--      <a href="#" mat-list-item (click)="user.logout(); drawer.close()" *ngIf="user.isLoggedIn"><span><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;Log Out</span></a>-->
 
     </mat-nav-list>
   </mat-sidenav>
@@ -42,7 +47,7 @@
 
     <div class="container">
 
-      <mat-toolbar class="nav-toolbar mat-elevation-z2" fxLayout="row" fxLayoutAlign.xs="space-between center">
+      <mat-toolbar class="nav-toolbar mat-elevation-z1" fxLayout="row" fxLayoutAlign.xs="space-between center">
 
         <button mat-icon-button fxHide="false" fxHide.gt-xs (click)="drawer.toggle()" fxFlexOrder.xs="3">
           <i class="fas fa-bars"></i>
@@ -59,30 +64,30 @@
         <span class="phantom-span" fxFlexOrder.xs="1" *ngIf="route==''"></span>
         <app-back-button fxFlexOrder.xs="1" *ngIf="route!=''"></app-back-button>
 
-        <div fxShow="false" fxHide.xs fxLayout="row">
-          <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="user.authState | async as authState">
-            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5em">
-              <img class="nav-user-photo mat-elevation-z1" src="{{authState.photoURL}}" alt="user_photo">
-              <span>{{authState.displayName}}</span>
-            </div>
-          </button>
-        </div>
+<!--        <div fxShow="false" fxHide.xs fxLayout="row">-->
+<!--          <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="user.authState | async as authState">-->
+<!--            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5em">-->
+<!--              <img class="nav-user-photo mat-elevation-z1" src="{{authState.photoURL}}" alt="user_photo">-->
+<!--              <span>{{authState.displayName}}</span>-->
+<!--            </div>-->
+<!--          </button>-->
+<!--        </div>-->
 
       </mat-toolbar>
 
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="user.isAdmin">
-          <span><i class="fas fa-cogs fa-fw"></i> Admin</span>
-        </button>
-        <button mat-menu-item (click)="user.logout()">
-          <span><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</span>
-        </button>
-      </mat-menu>
+<!--      <mat-menu #userMenu="matMenu">-->
+<!--        <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="user.isAdmin">-->
+<!--          <span><i class="fas fa-cogs fa-fw"></i> Admin</span>-->
+<!--        </button>-->
+<!--        <button mat-menu-item (click)="user.logout()">-->
+<!--          <span><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</span>-->
+<!--        </button>-->
+<!--      </mat-menu>-->
 
-      <mat-menu #adminMenu="matMenu">
-        <button mat-menu-item routerLink="admin/organization/all" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i> Organizations</button>
-        <button mat-menu-item routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users fa-fw"></i> Users</button>
-      </mat-menu>
+<!--      <mat-menu #adminMenu="matMenu">-->
+<!--        <button mat-menu-item routerLink="admin/organization/all" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i> Organizations</button>-->
+<!--        <button mat-menu-item routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users fa-fw"></i> Users</button>-->
+<!--      </mat-menu>-->
 
       <div>
         <router-outlet></router-outlet>

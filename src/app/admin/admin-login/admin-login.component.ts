@@ -19,7 +19,6 @@ export class AdminLoginComponent implements OnInit {
 
   constructor(public user: UserService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

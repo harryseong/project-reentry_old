@@ -3,9 +3,9 @@ import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import {Router} from '@angular/router';
-import {UserService} from '../../../../shared/services/user/user.service';
 import * as papa from 'papaparse';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {SnackBarService} from '../../../../shared/services/snackBar/snack-bar.service';
 
 @Component({
   selector: 'app-org-all',
@@ -91,7 +91,9 @@ export class OrgAllComponent implements OnInit {
   daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   paymentOptions = ['Free', 'Insurance', 'Medicaid', 'Sliding Scale'];
 
-  constructor(private firestoreService: FirestoreService, private router: Router, private userService: UserService) {}
+  constructor(private firestoreService: FirestoreService,
+              private router: Router,
+              private snackBarService: SnackBarService) {}
 
   ngOnInit() {
     this.firestoreService.organizations.valueChanges().subscribe(
@@ -176,20 +178,19 @@ export class OrgAllComponent implements OnInit {
     const file = files[0];
     const fileExtension = file.name.split('.').pop();
     if (fileExtension === 'csv') {
-
       if (file.size > 0) {
         this.processCsv(file);
       } else {
-        this.userService.openSnackBar('Error: File was 0kb.', 'OK');
+        this.snackBarService.openSnackBar('Error: File was 0kb.', 'OK');
       }
     } else {
-      this.userService.openSnackBar('Error: Uploaded file did not have the ".csv" extension.', 'OK');
+      this.snackBarService.openSnackBar('Error: Uploaded file did not have the ".csv" extension.', 'OK');
     }
   }
 
   processCsv(file: File) {
     let orgCount = 0;
-    const userService = this.userService;
+    const snackBarService = this.snackBarService;
     papa.parse(file, {
       complete: function (results) {
         results.data.shift();
@@ -198,7 +199,7 @@ export class OrgAllComponent implements OnInit {
           console.log(csvOrg);
           orgCount++;
         }
-        userService.openSnackBar('Successfully uploaded file. ' + orgCount + ' orgs uploaded.', 'OK');
+        snackBarService.openSnackBar('Successfully uploaded file. ' + orgCount + ' orgs uploaded.', 'OK');
       }
     });
   }

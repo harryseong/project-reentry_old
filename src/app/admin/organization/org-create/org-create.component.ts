@@ -3,7 +3,7 @@ import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@a
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import {DialogComponent} from '../../../../shared/dialog/dialog.component';
+import {DialogComponent} from '../../../../shared/dialogs/dialog/dialog.component';
 import {GoogleMapsService} from '../../../../shared/services/google-maps/google-maps.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -95,7 +95,9 @@ export class OrgCreateComponent implements OnInit {
   daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   paymentOptions = ['Free', 'Insurance', 'Medicaid', 'Sliding Scale'];
 
-  constructor(private firestoreService: FirestoreService, public dialog: MatDialog, private googleMapsService: GoogleMapsService) { }
+  constructor(private firestoreService: FirestoreService,
+              public dialog: MatDialog,
+              private googleMapsService: GoogleMapsService) { }
 
   ngOnInit() {
     this.firestoreService.languages.valueChanges()
