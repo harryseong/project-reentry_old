@@ -3,7 +3,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase/app';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
 
 @Injectable({

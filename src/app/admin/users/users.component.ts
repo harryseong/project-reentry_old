@@ -1,6 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FirestoreService} from '../../../shared/services/firestore/firestore.service';
-import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource, Sort} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {DialogComponent} from '../../../shared/dialog/dialog.component';
 import {UserService} from '../../../shared/services/user/user.service';
 

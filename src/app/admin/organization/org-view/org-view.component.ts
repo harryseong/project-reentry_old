@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import * as moment from 'moment';
 import {animate, style, transition, trigger} from '@angular/animations';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {OrgDeleteDialogComponent} from './org-delete-dialog/org-delete-dialog.component';
 declare var google: any;
 

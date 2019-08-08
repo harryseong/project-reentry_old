@@ -1,7 +1,8 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
-import {ErrorStateMatcher, MatDialog} from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import {DialogComponent} from '../../../../shared/dialog/dialog.component';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';

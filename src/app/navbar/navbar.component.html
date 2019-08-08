@@ -29,8 +29,8 @@
       <a href="#" routerLink="about" routerLinkActive="active" mat-list-item (click)="drawer.close()">About Us</a>
 
       <mat-divider *ngIf="user.isLoggedIn"></mat-divider>
-      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" routerLink="admin/organization/all" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations</a>
-      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" routerLink="admin/users" routerLinkActive="active"><i class="fas fa-users fa-fw"></i>&nbsp;Users</a>
+      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" [routerLink]="['admin', 'organization', 'all']" routerLinkActive="active"><i class="fas fa-landmark fa-fw"></i>&nbsp;Organizations</a>
+      <a href="#" mat-list-item (click)="drawer.close()" *ngIf="user.isAdmin" [routerLink]="['admin', 'users']" routerLinkActive="active"><i class="fas fa-users fa-fw"></i>&nbsp;Users</a>
 
       <mat-divider></mat-divider>
       <a href="#" mat-list-item (click)="user.logout(); drawer.close()" *ngIf="user.isLoggedIn"><span><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;Log Out</span></a>

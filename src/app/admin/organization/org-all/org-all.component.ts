@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTableDataSource, Sort} from '@angular/material';
+import { Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../../shared/services/user/user.service';
 import * as papa from 'papaparse';
-import {forEach} from '@angular/router/src/utils/collection';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
