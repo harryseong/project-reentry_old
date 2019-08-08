@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import {ActivatedRoute} from '@angular/router';
-import * as moment from 'moment';
 declare var google: any;
 
 @Component({
@@ -24,18 +23,19 @@ export class ServiceViewComponent implements OnInit {
   daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   isLoading = true;
 
-  constructor(private firestoreService: FirestoreService, private route: ActivatedRoute) { }
+  constructor(private db: FirestoreService,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.orgName = this.route.snapshot.params['name'];
-    this.firestoreService.updateOrgViewCount(this.orgName);
-    const query = this.firestoreService.organizations.ref.where('name', '==', this.orgName);
+    this.db.updateOrgViewCount(this.orgName);
+    const query = this.db.organizations.ref.where('name', '==', this.orgName);
     query.get().then(querySnapshot => {
       if (querySnapshot.empty) {
         console.warn('no documents found');
       } else {
         querySnapshot.forEach(docSnapshot => {
-          this.firestoreService.organizations.doc(docSnapshot.id).ref.get().then(
+          this.db.organizations.doc(docSnapshot.id).ref.get().then(
             org => {
               this.org = org.data();
               this.isLoading = false;
@@ -52,9 +52,5 @@ export class ServiceViewComponent implements OnInit {
         });
       }
     });
-  }
-
-  formatTime(time: string) {
-    return moment(time, 'HH:mm').format('h:mm A');
   }
 }

@@ -7,9 +7,13 @@
 
   <div fxLayout="column" fxLayoutGap="1em" class="content">
 
-    <button mat-stroked-button (click)="user.login()" *ngIf="!user.isLoggedIn">
+    <button mat-stroked-button (click)="login()" *ngIf="(isAdmin$ | async); else isAdmin">
       <span><i class="fas fa-sign-in-alt"></i> Log In</span>
     </button>
+
+      <ng-template #isAdmin>
+          <div>Admin logged in</div>
+      </ng-template>
 
   </div>
 

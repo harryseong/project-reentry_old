@@ -5,7 +5,7 @@
   </div>
 
   <div [hidden]="servicesNearMeState.display==true || loading==true" fxFill>
-    <form [formGroup]="servicesForm" [@transitionAnimations]="transition" fxFill fxLayout="column" fxLayoutGap="2em"
+    <form [formGroup]="servicesForm" [@transitionAnimations] fxFill fxLayout="column" fxLayoutGap="2em"
           (keydown.enter)="$event.preventDefault()">
 
       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%">

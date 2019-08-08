@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
-import * as moment from 'moment';
 import {animate, style, transition, trigger} from '@angular/animations';
-import { MatDialog } from '@angular/material/dialog';
-import {OrgDeleteDialogComponent} from '../../../../shared/dialogs/org-delete-dialog/org-delete-dialog.component';
+import {DialogService} from '../../../../shared/services/dialog/dialog.service';
 declare var google: any;
 
 @Component({
@@ -13,7 +11,7 @@ declare var google: any;
   styleUrls: ['./org-view.component.scss'],
   animations: [
   trigger('transitionAnimations', [
-    transition('* => fadeIn', [
+    transition(':enter', [
       style({ opacity: 0 }),
       animate(1000, style({ opacity: 1 })),
       ])
@@ -25,23 +23,23 @@ export class OrgViewComponent implements OnInit {
   org: any = null;
   daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   pageReady = false;
-  transition = '';
 
-  constructor(private firestoreService: FirestoreService, private route: ActivatedRoute, private dialog: MatDialog) { }
+  constructor(private db: FirestoreService,
+              private dialogService: DialogService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.orgName = this.route.snapshot.params['name'];
-    const query = this.firestoreService.organizations.ref.where('name', '==', this.orgName);
+    const query = this.db.organizations.ref.where('name', '==', this.orgName);
     query.get().then(querySnapshot => {
       if (querySnapshot.empty) {
         console.warn('no documents found');
       } else {
         querySnapshot.forEach(docSnapshot => {
-          this.firestoreService.organizations.doc(docSnapshot.id).ref.get().then(
+          this.db.organizations.doc(docSnapshot.id).ref.get().then(
             org => {
               this.org = org.data();
               this.pageReady = true;
-              this.transition = 'fadeIn';
               const gpsCoords = this.org.address.gpsCoords;
               const mapOption = {zoom: 15, mapTypeId: google.maps.MapTypeId.ROADMAP, draggable: false, clickableIcons: false,
                 streetViewControl: false, streetViewControlOptions: false};
@@ -57,19 +55,7 @@ export class OrgViewComponent implements OnInit {
     });
   }
 
-  formatTime(time: string) {
-    return moment(time, 'HH:mm').format('h:mm A');
-  }
-
   openOrgDeleteDialog(orgName: string) {
-    const dialogRef = this.dialog.open(OrgDeleteDialogComponent, {
-      data: {orgName: orgName},
-      width: '30em',
-      autoFocus: false
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+      this.dialogService.openOrgDeleteDialog(orgName);
   }
 }

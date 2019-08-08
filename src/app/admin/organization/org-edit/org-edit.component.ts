@@ -182,7 +182,7 @@ export class OrgEditComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // If the result is not null, open confirmation snackBar. Otherwise, the dialog was closed without clicking the save button.
+      // If the result is not null, open confirmation snack-bar. Otherwise, the dialog was closed without clicking the save button.
       if (result != null) {
         // this.openSnackBar(result, 'OK');
       }

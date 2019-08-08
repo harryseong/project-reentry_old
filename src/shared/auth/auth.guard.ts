@@ -1,22 +1,33 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {UserService} from '../services/user/user.service';
+import {FirestoreService} from '../services/firestore/firestore.service';
+import {take} from 'rxjs/operators';
+import {switchMap} from 'rxjs-compat/operator/switchMap';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private user: UserService, private router: Router) {}
+    isAdmin$ = new BehaviorSubject(null);
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      if (this.user.isAdmin) {
-        return true;
-      }
-      console.warn('The current user is not an admin and therefore rerouted back home.');
-      this.router.navigate(['/']);
-      return false;
+  constructor(private db: FirestoreService,
+              private router: Router,
+              private userService: UserService) {
+      this.isAdmin$ = userService.isAdmin$;
+  }
+
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+      return this.isAdmin$.toPromise()
+          .then(isAdmin => {
+              if (isAdmin === true) {
+                  return true;
+              } else if (isAdmin === false) {
+                  console.warn('The current user is not an admin and therefore rerouted back home.');
+                  this.router.navigate(['/']);
+                  return false;
+              }
+          });
   }
 }

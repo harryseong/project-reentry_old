@@ -26,13 +26,15 @@ export class ServicesCategoryComponent implements OnInit {
   serviceCategory: string;
   loading = true;
 
-  constructor(private firestoreService: FirestoreService, private router: Router, private route: ActivatedRoute, private location: Location) {}
+  constructor(private db: FirestoreService,
+              private route: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit() {
     window.scrollTo(0, 0);
     this.serviceCategory = this.route.snapshot.params['serviceCategory'];
-    this.firestoreService.updateCategoryViewCount(this.serviceCategory);
-    this.firestoreService.organizations.valueChanges().subscribe(
+    this.db.updateCategoryViewCount(this.serviceCategory);
+    this.db.organizations.valueChanges().subscribe(
       rsp => {
         this.orgList = rsp.filter(org => org.services.includes(this.serviceCategory));
         this.dataSource = new MatTableDataSource(this.orgList);

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FirestoreService} from '../firestore/firestore.service';
-import {SnackBarService} from '../snackBar/snack-bar.service';
+import {SnackBarService} from '../snack-bar/snack-bar.service';
 declare var google: any;
 
 @Injectable({

@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {AngularFireAuth} from '@angular/fire/auth';
 import {FirestoreService} from '../../../../shared/services/firestore/firestore.service';
 import {Router} from '@angular/router';
 import {GoogleMapsService} from '../../../../shared/services/google-maps/google-maps.service';
 import {animate, style, transition, trigger} from '@angular/animations';
-import {SnackBarService} from '../../../../shared/services/snackBar/snack-bar.service';
+import {SnackBarService} from '../../../../shared/services/snack-bar/snack-bar.service';
 declare var google: any;
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -37,7 +36,7 @@ export interface SearchFilterControls {
   styleUrls: ['./near-me.component.scss'],
   animations: [
     trigger('transitionAnimations', [
-      transition('* => fadeIn', [
+      transition(':enter', [
         style({ opacity: 0 }),
         animate(500, style({ opacity: 1 })),
       ])
@@ -57,19 +56,17 @@ export class NearMeComponent implements OnInit {
   loading = false;
   orgList: any[] = [];
   filteredOrgList: any[] = [];
-  transition = '';
   selectAllSelected = false;
 
-  constructor(private afAuth: AngularFireAuth,
-              private firestoreService: FirestoreService,
+  constructor(private db: FirestoreService,
               private snackBarService: SnackBarService,
               private router: Router,
-              private googleMapsService: GoogleMapsService) { }
+              private googleMapsService: GoogleMapsService,
+              private zone: NgZone) { }
 
   ngOnInit() {
-    this.firestoreService.services.valueChanges()
-      .subscribe(services => this.serviceList = this.firestoreService._sort(services, 'service'));
-    this.transition = 'fadeIn';
+    this.db.services.valueChanges()
+      .subscribe(services => this.serviceList = this.db._sort(services, 'service'));
     this.servicesNearMeState = {
       display: false, loading: false, myLocationId: null, myLocation: null, serviceCategories: []};
     this.searchFilterControls = {distanceRadius: 25, noEligibilityRequirements: false,
@@ -132,7 +129,7 @@ export class NearMeComponent implements OnInit {
           this.loading = false;
           const message = 'The location provided was not found to be in Michigan. Please input a Michigan city or address.';
           const action = 'OK';
-          this.snackBarService.openSnackBar(message, action);
+          this.zone.run(() => this.snackBarService.openSnackBar(message, action));
           this.servicesForm.get('location').reset();
         }
       } else {
@@ -142,7 +139,7 @@ export class NearMeComponent implements OnInit {
         this.servicesForm.get('location').reset();
         this.loading = false;
         const action = 'OK';
-        this.snackBarService.openSnackBar(message, action);
+        this.zone.run(() => this.snackBarService.openSnackBar(message, action));
         console.warn('Geocode was not successful for the following reason: ' + status);
         return null;
       }
@@ -153,7 +150,7 @@ export class NearMeComponent implements OnInit {
    * Get orgs according to the user's choice of service categories.
    */
   getAndFilterOrgs() {
-    this.firestoreService.organizations.valueChanges().subscribe(rsp => {
+    this.db.organizations.valueChanges().subscribe(rsp => {
       const filteredOrgs = this.servicesForm.get('services').value.includes('All Services') ? rsp :
         rsp.filter(org => org.services.some(service => this.servicesNearMeState.serviceCategories.includes(service)));
       let orgCount = 0;

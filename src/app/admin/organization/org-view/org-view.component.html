@@ -49,7 +49,7 @@
           <tr *ngFor="let day of daysOfWeek">
             <th>{{day}}</th>
             <td>{{org.hours[day]['open']==true ?
-              (formatTime(org.hours[day]['start']) + ' - ' + formatTime(org.hours[day]['end'])) : 'Closed'}}
+              (org.hours[day]['start'] | convertTime) + ' - ' + (org.hours[day]['end'] | convertTime) : 'Closed'}}
             </td>
           </tr>
         </table>

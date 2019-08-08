@@ -12,16 +12,6 @@ body {
   margin-bottom: 5em;
 }
 
-html, app-root, app-navbar, mat-sidenav-content {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
 .app-bg-color, div.mat-drawer-inner-container {
   background-image: linear-gradient(#ffffff, #f5f5f5);
 }
@@ -42,16 +32,24 @@ table td {
   font-size: 0.9em;
 }
 
-mat-sidenav {
-  width: 18em;
-}
-
 .capitalize {
   text-transform: capitalize;
 }
 
 .container {
-  flex: 1 0 auto;
+    padding-top: 40px;
+    flex: 1 0 auto;
+}
+
+app-root {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
 }
 
 .content {
@@ -111,18 +109,10 @@ a, a:hover, a:visited {
   transition: 0.2s;
 }
 
-#project-reentry-header {
-  margin: 0;
-}
-
 #subheading {
   margin-top: 0.5em;
   font-weight: 500;
   font-size: 1.2em;
-}
-
-#project-reentry-logo {
-  height: 3.2em;
 }
 
 .page-header {

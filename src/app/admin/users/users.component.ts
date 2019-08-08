@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {DialogComponent} from '../../../shared/dialogs/dialog/dialog.component';
-import {SnackBarService} from '../../../shared/services/snackBar/snack-bar.service';
+import {SnackBarService} from '../../../shared/services/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-users',
@@ -16,12 +16,12 @@ export class UsersComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   userList: any[] = [];
 
-  constructor(private firestoreService: FirestoreService,
+  constructor(private db: FirestoreService,
               public dialog: MatDialog,
               private snackBarService: SnackBarService) { }
 
   ngOnInit() {
-    this.firestoreService.users.valueChanges().subscribe(rsp => {
+    this.db.users.valueChanges().subscribe(rsp => {
       this.userList = rsp;
       this.dataSource = new MatTableDataSource(rsp);
     });
@@ -71,7 +71,7 @@ export class UsersComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(message => {
-      // If the result is not null, open confirmation snackBar. Otherwise, the dialog was closed without clicking the save button.
+      // If the result is not null, open confirmation snack-bar. Otherwise, the dialog was closed without clicking the save button.
       if (message != null) {
         this.snackBarService.openSnackBar(message, 'OK', 4000);
       }

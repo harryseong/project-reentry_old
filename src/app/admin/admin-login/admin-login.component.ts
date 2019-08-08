@@ -16,9 +16,16 @@ import {animate, style, transition, trigger} from '@angular/animations';
   ]
 })
 export class AdminLoginComponent implements OnInit {
-
-  constructor(public user: UserService) { }
+    user$ = null;
+    isAdmin$ = null;
+  constructor(private userService: UserService) {
+      this.user$ = userService.user$;
+      this.isAdmin$ = userService.isAdmin$;
+  }
 
   ngOnInit() {}
 
+  login() {
+      this.userService.login();
+  }
 }

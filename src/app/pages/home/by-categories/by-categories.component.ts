@@ -10,15 +10,15 @@ import {Router} from '@angular/router';
 export class ByCategoriesComponent implements OnInit {
   serviceCategories: string[] = [];
 
-  constructor(private firestoreService: FirestoreService, private router: Router) {
+  constructor(private db: FirestoreService, private router: Router) {
   }
 
   ngOnInit() {
-    this.firestoreService.services.valueChanges()
-      .subscribe(serviceCategories => this.serviceCategories = this.firestoreService._sort(serviceCategories, 'service'));
+    this.db.services.valueChanges()
+      .subscribe(serviceCategories => this.serviceCategories = this.db._sort(serviceCategories, 'service'));
   }
 
   selectCategory(category: string) {
-    this.router.navigate(['services/view/', category]);
+    this.router.navigate(['services', 'view', category]);
   }
 }

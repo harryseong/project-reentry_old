@@ -1,7 +1,7 @@
 import {Injectable, NgZone} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {Router} from '@angular/router';
-import {SnackBarService} from '../snackBar/snack-bar.service';
+import {SnackBarService} from '../snack-bar/snack-bar.service';
 
 @Injectable({
   providedIn: 'root'

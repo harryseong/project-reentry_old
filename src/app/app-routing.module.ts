@@ -15,8 +15,7 @@ import {AdminLoginComponent} from './admin/admin-login/admin-login.component';
 
 const routes: Routes = [
   {
-    path: 'admin',
-    children: [
+    path: 'admin', children: [
       { path: 'login', component: AdminLoginComponent},
       { path: 'organization/all', component: OrgAllComponent, canActivate: [AuthGuard]},
       { path: 'organization/new', component: OrgCreateComponent, canActivate: [AuthGuard]},

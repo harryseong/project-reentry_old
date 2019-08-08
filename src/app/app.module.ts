@@ -34,8 +34,9 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { BackButtonComponent } from './back-button/back-button.component';
 import {UserService} from '../shared/services/user/user.service';
-import {SnackBarService} from '../shared/services/snackBar/snack-bar.service';
+import {SnackBarService} from '../shared/services/snack-bar/snack-bar.service';
 import {DialogService} from '../shared/services/dialog/dialog.service';
+import { ConvertTimePipe } from '../shared/pipes/convert-time/convert-time.pipe';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {DialogService} from '../shared/services/dialog/dialog.service';
     PageNotFoundComponent,
     AdminLoginComponent,
     BackButtonComponent,
+    ConvertTimePipe,
   ],
   imports: [
     AppRoutingModule,
